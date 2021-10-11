@@ -1,0 +1,320 @@
+<!--
+  @description       : 
+  @author            : Rayadurgam Venkatesh
+  @group             : 
+  @last modified on  : 07-05-2021
+  @last modified by  : Rayadurgam Venkatesh
+  Modifications Log 
+  Ver   Date         Author                 Modification
+  1.0   05-12-2021   Rayadurgam Venkatesh   Initial Version
+-->
+<template>
+    <lightning-layout>
+      <lightning-layout-item
+        size="12"
+        small-device-size="12"
+        medium-device-size="12"
+        large-device-size="12"
+      >
+        <label class="slds-form-element__label" for={inputId}>
+          <abbr if:true={isRequired} class="slds-required" title="required"
+            >*</abbr
+          >
+          {label}
+        </label>
+        <lightning-helptext
+          if:true={helpText}
+          content={helpText}
+        ></lightning-helptext>
+        <div class={disableClass}>
+          <div class="listView-lookup-result" if:false={inited}>
+            {loadingMessage}
+          </div>
+          <template if:true={inited}>
+            <template if:false={displayPill}>
+              <lightning-input
+                variant="label-hidden"
+                label={label}
+                max-length={maxLength}
+                min-length={minLength}
+                name={inputName}
+                onchange={handleOnchange}
+                class="search-input-lookup"
+                type="text"
+                aria-autocomplete="list"
+                role="combobox"
+                aria-expanded="false"
+                placeholder={placeHolderText}
+                disabled={isDisabled}
+                value={recordId}
+                required={isRequired}
+                message-when-value-missing={customEmptyMessage}
+              >
+              </lightning-input>
+              <div class="listView-lookup-result" if:true={isSearching}>
+                {searchingMessage}
+              </div>
+            </template>
+            <template if:true={displayPill}>
+              <div class={pillContainerClass}>
+                <span class={pillSubcontainerClass}>
+                  <span
+                    class="slds-pill__label sl-pill__label"
+                    title={pillContent}
+                    >{pillContent}</span
+                  >
+                  <button class={pillClass} title="Remove" onclick={handleRemove}>
+                    <lightning-icon icon-name="utility:close" size="xx-small">
+                    </lightning-icon>
+                  </button>
+                </span>
+              </div>
+            </template>
+            <template if:false={selectedRecord}>
+              <div
+                class="slds-grid slds-wrap slds-dropdown_length-with-icon-7 slds-dropdown_fluid slds-p-left_small"
+              >
+                <div class="slds-col slds-size_4-of-4">
+                  <ul
+                    class="slds-listbox slds-listbox_vertical listView-lookup-result"
+                    role="presentation"
+                  >
+                    <template if:true={errorMessage}>
+                      <li
+                        role="presentation"
+                        class="slds-listbox__item"
+                        onclick={handleError}
+                      >
+                        <div
+                          class="slds-notify slds-notify_alert slds-alert_error"
+                          role="alert"
+                        >
+                          <span class="slds-assistive-text">error</span>
+                          <span
+                            class="slds-media__figure slds-listbox__option-icon"
+                          >
+                            <lightning-icon
+                              icon-name="standard:empty"
+                              size="small"
+                            >
+                            </lightning-icon>
+                          </span>
+                          <h2>{errorMessage}</h2>
+                          <div class="slds-notify__close">
+                            <button
+                              class="slds-button slds-button_icon slds-button_icon-small slds-button_icon-inverse"
+                              title="Close"
+                            >
+                              <svg class="slds-button__icon" aria-hidden="true">
+                                <use
+                                  xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"
+                                ></use>
+                              </svg>
+                              <span class="slds-assistive-text">Close</span>
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    </template>
+                    <template if:true={records}>
+                      <template for:each={records} for:item="record">
+                        <li
+                          role="presentation"
+                          class="slds-listbox__item"
+                          key={record.Id}
+                          onclick={handleSelect}
+                          id={record.Id}
+                        >
+                          <div
+                            class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta slds-wrap"
+                            role="option"
+                          >
+                            <span
+                              class="slds-media__figure slds-listbox__option-icon"
+                            >
+                              <lightning-icon icon-name={iconname} size="small">
+                              </lightning-icon>
+                            </span>
+                            <span
+                              class="slds-media__body"
+                              style="padding-top: 9px; font-weight: 600"
+                            >
+                              <span
+                                class="slds-listbox__option-text slds-listbox__option-text_entity"
+                              >
+                                {record.displayField}
+                                <template if:true={displaySecondField}
+                                  >- {record.recordLabel2Field}
+                                </template>
+                              </span>
+                            </span>
+                          </div>
+                        </li>
+                      </template>
+                      <template if:true={allowNewRecords}>
+                        <li
+                          role="presentation"
+                          class="slds-listbox__item"
+                          onclick={handleNewRecordClick}
+                        >
+                          <div
+                            class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                            role="option"
+                          >
+                            <span
+                              class="slds-media__figure slds-listbox__option-icon"
+                            >
+                              <lightning-icon
+                                icon-name="utility:add"
+                                size="small"
+                              >
+                              </lightning-icon>
+                            </span>
+                            <span
+                              class="slds-media__body"
+                              style="padding-top: 9px; font-weight: 600"
+                            >
+                              <span
+                                class="slds-listbox__option-text slds-listbox__option-text_entity"
+                              >
+                                Add New&nbsp; {objectLabel}
+                              </span>
+                            </span>
+                          </div>
+                        </li>
+                      </template>
+                    </template>
+                  </ul>
+                </div>
+              </div>
+            </template>
+          </template>
+  
+          <!-- Final Modal/Popup - start -->
+          <template if:true={isModalOpen}>
+            <section
+              role="dialog"
+              tabindex="-1"
+              aria-labelledby="modal-heading-02"
+              aria-modal="true"
+              aria-describedby="modal-content-id-1"
+              class="slds-modal slds-fade-in-open slds-modal_small"
+            >
+              <div class="slds-modal__container">
+                <!-- Header -->
+                <header class="slds-modal__header">
+                  <button
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                    title="Close"
+                    onclick={closeModal}
+                  >
+                    <lightning-icon
+                      icon-name="action:close"
+                      alternative-text="close"
+                      variant="brand"
+                      size="small"
+                    ></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                  </button>
+                  <h2
+                    id="modal-heading-02"
+                    class="slds-text-heading_medium slds-hyphenate"
+                  >
+                    Add New Record
+                  </h2>
+                </header>
+                <!-- Content -->
+                <div
+                  class="slds-modal__content slds-p-around_medium"
+                  id="modal-content-id-2"
+                >
+                  <lightning-card title="" icon-name="standard:record">
+                    <template if:true={displayNewRecordInputField}>
+                      <lightning-layout>
+                        <template for:each={newRecordFields} for:item="fld">
+                          <template if:true={fld.display}>
+                          <lightning-layout-item
+                            size="12"
+                            small-device-size="6"
+                            medium-device-size="6"
+                            large-device-size="12"
+                            padding="around-small"
+                            key={fld.key}
+                          >
+                            <lightning-input
+                              variant="label-inline"
+                              label={fld.label}
+                              max-length={fld.maxLength}
+                              min-length={fld.minLength}
+                              name={fld.api}
+                              class="newRecordInLookup"
+                              onchange={handleFieldValueUpdate}
+                              type="text"
+                              aria-expanded="false"
+                              placeholder="Enter value"
+                              value={fld.value}
+                              required={fld.isRequired}
+                            ></lightning-input>
+                          </lightning-layout-item>
+                        </template>
+                        </template>
+                      </lightning-layout>
+                    </template>
+                    <template if:true={errorMessageNewRecord}>
+                      <div
+                        class="slds-notify slds-notify_alert slds-alert_error"
+                        role="alert"
+                      >
+                        <span class="slds-assistive-text">error</span>
+                        <span
+                          class="slds-media__figure slds-listbox__option-icon"
+                        >
+                          <lightning-icon icon-name="standard:empty" size="small">
+                          </lightning-icon>
+                        </span>
+                        <h2>{errorMessageNewRecord}</h2>
+                        <div class="slds-notify__close">
+                          <button
+                            class="slds-button slds-button_icon slds-button_icon-small slds-button_icon-inverse"
+                            title="Close"
+                          >
+                            <svg class="slds-button__icon" aria-hidden="true">
+                              <use
+                                xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"
+                              ></use>
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                          </button>
+                        </div>
+                      </div>
+                    </template>
+                  </lightning-card>
+                </div>
+                <!-- Footer -->
+                <footer class="slds-modal__footer">
+                  <lightning-button
+                    variant="brand"
+                    label="Save"
+                    title="Save"
+                    onclick={saveRecord}
+                    class="slds-m-left_x-small"
+                  ></lightning-button>
+                  &nbsp;
+                  <lightning-button
+                    variant="brand-outline"
+                    label="Cancel"
+                    title="cancel"
+                    onclick={closeModal}
+                    class="slds-m-left_x-small"
+                  ></lightning-button>
+                  &nbsp;
+                </footer>
+              </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+          </template>
+          <!-- Final Modal/Popup  - End -->
+        </div>
+      </lightning-layout-item>
+    </lightning-layout>
+  </template>

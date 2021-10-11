@@ -1,0 +1,165 @@
+<template>
+    <div if:true={inited}>
+    <div class="slds-text-heading_medium slds-var-p-top_small">
+        {filterMainTitle}
+    </div>
+    <div class="slds-grid slds-wrap">        
+        <div class="slds-col slds-size_1-of-1">
+            <lightning-layout if:true={objectOptions} horizontal-align="spread" multiple-rows="true" vertical-align="stretch" pull-to-boundary="small">
+                <lightning-layout-item padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                    
+                    <lightning-combobox if:true={objectOptions}
+                    label={filterObjectsTitle}
+                    options={objectOptions}
+                    value={selectedObjectLabel}
+                    placeholder="-- Select --"
+                    onchange={handleObjectSelection}
+                    ></lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item if:true={fieldOptions} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                    <lightning-combobox
+                        label={filterFieldTitle}
+                        options={fieldOptions}
+                        value={selectedFieldLabel}
+                        placeholder="-- Select --"
+                        onchange={handleFieldSelection}
+                      ></lightning-combobox>
+                </lightning-layout-item>
+                <!--lightning-layout-item if:true={selectedFieldLabel} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                    <lightning-record-edit-form object-api-name={selectedObject.api} onsubmit ={applyFilter} >
+                        <lightning-input-field key={selectedField.api} field-name={selectedField.api}> </lightning-input-field>
+                        <lightning-combobox if:true={displayFilterOpertor}
+                        label="Select Filter Operator"
+                        options={filterOperatorOptions}
+                        placeholder="- Select -"
+                        value={selectedFilterOperatorValue}
+                        onchange={handleFilterSelection}
+                      ></lightning-combobox>
+                      <div if:false={displayFilterOpertor} class="slds-form-element__help slds-p-top_large" >Sorry, you cant filter with this field.</div>
+                      <lightning-button if:true={displayFilterOpertor} class="slds-p-around_large slds-align_right" variant="brand" type="submit" name="Apply" label="Apply">
+                        </lightning-button>
+                    </lightning-record-edit-form>
+                    
+                </lightning-layout-item-->
+                <lightning-layout-item if:true={displayFilterLogic} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                    <lightning-input type="text" name="filterLogic" label="Set Filter Logic" required onchange={handleFilterLogicChange} value={objectsData.filterLogic}></lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </div>
+            <div class="slds-grid slds-wrap" >        
+                <div class="slds-col slds-size_1-of-1" >
+                    <lightning-layout if:true={selectedFieldLabel} horizontal-align="spread" multiple-rows="true" vertical-align="stretch" pull-to-boundary="small">
+                        <lightning-layout-item padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                    </lightning-layout-item>
+                        
+                        <lightning-layout-item padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            {selectedFieldLabel}
+                        </lightning-layout-item>
+                        <lightning-layout-item if:true={isFieldTypeId} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <!--lightning-combobox name="picklist" placeholder="Select filter operator" options={filterOperatorOptions} 
+                            onchange={handleFilterSelection} value={selectedFilterOperatorValue}></lightning-combobox-->
+                            <lightning-combobox if:true={displayFilterOpertor}
+                            label="Select Filter Operator"
+                            options={filterOperatorOptions}
+                            placeholder="- Select -"
+                            value={selectedFilterOperatorValue}
+                            onchange={handleFilterSelection}
+                          ></lightning-combobox>
+                        </lightning-layout-item>
+                        <lightning-layout-item if:true={isFieldTypeId} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <c-prism-Lookup search-field="Name" record-type=""
+                                object-name={selectedObject.api} object-label={selectedObject.label} is-required="true"
+                                record-label={selectedField.value} onprismlookupselect={handleRecordSelect}
+                                fire-event="true" record-id={selectedField.id}
+                                fields-to-retrieve="Name" display-field="Name" record-label2-field=""
+                                record-label2="" onprismlookupremove={handleRemoveRecord}
+                                class-name="slds-form-element slds-form-element_horizontal">
+                            </c-prism-Lookup>
+                        </lightning-layout-item>
+                        <lightning-layout-item if:true={isFieldTypeReference} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <c-prism-Lookup search-field="Name" record-type=""
+                                object-name={selectedObject.fieldObjectApi} object-label={selectedObject.label} is-required="true"
+                                record-label={selectedField.value} onprismlookupselect={handleRecordSelect}
+                                fire-event="true" record-id={selectedField.id}
+                                fields-to-retrieve="Name" display-field="Name" record-label2-field=""
+                                record-label2="" onprismlookupremove={handleRemoveRecord}
+                                class-name="slds-form-element slds-form-element_horizontal">
+                            </c-prism-Lookup>
+                        </lightning-layout-item>
+                        <lightning-layout-item if:true={isFieldTypeBoolean} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-input type="checkbox" name="checkbox" required onchange={handleBooleanChange} ></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item if:true={isFieldTypePickList} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-combobox name="picklist" placeholder="Select one option" options={picklistOptions} onchange={handleValueChange} ></lightning-combobox>
+                        </lightning-layout-item>
+                        <lightning-layout-item if:true={isFieldTypeMultiPickList} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-checkbox-group class="slds-scrollable" style="max-height:200px;width:100%" name="CheckboxGroup" label="Select values" options={picklistOptions} required onchange={handleValueChange}></lightning-checkbox-group>
+                        </lightning-layout-item>
+                        <lightning-layout-item if:true={isFieldTypeString} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-input type="text" name="sometext" required onchange={handleValueChange}></lightning-input>
+                        </lightning-layout-item> 
+                        <lightning-layout-item if:true={isFieldTypeNumber} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-input type="number" name="number" required onchange={handleValueChange}></lightning-input>
+                        </lightning-layout-item> 
+                        <lightning-layout-item if:true={isFieldTypeDate} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-input type="date" name="date" required onchange={handleValueChange}></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item if:true={isFieldTypeDateTime} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-input type="datetime" name="datetime" required onchange={handleValueChange}></lightning-input>
+                        </lightning-layout-item> 
+                        <lightning-layout-item if:true={isFieldTypeTime} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-input type="time" name="time" required onchange={handleValueChange}></lightning-input>
+                        </lightning-layout-item> 
+                        <lightning-layout-item if:true={isFieldTypePercent} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-input type="number" name="percent" required formatter="percent" onchange={handleValueChange}></lightning-input>
+                        </lightning-layout-item> 
+                        <lightning-layout-item if:true={isFieldTypeCurrency} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-input type="number" name="currency" required formatter="currency" onchange={handleValueChange}></lightning-input>
+                        </lightning-layout-item> 
+                        <lightning-layout-item if:true={isFieldTypeEmail} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-input type="email" name="Emailaddress" required onchange={handleValueChange}></lightning-input>
+                        </lightning-layout-item> 
+                        <lightning-layout-item if:true={isFieldTypeURL} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-input type="url" required name="url" onchange={handleValueChange}></lightning-input>
+                        </lightning-layout-item> 
+                        <lightning-layout-item if:true={displayFilterLogic} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
+                            <lightning-input type="text" name="filterLogic" label="Set Filter Logic" required onchange={handleFilterLogicChange} value={objectsData.filterLogic}></lightning-input>
+                        </lightning-layout-item>        
+                    </lightning-layout>
+                </div>
+            </div>
+            
+             
+    <lightning-layout if:true={objectsData}>
+        <lightning-layout-item if:true={displayPills} size="12" small-device-size="12" medium-device-size="12" large-device-size="12" class="slds-p-horizontal_x-small slds-p-vertical_xx-small">
+           <template  for:each={objectsData} for:item="obj">
+              <div if:true={obj.conditions} key={obj.label}>
+                <template for:each={obj.conditions} for:item="condition" for:index="conIndex">
+                    <lightning-pill if:true={condition} key={condition} name={condition} label={condition} onremove={handleRemoveCondition} >
+                        <!--lightning-button-icon if:false={readOnly} icon-name="utility:edit" name={conIndex} value={condition}  alternative-text={conIndex} class="slds-m-left_xx-small" title={conIndex} click={handleEditCondition}></lightning-button-icon-->
+                            <!--lightning-icon icon-name="utility:edit" variant="circle"  alternative-text={conIndex} class="slds-text-color_default" onclick={handleEditCondition}></lightning-icon-->
+                    </lightning-pill>
+                    </template>
+                </div>
+            </template>
+        </lightning-layout-item>
+    </lightning-layout>
+    <lightning-layout>
+        <lightning-layout-item if:true={objectsData} size="12" small-device-size="12" medium-device-size="12" large-device-size="12" class="slds-p-horizontal_x-small slds-p-vertical_xx-small">
+            <div class="slds-p-top_xx-large slds-align_absolute-center">
+                <ul class="slds-button-group-row">
+                    <li class="slds-button-group-item">
+                        <lightning-button variant="brand" label={saveButtonLabel} onclick={handleSaveCondition} class="slds-m-right_xx-small" ></lightning-button>
+                    </li>
+                    <li class="slds-button-group-item">
+                        <lightning-button variant="neutral" label={cancelButtonLabel} onclick={handleClickCloseModal} class="slds-m-right_xx-small" ></lightning-button>
+                    </li>   
+                </ul>
+            </div>
+           
+        </lightning-layout-item>
+       
+    </lightning-layout>
+</div>
+</template>

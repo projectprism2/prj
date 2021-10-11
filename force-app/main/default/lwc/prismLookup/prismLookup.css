@@ -1,0 +1,226 @@
+.sl-pill__label {
+    margin-right: auto;
+  }
+  
+  .slds-pill.sl-pill--loading {
+    border-color: transparent;
+    padding-left: 9px;
+    position: relative;
+    top: -1px;
+  }
+  
+  .slds-pill.sl-pill--loading:hover {
+    background: transparent;
+  }
+  
+  .slds-form-element__control .sl-search-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-bottom: 1px;
+  }
+  
+  .slds-form-element__control .sl-search-icon .slds-icon {
+    fill: t(colorTextInputIcon);
+  }
+  
+  .slds-lookup__item-action .slds-media__figure {
+    margin-right: 0.5rem;
+    margin-top: 0.25rem;
+  }
+  
+  .slds-lookup__item-action .slds-media__figure .slds-icon {
+    margin-right: 0;
+    margin-top: 0;
+  }
+  
+  .slds-form-element__control .slds-pill_container,
+  .slds-form-element__control .slds-pill {
+    transition: border 0.1s linear, background-color 0.1s linear;
+  }
+  
+  .slds-form-element__control.sl-disabled .slds-pill_container,
+  .slds-form-element__control.sl-disabled .slds-pill {
+    background-color: t(colorBackgroundShade);
+    cursor: not-allowed;
+  }
+  
+  .slds-form-element__control.sl-disabled .slds-pill_container {
+    border-color: t(colorBorderInputDisabled);
+  }
+  
+  .slds-form-element__control.sl-disabled .slds-pill {
+    border-color: transparent;
+  }
+  
+  .slds-form-element.slds-has-error .slds-pill__label {
+    font-weight: normal;
+    color: t(colorTextDefault);
+  }
+  .slds-lookup__item-action.sl-no-results,
+  .slds-lookup__item-action.sl-no-results:hover,
+  .slds-lookup__item-action.sl-searching,
+  .slds-lookup__item-action.sl-searching:hover {
+    cursor: auto;
+  }
+  
+  .slds-lookup__item-action.sl-no-results:hover,
+  .slds-lookup__item-action.sl-no-results:focus,
+  .slds-lookup__item-action.sl-no-results:active,
+  .slds-lookup__item-action.sl-searching:hover,
+  .slds-lookup__item-action.sl-searching:focus,
+  .slds-lookup__item-action.sl-searching:active {
+    background: white;
+  }
+  
+  .sl-help-text-icon .slds-icon {
+    fill: #9ea9b5;
+  }
+  
+  .slds-pill__remove .slds-button__icon {
+    pointer-events: none;
+  }
+  
+  /* --------------------------------------------------
+  Salesforce1 Styles
+  -------------------------------------------------- */
+  :not(.sl-lookup--mobile).sl-lookup--open.scrollable {
+    overflow: visible;
+  }
+  
+  :not(.sl-lookup--mobile):not(.sl-lookup--open).scrollable {
+    /*overflow: hidden;*/
+    overflow: visible;
+  }
+  
+  :not(.sl-lookup--mobile).scrollable,
+  :not(.sl-lookup--open).scrollable {
+    /*overflow: initial;*/
+    overflow: visible;
+  }
+  
+  .sl-lookup--mobile.slds-is-open .slds-lookup__menu,
+  .sl-lookup--mobile .sl-lookup--mobile__cancel,
+  .sl-lookup--mobile .slds-lookup__list .slds-dropdown__item .slds-icon_container,
+  .sl-lookup--mobile .slds-lookup__list .slds-dropdown__item .slds-icon,
+  /*.sl-lookup--mobile .slds-lookup__list .sl-lookup__new,*/
+  .sl-lookup--mobile .slds-pill__icon_container,
+  .sl-lookup--mobile.sl-lookup--open .slds-form-element__label,
+  .sl-lookup--mobile.sl-lookup--open .slds-form-element__help,
+  .sl-lookup--mobile.sl-lookup--open .sl-help-text-icon {
+    display: none;
+  }
+  
+  .sl-lookup--mobile.slds-is-open.sl-lookup--open .slds-lookup__menu,
+  .sl-lookup--mobile.sl-lookup--open .sl-lookup--mobile__cancel {
+    display: block;
+  }
+  
+  .sl-lookup--mobile .slds-lookup__item-action {
+    padding-left: t(spacingXSmall);
+    padding-right: t(spacingXSmall);
+  }
+  
+  .sl-lookup--mobile.sl-lookup--open .sl-lookup__input {
+    position: relative;
+  }
+  
+  .sl-lookup--mobile.sl-lookup--open .sl-lookup__input_container {
+    padding: t(spacingXSmall);
+  }
+  
+  .sl-lookup--mobile .slds-pill_container {
+    background: white;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .sl-lookup--mobile .slds-pill,
+  .sl-lookup--mobile .slds-pill:hover {
+    background: white;
+    border: none;
+  }
+  
+  .sl-lookup--mobile .sl-input--disabled,
+  .sl-lookup--mobile .sl-input--disabled:hover {
+    background: t(colorBackgroundInputDisabled);
+  }
+  
+  .sl-lookup--mobile .slds-form-element__control {
+    height: 100%;
+  }
+  
+  .sl-lookup--mobile.sl-lookup--open .slds-form-element__control {
+    background: t(colorBackground);
+  }
+  
+  .sl-lookup--mobile.sl-lookup--open {
+    padding: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: none;
+    overflow: initial;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: t(zIndexOverlay);
+    background: white;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .sl-lookup--mobile .slds-lookup__menu {
+    padding: 0;
+    margin-bottom: 52px;
+    position: relative;
+    z-index: 0;
+    top: initial;
+    border: none;
+    background: t(colorBackground);
+  }
+  
+  .sl-lookup--mobile .slds-lookup__list {
+    max-height: none;
+    overflow: initial;
+    overflow-x: initial;
+    overflow-y: initial;
+  }
+  
+  .sl-lookup--mobile .slds-lookup__list li {
+    border-bottom: 1px solid t(colorBorder);
+    padding: t(spacingXSmall);
+  }
+  
+  .sl-lookup--mobile .slds-lookup__list li:first-child {
+    border-top: 1px solid t(colorBorder);
+  }
+  
+  .sl-lookup--mobile .sl-lookup--mobile__dropdown-header strong {
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 18px;
+    margin-top: 4px;
+  }
+  
+  .sl-lookup--mobile .slds-lookup__list .sl-lookup__new .slds-icon {
+    margin-top: 0;
+  }
+  
+  .listView-lookup-result {
+    background-color: white;
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 10;
+    max-height: 13rem;
+    min-width: 13rem;
+    overflow-y: scroll;
+    /* overflow-x: scroll;*/
+    border: 1px solid #eeeeee;
+    border-bottom-left-radius: 1rem;
+  }
+  .lkpinput {
+    border: none;
+  }
