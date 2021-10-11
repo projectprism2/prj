@@ -79,7 +79,7 @@
                         </lightning-layout-item>
                         <lightning-layout-item if:true={isFieldTypeReference} padding="horizontal-small" size="12" small-device-size="12" medium-device-size="12">
                             <c-prism-Lookup search-field="Name" record-type=""
-                                object-name={selectedObject.fieldObjectApi} object-label={selectedObject.label} is-required="true"
+                                object-name={selectedField.fieldObjectApi} object-label={selectedObject.label} is-required="true"
                                 record-label={selectedField.value} onprismlookupselect={handleRecordSelect}
                                 fire-event="true" record-id={selectedField.id}
                                 fields-to-retrieve="Name" display-field="Name" record-label2-field=""

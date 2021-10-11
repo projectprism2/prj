@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Discovery</fullName>
+        <default>false</default>
+        <label>Discovery</label>
+    </customValue>
+    <customValue>
+        <fullName>Initiation</fullName>
+        <default>false</default>
+        <label>Initiation</label>
+    </customValue>
+    <customValue>
+        <fullName>Planning</fullName>
+        <default>false</default>
+        <label>Planning</label>
+    </customValue>
+    <customValue>
+        <fullName>Development</fullName>
+        <default>false</default>
+        <label>Development</label>
+    </customValue>
+    <customValue>
+        <fullName>testing</fullName>
+        <default>false</default>
+        <label>testing</label>
+    </customValue>
+    <customValue>
+        <fullName>Go Live</fullName>
+        <default>false</default>
+        <label>Go Live</label>
+    </customValue>
+    <customValue>
+        <fullName>Closure</fullName>
+        <default>false</default>
+        <label>Closure</label>
+    </customValue>
+    <masterLabel>Gates</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
