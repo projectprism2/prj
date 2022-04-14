@@ -5,8 +5,8 @@
     <externalId>false</externalId>
     <label>Material</label>
     <referenceTo>Material__c</referenceTo>
-    <relationshipLabel>Materials Engagement</relationshipLabel>
-    <relationshipName>Materials_Engagement</relationshipName>
+    <relationshipLabel>Engagements</relationshipLabel>
+    <relationshipName>Engagements</relationshipName>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
