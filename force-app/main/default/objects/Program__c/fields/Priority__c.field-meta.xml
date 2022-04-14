@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Status__c</fullName>
+    <fullName>Priority__c</fullName>
     <externalId>false</externalId>
-    <label>Status</label>
+    <label>Priority</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
@@ -12,29 +12,24 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Draft</fullName>
-                <default>true</default>
-                <label>Draft</label>
+                <fullName>Critical</fullName>
+                <default>false</default>
+                <label>Critical</label>
             </value>
             <value>
-                <fullName>Initiated</fullName>
+                <fullName>Important</fullName>
                 <default>false</default>
-                <label>Initiated</label>
+                <label>Important</label>
             </value>
             <value>
-                <fullName>In Progress</fullName>
+                <fullName>Normal</fullName>
                 <default>false</default>
-                <label>In Progress</label>
+                <label>Normal</label>
             </value>
             <value>
-                <fullName>Approved</fullName>
+                <fullName>Low</fullName>
                 <default>false</default>
-                <label>Approved</label>
-            </value>
-            <value>
-                <fullName>Submitted</fullName>
-                <default>false</default>
-                <label>Submitted</label>
+                <label>Low</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Strategy__c</fullName>
+    <fullName>Progress__c</fullName>
     <externalId>false</externalId>
-    <label>Strategy</label>
+    <label>Progress</label>
+    <precision>3</precision>
     <required>false</required>
+    <scale>0</scale>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>MultiselectPicklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetName>Strategy</valueSetName>
-    </valueSet>
-    <visibleLines>10</visibleLines>
+    <type>Number</type>
+    <unique>false</unique>
 </CustomField>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Status__c</fullName>
+    <fullName>Risk_assessment__c</fullName>
     <externalId>false</externalId>
-    <label>Status</label>
+    <label>Risk Assessment</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
@@ -12,29 +12,19 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Draft</fullName>
-                <default>true</default>
-                <label>Draft</label>
+                <fullName>High</fullName>
+                <default>false</default>
+                <label>High</label>
             </value>
             <value>
-                <fullName>Initiated</fullName>
+                <fullName>Medium</fullName>
                 <default>false</default>
-                <label>Initiated</label>
+                <label>Medium</label>
             </value>
             <value>
-                <fullName>In Progress</fullName>
+                <fullName>Low</fullName>
                 <default>false</default>
-                <label>In Progress</label>
-            </value>
-            <value>
-                <fullName>Approved</fullName>
-                <default>false</default>
-                <label>Approved</label>
-            </value>
-            <value>
-                <fullName>Submitted</fullName>
-                <default>false</default>
-                <label>Submitted</label>
+                <label>Low</label>
             </value>
         </valueSetDefinition>
     </valueSet>
