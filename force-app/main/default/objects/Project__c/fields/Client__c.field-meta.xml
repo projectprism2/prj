@@ -6,7 +6,7 @@
     <label>Client</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Projects</relationshipLabel>
-    <relationshipName>Projects</relationshipName>
+    <relationshipName>ClientProjects</relationshipName>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

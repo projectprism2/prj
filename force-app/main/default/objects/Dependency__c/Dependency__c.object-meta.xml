@@ -153,13 +153,14 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>Program</label>
+    <label>Dependency</label>
     <nameField>
-        <label>Program Name</label>
+        <displayFormat>PD# {YY}{MM}{DD}-{00000}</displayFormat>
+        <label>Dependency Name</label>
         <trackHistory>false</trackHistory>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Programs</pluralLabel>
+    <pluralLabel>Dependencies</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
