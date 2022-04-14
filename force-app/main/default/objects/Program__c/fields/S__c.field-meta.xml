@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Status__c</fullName>
+    <fullName>S__c</fullName>
+    <description>Please Select the Status of the Program</description>
     <externalId>false</externalId>
+    <inlineHelpText>Select one status from the drop-down list</inlineHelpText>
     <label>Status</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
@@ -13,13 +15,8 @@
             <sorted>false</sorted>
             <value>
                 <fullName>Draft</fullName>
-                <default>true</default>
-                <label>Draft</label>
-            </value>
-            <value>
-                <fullName>Initiated</fullName>
                 <default>false</default>
-                <label>Initiated</label>
+                <label>Draft</label>
             </value>
             <value>
                 <fullName>In Progress</fullName>
@@ -27,14 +24,9 @@
                 <label>In Progress</label>
             </value>
             <value>
-                <fullName>Approved</fullName>
+                <fullName>Completed</fullName>
                 <default>false</default>
-                <label>Approved</label>
-            </value>
-            <value>
-                <fullName>Submitted</fullName>
-                <default>false</default>
-                <label>Submitted</label>
+                <label>Completed</label>
             </value>
         </valueSetDefinition>
     </valueSet>
