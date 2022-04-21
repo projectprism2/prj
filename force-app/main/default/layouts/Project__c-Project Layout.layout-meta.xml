@@ -32,7 +32,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Project_Dependencies__c</field>
+                <field>Parent_Project__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -40,6 +40,10 @@
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Active_Version__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Release_Date__c</field>
@@ -242,6 +246,12 @@
                 <field>Project_Manager__c</field>
             </layoutItems>
         </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>OwnerId</field>
+            </layoutItems>
+        </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -299,7 +309,24 @@
     </platformActionList>
     <quickActionList/>
     <relatedLists>
-        <relatedList>RelatedNoteList</relatedList>
+        <fields>NAME</fields>
+        <relatedList>Project_Version__c.Project__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>RECORDTYPE</fields>
+        <fields>Mitigation__c</fields>
+        <fields>CREATED_DATE</fields>
+        <relatedList>RAID__c.Project__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>TASK.SUBJECT</fields>
+        <fields>TASK.WHO_NAME</fields>
+        <fields>ACTIVITY.TASK</fields>
+        <fields>TASK.DUE_DATE</fields>
+        <fields>CORE.USERS.FULL_NAME</fields>
+        <fields>TASK.LAST_UPDATE</fields>
+        <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
@@ -307,15 +334,39 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <relatedList>Project__c.Project_Dependencies__c</relatedList>
+        <fields>Project_Name__c</fields>
+        <fields>Project_Progress__c</fields>
+        <fields>Status__c</fields>
+        <fields>Targeted_Release__c</fields>
+        <fields>Active_Version__c</fields>
+        <relatedList>Project__c.Parent_Project__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <relatedList>RAID__c.Project__c</relatedList>
+        <fields>Depends_on_Project__c</fields>
+        <fields>Depends_on_Program__c</fields>
+        <fields>Program__c</fields>
+        <relatedList>Dependency__c.Project__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Program__c</fields>
+        <fields>Project__c</fields>
+        <fields>Depends_on_Program__c</fields>
+        <relatedList>Dependency__c.Depends_on_Project__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>RelatedNoteList</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
+    <summaryLayout>
+        <masterLabel>00h0p000001XtQ2</masterLabel>
+        <sizeX>4</sizeX>
+        <sizeY>0</sizeY>
+        <summaryLayoutStyle>Default</summaryLayoutStyle>
+    </summaryLayout>
 </Layout>

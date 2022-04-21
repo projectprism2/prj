@@ -42,22 +42,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Dependency__c.Dependant_Programs__c</field>
+        <field>Dependency__c.Depends_on_Program__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Dependency__c.Dependant_Project__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Dependency__c.Dependencies__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Dependency__c.Parent_project__c</field>
+        <field>Dependency__c.Depends_on_Project__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -113,16 +103,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Material_Engagement__c.Project_Version__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Material_Engagement__c.Resource__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Material_Engagement__c.Team__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -247,6 +227,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Project_Version__c.Cloned_From__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Project_Version__c.Department__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -293,6 +278,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Project_Version__c.Release_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Project_Version__c.Release_Qtr_and_Year__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -417,6 +407,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Project__c.Parent_Project__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Project__c.Planned_Spend__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -433,11 +428,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Project__c.Program__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Project__c.Project_Dependencies__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -473,6 +463,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Project__c.Release_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Project__c.Release_Qtr_and_Year__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
