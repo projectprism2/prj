@@ -156,12 +156,12 @@
     <label>Dependency</label>
     <nameField>
         <displayFormat>PD# {YY}{MM}{DD}-{00000}</displayFormat>
-        <label>Dependency Name</label>
+        <label>Dependency</label>
         <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Dependencies</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
