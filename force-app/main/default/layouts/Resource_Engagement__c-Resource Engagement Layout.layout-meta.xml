@@ -41,7 +41,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Custom_Hourly_Rate_del__c</field>
+                <field>Custom_Hourly_Rate__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
