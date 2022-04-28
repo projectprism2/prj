@@ -43,7 +43,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Resource_Hourly_Price__c</field>
+                <field>Resource_Hourly_Rate__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
