@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Team__c</fullName>
+    <fullName>Financial__c</fullName>
     <externalId>false</externalId>
-    <label>Team</label>
-    <referenceTo>Team__c</referenceTo>
-    <relationshipLabel>Team_Engagements</relationshipLabel>
-    <relationshipName>Team_Engagements</relationshipName>
-    <relationshipOrder>1</relationshipOrder>
+    <label>Financial</label>
+    <referenceTo>Financial__c</referenceTo>
+    <relationshipLabel>Expenses</relationshipLabel>
+    <relationshipName>Expenses</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
     <reparentableMasterDetail>false</reparentableMasterDetail>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>MasterDetail</type>
     <writeRequiresMasterRead>false</writeRequiresMasterRead>
