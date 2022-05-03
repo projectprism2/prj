@@ -111,6 +111,10 @@
                 <behavior>Readonly</behavior>
                 <field>Total_Forecast__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Total_Labour_Forecast__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -188,16 +192,28 @@
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>NAME</fields>
+        <fields>Team__c.NAME</fields>
         <fields>Team__c</fields>
         <relatedList>Engaged_Team__c.Project_Version__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <relatedList>Financial__c.Project_Version__c</relatedList>
+        <fields>Month__c</fields>
+        <fields>Year__c</fields>
+        <fields>Labour__c</fields>
+        <fields>Materials__c</fields>
+        <fields>Fixed_Costs__c</fields>
+        <fields>Total__c</fields>
+        <relatedList>Forecast__c.Project_Version__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <relatedList>Budget_Aggregator__c.Project_Version__c</relatedList>
+        <fields>Status__c</fields>
+        <relatedList>Project_Version__c.Cloned_From__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Financial__c.Project_Version__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>
@@ -217,12 +233,7 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>Status__c</fields>
-        <relatedList>Project_Version__c.Cloned_From__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <relatedList>Forecast__c.Project_Version__c</relatedList>
+        <relatedList>Budget_Aggregator__c.Project_Version__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
