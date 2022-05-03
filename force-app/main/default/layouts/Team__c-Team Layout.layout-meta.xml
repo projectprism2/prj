@@ -58,12 +58,6 @@
         <relatedList>Resource_Engagement__c.Team__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>NAME</fields>
-        <fields>Project_Version__c</fields>
-        <fields>CREATED_DATE</fields>
-        <relatedList>Engaged_Team__c.Team__c</relatedList>
-    </relatedLists>
-    <relatedLists>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.WHO_NAME</fields>
         <fields>ACTIVITY.TASK</fields>
