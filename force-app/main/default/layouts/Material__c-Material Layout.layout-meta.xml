@@ -59,7 +59,7 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>Project_Version__c</fields>
-        <fields>Contact__c</fields>
+        
         <relatedList>Material_Engagement__c.Material__c</relatedList>
     </relatedLists>
     <relatedLists>
