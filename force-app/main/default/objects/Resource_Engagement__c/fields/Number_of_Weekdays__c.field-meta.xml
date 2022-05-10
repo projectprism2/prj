@@ -10,6 +10,8 @@
 -
 (5 * ( FLOOR( ( Start_Date_of_Engagement__c - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD( Start_Date_of_Engagement__c - DATE( 1900, 1, 8), 7 ) ) )
 
++ 1
+
 )</formula>
     <label>Number of Weekdays</label>
     <precision>18</precision>
