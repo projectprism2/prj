@@ -97,15 +97,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Labour_Cost_Allocation__c</field>
+                <field>Labour_Cost_Budget__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Material_Cost_Allocation__c</field>
+                <field>Material_Cost_Budget__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Fixed_Cost_Allocation__c</field>
+                <field>Fixed_Cost_Budget__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -114,6 +114,18 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Total_Labour_Forecast__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Total_Labour_Engaged_Cost__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Total_Material_Engaged_Cost__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Total_Material_Forecast__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
