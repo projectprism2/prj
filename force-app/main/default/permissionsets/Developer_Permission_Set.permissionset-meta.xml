@@ -156,6 +156,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Material_Engagement__c.Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Material_Engagement__c.Material__c</field>
         <readable>true</readable>
@@ -343,6 +348,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Project_Version__c.Impact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Project_Version__c.Is_Primary__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -716,14 +726,14 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Resource_Engagement__c.Number_of_Holidays__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Resource_Engagement__c.Number_of_Leaves__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
