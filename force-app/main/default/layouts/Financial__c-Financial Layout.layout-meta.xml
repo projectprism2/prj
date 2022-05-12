@@ -79,10 +79,6 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <relatedList>Expense__c.Financial__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
         <relatedList>Forecast__c.Financial__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>

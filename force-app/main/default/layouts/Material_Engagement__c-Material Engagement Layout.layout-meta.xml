@@ -90,7 +90,6 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>Financial__c</fields>
         <fields>Month__c</fields>
         <fields>Date__c</fields>
         <relatedList>Expense__c.Material_Engagement__c</relatedList>
