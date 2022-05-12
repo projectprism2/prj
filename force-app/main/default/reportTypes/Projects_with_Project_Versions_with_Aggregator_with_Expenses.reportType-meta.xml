@@ -456,6 +456,11 @@
             <field>Total_Labour_Forecast__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Is_Primary__c</field>
+            <table>Project__c.Project_Versions__r</table>
+        </columns>
         <masterLabel>Project Versions</masterLabel>
     </sections>
     <sections>
