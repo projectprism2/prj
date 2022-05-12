@@ -322,6 +322,9 @@
     <quickActionList/>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>Is_Primary__c</fields>
+        <fields>Total_Labour_Engaged_Cost__c</fields>
+        <fields>Total_Material_Engaged_Cost__c</fields>
         <relatedList>Project_Version__c.Project__c</relatedList>
     </relatedLists>
     <relatedLists>
@@ -380,7 +383,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h0p000001XtQ2</masterLabel>
+        <masterLabel>00h1y000001riNb</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
