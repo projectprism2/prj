@@ -14,7 +14,7 @@ public class ProjectVersionTriggerHandler {
                 projectVerionClones.add(pv);
             }
         }
-        if(!clonedFromIdSet.isEmpty()){
+        if(!clonedFromIdSet.isEmpty()){            
             handleCloningBeforeInsert(clonedFromIdSet, projectVerionClones);
         }
     }
@@ -22,7 +22,7 @@ public class ProjectVersionTriggerHandler {
     /* this method is called from handleBeforeInsert method, 
 	in this method fields of Project Version are copied to the new Version */
     public static void handleCloningBeforeInsert(Set<Id> clonedFromIdSet, List<Project_Version__c> projectVerionClones){
-        
+        //Users can use Standard Clone button for time being
     }
     
     

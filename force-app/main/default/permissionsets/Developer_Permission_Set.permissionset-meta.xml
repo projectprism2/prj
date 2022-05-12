@@ -332,11 +332,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Project_Version__c.Fixed_Cost_Allocation__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Project_Version__c.Fixed_Cost_Budget__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -352,17 +347,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Project_Version__c.Labour_Cost_Allocation__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Project_Version__c.Labour_Cost_Budget__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Project_Version__c.Material_Cost_Allocation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -696,6 +681,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Resource_Engagement__c.Default_Hourly_Rate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Resource_Engagement__c.End_Date_of_Engagement__c</field>
         <readable>true</readable>
@@ -711,6 +701,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Resource_Engagement__c.Engagement_Cost__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Resource_Engagement__c.Gantt_Filter__c</field>
         <readable>true</readable>
@@ -718,6 +713,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Resource_Engagement__c.Hours_Engaged__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Resource_Engagement__c.Number_of_Holidays__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Resource_Engagement__c.Number_of_Leaves__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Resource_Engagement__c.Number_of_Weekdays__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
