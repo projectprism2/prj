@@ -63,7 +63,7 @@ export default class GanttView extends LightningElement {
     }
 
     initializeUI(){
-        const root = this.template.querySelector('.thegantt');
+        const root = this.template.querySelector('.container');
         root.style.height = this.height + "px";
 
         //uncomment the following line if you use the Enterprise or Ultimate version
@@ -81,7 +81,7 @@ export default class GanttView extends LightningElement {
         gantt.templates.parse_date = date => new Date(date);
         gantt.templates.format_date = date => date.toISOString();
         gantt.init(root);
-        getResourcesByProject({pvId:this.recordId}).then(d => {
+        getResourcesByProject({currentRecordId:this.recordId}).then(d => {
             gantt.parse(unwrap(d));
         })
 
@@ -126,28 +126,28 @@ export default class GanttView extends LightningElement {
                 }
              },
              link: {
-                create: function(data) {
-                    const insert = { apiName: "GanttLink__c", fields:{
-                        Source__c : data.source,
-                        Target__c : data.target,
-                        Type__c : data.type,
-                    }};
-                    return createRecord(insert).then(res => {
-                        return { tid: res.id };
-                    });
-                },
-                update: function(data, id) {
-                    const update = { apiName: "GanttLink__c", fields:{
-                        Id : id,
-                        Source__c : data.source,
-                        Target__c : data.target,
-                        Type__c : data.type,
-                    }};
-                    return updateRecord(update).then(() => ({}));
-                },
-                delete: function(id) {
-                    return deleteRecord(id).then(() => ({}));
-                }
+                // create: function(data) {
+                //     const insert = { apiName: "GanttLink__c", fields:{
+                //         Source__c : data.source,
+                //         Target__c : data.target,
+                //         Type__c : data.type,
+                //     }};
+                //     return createRecord(insert).then(res => {
+                //         return { tid: res.id };
+                //     });
+                // },
+                // update: function(data, id) {
+                //     const update = { apiName: "GanttLink__c", fields:{
+                //         Id : id,
+                //         Source__c : data.source,
+                //         Target__c : data.target,
+                //         Type__c : data.type,
+                //     }};
+                //     return updateRecord(update).then(() => ({}));
+                // },
+                // delete: function(id) {
+                //     return deleteRecord(id).then(() => ({}));
+                // }
              }
         }).init(gantt);
     }

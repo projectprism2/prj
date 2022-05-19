@@ -9,13 +9,13 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__AppPage">
-            <property name="height" label="Height" type="Integer" default="800" />
+            <property name="height" label="Height" type="Integer" default="300" />
         </targetConfig>
         <targetConfig targets="lightning__HomePage">
-            <property name="height" label="Height" type="Integer" default="800" />
+            <property name="height" label="Height" type="Integer" default="300" />
         </targetConfig>
         <targetConfig targets="lightning__RecordPage">
-            <property name="height" label="Height" type="Integer" default="800" />
+            <property name="height" label="Height" type="Integer" default="300" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
