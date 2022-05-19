@@ -9,13 +9,13 @@ public with sharing class GanttData {
     public static Map<String, Object> getTasksOld() {
         
         // fetching the Records via SOQL
-        List<GanttTask__c> Tasks = new List<GanttTask__c>();
-        Tasks = [SELECT Id, Name, Start_Date__c, Duration__c, Parent__c FROM GanttTask__c];
+        // List<GanttTask__c> Tasks = new List<GanttTask__c>();
+        // Tasks = [SELECT Id, Name, Start_Date__c, Duration__c, Parent__c FROM GanttTask__c];
 
-        List<GanttLink__c> Links = new List<GanttLink__c>();
-        Links = [SELECT Id, Type__c, Source__c, Target__c FROM GanttLink__c];
+        // List<GanttLink__c> Links = new List<GanttLink__c>();
+        // Links = [SELECT Id, Type__c, Source__c, Target__c FROM GanttLink__c];
 
-        Map<String, Object> result = new Map<String, Object>{'tasks' => Tasks, 'links' => Links };
+        Map<String, Object> result = new Map<String, Object>{'tasks' => new List<String>(), 'links' => new List<String>() };
         return result;
    }
 
@@ -27,10 +27,10 @@ public with sharing class GanttData {
         List<Resource_Engagement__c> Tasks = new List<Resource_Engagement__c>();
         Tasks = [SELECT Id, Name, Start_Date_of_Engagement__c, End_Date_of_Engagement__c, Engaged_Days__c,Number_of_Weekdays__c,Resource__r.Name FROM Resource_Engagement__c];
 
-        List<GanttLink__c> Links = new List<GanttLink__c>();
-        Links = [SELECT Id, Type__c, Source__c, Target__c FROM GanttLink__c];
+        // List<GanttLink__c> Links = new List<GanttLink__c>();
+        // Links = [SELECT Id, Type__c, Source__c, Target__c FROM GanttLink__c];
 
-        Map<String, Object> result = new Map<String, Object>{'tasks' => Tasks, 'links' => Links };
+        Map<String, Object> result = new Map<String, Object>{'tasks' => Tasks, 'links' => new List<String>() };
         return result;
    }
 
@@ -42,10 +42,10 @@ public with sharing class GanttData {
         List<Resource_Engagement__c> Tasks = new List<Resource_Engagement__c>();
         Tasks = [SELECT Id, Name, Start_Date_of_Engagement__c, End_Date_of_Engagement__c, Engaged_Days__c,Number_of_Weekdays__c,Resource__r.Name FROM Resource_Engagement__c WHERE Project_Version__c =:pvId ];
 
-        List<GanttLink__c> Links = new List<GanttLink__c>();
-        Links = [SELECT Id, Type__c, Source__c, Target__c FROM GanttLink__c];
+        // List<GanttLink__c> Links = new List<GanttLink__c>();
+        // Links = [SELECT Id, Type__c, Source__c, Target__c FROM GanttLink__c];
 
-        Map<String, Object> result = new Map<String, Object>{'tasks' => Tasks, 'links' => Links };
+        Map<String, Object> result = new Map<String, Object>{'tasks' => Tasks, 'links' => new List<String>() };
         return result;
    }
 
