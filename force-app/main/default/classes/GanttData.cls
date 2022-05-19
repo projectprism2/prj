@@ -36,15 +36,26 @@ public with sharing class GanttData {
 
     @RemoteAction
     @AuraEnabled(cacheable=true)
-    public static Map<String, Object> getResourcesByProject(string pvId) {
-        
-        // fetching the Records via SOQL
+    public static Map<String, Object> getResourcesByProject(String currentRecordId) {
+        String pvId = '';
         List<Resource_Engagement__c> Tasks = new List<Resource_Engagement__c>();
-        Tasks = [SELECT Id, Name, Start_Date_of_Engagement__c, End_Date_of_Engagement__c, Engaged_Days__c,Number_of_Weekdays__c,Resource__r.Name FROM Resource_Engagement__c WHERE Project_Version__c =:pvId ];
-
-        // List<GanttLink__c> Links = new List<GanttLink__c>();
-        // Links = [SELECT Id, Type__c, Source__c, Target__c FROM GanttLink__c];
-
+        if(String.isNotBlank(currentRecordId)){
+            Id recId = Id.valueOf(currentRecordId);
+            String objName = recId.getSObjectType().getDescribe().getName();
+            
+            if(objName.equalsIgnoreCase('Project_Version__c')){
+                pvId = recId;
+            }
+            else if(objName.equalsIgnoreCase('Project__c')){
+                for(Project__c p: [SELECT Id, Name, Active_Version__c FROM Project__c WHERE Id =: recId]){
+                    pvId = p.Active_Version__c;
+                }
+            }
+            if(String.isNotBlank(pvId)){
+                Tasks = [SELECT Id, Name, Start_Date_of_Engagement__c, End_Date_of_Engagement__c, Engaged_Days__c,Number_of_Weekdays__c,Resource__r.Name FROM Resource_Engagement__c WHERE Project_Version__c =:pvId ];
+            }
+        }
+        
         Map<String, Object> result = new Map<String, Object>{'tasks' => Tasks, 'links' => new List<String>() };
         return result;
    }
