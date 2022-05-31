@@ -1,3 +1,4 @@
+
 /* eslint-disable guard-for-in */
 import { LightningElement, api } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -13,6 +14,7 @@ import getTasks from '@salesforce/apex/GanttData.getTasks';
 import createResource from '@salesforce/apex/GanttData.createResource';
 import getResourcesByProject from '@salesforce/apex/GanttData.getResourcesByProject';
 import getAllResourcesByProject from '@salesforce/apex/GanttData.getAllResourcesByProject';
+import getAllProjectsByResource from '@salesforce/apex/GanttData.getAllProjectsByResource';
 
 function unwrap(fromSF){
     const data = fromSF.tasks.map(a => ({
@@ -40,7 +42,7 @@ export default class GanttView extends LightningElement {
 
     @api height;
     ganttInitialized = false;
-
+    
     renderedCallback() {
         if (this.ganttInitialized) {
             return;
@@ -61,19 +63,50 @@ export default class GanttView extends LightningElement {
                 }),
             );
         });
+        this.initializeUI();
+    }
+
+    toggleGroups(){
+        var element = document.createElement("input");
+        //Assign different attributes to the element. 
+        element.id = 'toggleView';
+        element.type = 'button';
+        element.value = 'Show Projects By Resource';
+        element.style = 'color:blue';
+        element.onclick = function(){
+            if(element.value == 'Show Resources By Project'){
+                getAllResourcesByProject().then(d => {
+                    gantt.clearAll();
+                    gantt.parse(unwrap(d));
+                });
+                let elem = document.getElementById('toggleView');
+                elem.setAttribute('value','Show Projects By Resource');
+                elem.setAttribute('style','color:blue');
+            }
+            else{
+                getAllProjectsByResource().then(d => {
+                    gantt.clearAll();
+                    gantt.parse(unwrap(d));
+                });
+                let elemt = document.getElementById('toggleView');
+                elemt.setAttribute('value','Show Resources By Project');
+                elemt.setAttribute('style','color:green');
+            }
+        }
+
+        var btn = this.template.querySelector('.ganttChart');
+        btn.appendChild(element);
     }
 
     initializeUI(){
         const root = this.template.querySelector('.container');
         root.style.height = this.height + "px";
-
         //uncomment the following line if you use the Enterprise or Ultimate version
         //const gantt = window.Gantt.getGanttInstance();
         gantt.config.scales = [
             {unit: "month", step: 2, format: "%M"},
             {unit: "year", step: 1, format: "%Y"}
         ];
-
         gantt.config.columns =  [
             {name:"text",       label:"Resource",  tree:true , autoWidth: true},
             {name:"start_date", label:"Start Date", align:"center", autoWidth: true},
@@ -91,11 +124,10 @@ export default class GanttView extends LightningElement {
             })
         }
         else{
-            getAllResourcesByProject({}).then(d => {
+            getAllResourcesByProject().then(d => {
                 gantt.parse(unwrap(d));
             })
         }
-
         gantt.createDataProcessor({
             task: {
                 create: function(data) {
@@ -164,5 +196,8 @@ export default class GanttView extends LightningElement {
                 // }
              }
         }).init(gantt);
+
+        this.toggleGroups();
     }
+
 }

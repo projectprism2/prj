@@ -52,7 +52,26 @@ public with sharing class GanttData {
         return result;
     }
 
+    @AuraEnabled()
+    public static Map<String, Object> getAllProjectsByResource() {
+        List<GanttDataWrapper> ganttDataWrapperList = new List<GanttDataWrapper>();
 
+        for(Contact con:[SELECT Id,Name,(SELECT Id,Project_Version__c,Start_Date_of_Engagement__c,End_Date_of_Engagement__c from Resource_Engagements__r),
+                        (SELECT Id,Name,Active_Version__c,Project_Name__c from ProjectsToDeliver__r) FROM Contact
+                         WHERE Id IN (SELECT Resource__c from Resource_Engagement__c)]){
+
+            ganttDataWrapperList.add(new GanttDataWrapper(con.Id,con.Name,null,null,'',null));
+            for(Project__c pro : con.ProjectsToDeliver__r){
+                for(Resource_Engagement__c re : con.Resource_Engagements__r){
+                    if(pro.Active_Version__c == re.Project_Version__c){
+                        ganttDataWrapperList.add(new GanttDataWrapper(pro.Id,pro.Project_Name__c,re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c,con.Id,null));
+                    }
+                }
+            }
+        }
+        Map<String, Object> result = new Map<String, Object>{'tasks' => ganttDataWrapperList, 'links' => new List<String>() };
+        return result;
+    }
 
     @RemoteAction
     @AuraEnabled()
