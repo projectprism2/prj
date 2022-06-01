@@ -39,9 +39,14 @@ public with sharing class GanttData {
     public static Map<String, Object> getAllResourcesByProject() {
         List<GanttDataWrapper> ganttDataWrapperList = new List<GanttDataWrapper>();
         Set<Id> activeProjectVersionIdSet = new Set<Id>();
-        for(Project__c p: [SELECT Id, Project_Name__c, Name, Active_Version__c FROM Project__c WHERE Active_Version__c != NULL ORDER BY Project_Name__c]){
+        for(Project__c p: [SELECT Id, Project_Name__c, Name, Active_Version__c,Parent_Project__r.Active_Version__c FROM Project__c WHERE Active_Version__c != NULL ORDER BY Project_Name__c]){
             activeProjectVersionIdSet.add(p.Active_Version__c);
-            ganttDataWrapperList.add(new GanttDataWrapper(p.Active_Version__c,p.Project_Name__c,null,null,'',null));
+            if(p.Parent_Project__r.Active_Version__c!=null){ //parenting sub-projects
+                ganttDataWrapperList.add(new GanttDataWrapper(p.Active_Version__c,p.Project_Name__c,null,null,p.Parent_Project__r.Active_Version__c,null));
+            }
+            else{
+                ganttDataWrapperList.add(new GanttDataWrapper(p.Active_Version__c,p.Project_Name__c,null,null,'',null));
+            }
         }
         for(Resource_Engagement__c re: [SELECT Id, Name, Start_Date_of_Engagement__c, End_Date_of_Engagement__c, Engaged_Days__c, Number_of_Weekdays__c, Resource__r.Name, Project_Version__c, Progress__c 
                                         FROM Resource_Engagement__c 
@@ -56,7 +61,8 @@ public with sharing class GanttData {
     public static Map<String, Object> getAllProjectsByResource() {
         List<GanttDataWrapper> ganttDataWrapperList = new List<GanttDataWrapper>();
 
-        for(Contact con:[SELECT Id,Name,(SELECT Id,Project_Version__c,Start_Date_of_Engagement__c,End_Date_of_Engagement__c,Project_Version__r.Project__r.Id,Project_Version__r.Project__r.Project_Name__c from Resource_Engagements__r)
+        for(Contact con:[SELECT Id,Name,(SELECT Id,Project_Version__c,Start_Date_of_Engagement__c,End_Date_of_Engagement__c,
+                         Project_Version__r.Project__r.Id,Project_Version__r.Project__r.Project_Name__c from Resource_Engagements__r)
                          FROM Contact
                          WHERE Id IN (SELECT Resource__c from Resource_Engagement__c)]){
 
@@ -90,7 +96,7 @@ public with sharing class GanttData {
                         for(Project__c pro : re.Project_Version__r.Project__r){
                             System.debug(pro.id+' '+pro.Project_Name__c+'  '+con.Id);
                             if(pro.Id == projectId){
-                                ganttDataWrapperList.add(new GanttDataWrapper(con.Id,con.Name,null,null,'',null));
+                                ganttDataWrapperList.add(new GanttDataWrapper(con.Id,con.Name,null,null,'',null));  
                                 ganttDataWrapperList.add(new GanttDataWrapper(re.Id,pro.Project_Name__c,re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c,con.Id,null));
                             }
                         }
