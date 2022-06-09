@@ -42,16 +42,16 @@ public with sharing class GanttData {
         for(Project__c p: [SELECT Id, Project_Name__c, Name, Active_Version__c,Parent_Project__r.Active_Version__c FROM Project__c WHERE Active_Version__c != NULL ORDER BY Project_Name__c]){
             activeProjectVersionIdSet.add(p.Active_Version__c);
             if(p.Parent_Project__r.Active_Version__c!=null){ //parenting sub-projects
-                ganttDataWrapperList.add(new GanttDataWrapper(p.Active_Version__c,p.Project_Name__c,null,null,p.Parent_Project__r.Active_Version__c,null));
+                ganttDataWrapperList.add(new GanttDataWrapper('project',p.Active_Version__c,p.Name,null,null,p.Parent_Project__r.Active_Version__c,null));
             }
             else{
-                ganttDataWrapperList.add(new GanttDataWrapper(p.Active_Version__c,p.Project_Name__c,null,null,'',null));
+                ganttDataWrapperList.add(new GanttDataWrapper('project',p.Active_Version__c,p.Name,null,null,'',null));
             }
         }
-        for(Resource_Engagement__c re: [SELECT Id, Name, Start_Date_of_Engagement__c, End_Date_of_Engagement__c, Engaged_Days__c, Number_of_Weekdays__c, Resource__r.Name, Project_Version__c, Progress__c 
+        for(Resource_Engagement__c re: [SELECT Id, Name, Start_Date_of_Engagement__c, End_Date_of_Engagement__c, Engaged_Days__c, Number_of_Weekdays__c, Hours_Engaged__c, Resource__r.Name, Project_Version__c, Progress__c 
                                         FROM Resource_Engagement__c 
                                         WHERE Project_Version__c IN :activeProjectVersionIdSet ]){
-            ganttDataWrapperList.add(new GanttDataWrapper(re.Id,re.Resource__r.Name,re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c, re.Project_Version__c, Integer.valueOf(re.Progress__c)));
+            ganttDataWrapperList.add(new GanttDataWrapper('task',re.Id,re.Resource__r.Name+' ('+Integer.valueOf(re.Number_of_Weekdays__c * re.Hours_Engaged__c)+' hours)',re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c, re.Project_Version__c, Integer.valueOf(re.Progress__c)));
         }
         Map<String, Object> result = new Map<String, Object>{'tasks' => ganttDataWrapperList, 'links' => new List<String>() };
         return result;
@@ -62,15 +62,15 @@ public with sharing class GanttData {
         List<GanttDataWrapper> ganttDataWrapperList = new List<GanttDataWrapper>();
 
         for(Contact con:[SELECT Id,Name,(SELECT Id,Project_Version__c,Start_Date_of_Engagement__c,End_Date_of_Engagement__c,
-                         Project_Version__r.Project__r.Id,Project_Version__r.Project__r.Project_Name__c from Resource_Engagements__r)
+                         Project_Version__r.Project__r.Id,Project_Version__r.Project__r.Project_Name__c, Project_Version__r.Project__r.Name, Number_of_Weekdays__c, Hours_Engaged__c from Resource_Engagements__r)
                          FROM Contact
                          WHERE Id IN (SELECT Resource__c from Resource_Engagement__c)]){
 
-            ganttDataWrapperList.add(new GanttDataWrapper(con.Id,con.Name,null,null,'',null));
+            ganttDataWrapperList.add(new GanttDataWrapper('project',con.Id,con.Name,null,null,'',null));
                 for(Resource_Engagement__c re : con.Resource_Engagements__r){
                     for(Project__c pro : re.Project_Version__r.Project__r){
                         System.debug(pro.id+' '+pro.Project_Name__c+'  '+con.Id);
-                        ganttDataWrapperList.add(new GanttDataWrapper(re.Id,pro.Project_Name__c,re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c,con.Id,null));
+                        ganttDataWrapperList.add(new GanttDataWrapper('task',re.Id,pro.Name+' ('+Integer.valueOf(re.Number_of_Weekdays__c * re.Hours_Engaged__c)+' hours)',re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c,con.Id,null));
                     }
                 }
         }
@@ -88,16 +88,16 @@ public with sharing class GanttData {
             
             if(objName.equalsIgnoreCase('Project__c')){
                 Id projectId = recId;
-                for(Contact con:[SELECT Id,Name,(SELECT Id,Project_Version__c,Start_Date_of_Engagement__c,End_Date_of_Engagement__c,Project_Version__r.Project__r.Id,Project_Version__r.Project__r.Project_Name__c from Resource_Engagements__r)
+                for(Contact con:[SELECT Id,Name,(SELECT Id,Project_Version__c,Start_Date_of_Engagement__c,End_Date_of_Engagement__c,Project_Version__r.Project__r.Id,Project_Version__r.Project__r.Project_Name__c, Project_Version__r.Project__r.Name, Number_of_Weekdays__c, Hours_Engaged__c from Resource_Engagements__r)
                          FROM Contact
                          WHERE Id IN (SELECT Resource__c from Resource_Engagement__c)]){
-
+                    
+                    ganttDataWrapperList.add(new GanttDataWrapper('project',con.Id,con.Name,null,null,'',null));  
                     for(Resource_Engagement__c re : con.Resource_Engagements__r){
                         for(Project__c pro : re.Project_Version__r.Project__r){
                             System.debug(pro.id+' '+pro.Project_Name__c+'  '+con.Id);
                             if(pro.Id == projectId){
-                                ganttDataWrapperList.add(new GanttDataWrapper(con.Id,con.Name,null,null,'',null));  
-                                ganttDataWrapperList.add(new GanttDataWrapper(re.Id,pro.Project_Name__c,re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c,con.Id,null));
+                                ganttDataWrapperList.add(new GanttDataWrapper('task',re.Id,pro.Name+' ('+Integer.valueOf(re.Number_of_Weekdays__c * re.Hours_Engaged__c)+' hours)',re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c,con.Id,null));
                             }
                         }
                     }
@@ -111,11 +111,11 @@ public with sharing class GanttData {
                         (SELECT Id,Name,Active_Version__c,Project_Name__c from ProjectsToDeliver__r WHERE Active_Version__c =: projectVId) FROM Contact
                          WHERE Id IN (SELECT Resource__c from Resource_Engagement__c)]){
 
-                    ganttDataWrapperList.add(new GanttDataWrapper(con.Id,con.Name,null,null,'',null));
+                    ganttDataWrapperList.add(new GanttDataWrapper('project',con.Id,con.Name,null,null,'',null));
                     for(Project__c pro : con.ProjectsToDeliver__r){
                         for(Resource_Engagement__c re : con.Resource_Engagements__r){
                             if(pro.Active_Version__c == re.Project_Version__c){
-                                ganttDataWrapperList.add(new GanttDataWrapper(pro.Id,pro.Project_Name__c,re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c,con.Id,null));
+                                ganttDataWrapperList.add(new GanttDataWrapper('task',pro.Id,pro.Name+' ('+Integer.valueOf(re.Number_of_Weekdays__c * re.Hours_Engaged__c)+' hours)',re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c,con.Id,null));
                             }
                         }
                     }
@@ -139,13 +139,22 @@ public with sharing class GanttData {
             if(objName.equalsIgnoreCase('Project_Version__c')){
                 pvId = recId;
                 for(Project_Version__c pv: [SELECT Id, Name FROM Project_Version__c WHERE Id =: pvId]){
-                    ganttDataWrapperList.add(new GanttDataWrapper(pv.Id,pv.Name,null,null,'',null));
+                    ganttDataWrapperList.add(new GanttDataWrapper('project',pv.Id,pv.Name,null,null,'',null));
                 }
             }
             else if(objName.equalsIgnoreCase('Project__c')){
                 for(Project__c p: [SELECT Id, Project_Name__c, Name, Active_Version__c FROM Project__c WHERE Id =: recId AND Active_Version__c != NULL]){
                     pvId = p.Active_Version__c;
-                    ganttDataWrapperList.add(new GanttDataWrapper(pvId,p.Project_Name__c,null,null,'',null));
+                    ganttDataWrapperList.add(new GanttDataWrapper('project',pvId,p.Project_Name__c,null,null,'',null));
+                }
+            }
+            else{
+                // Show all projects and its resources
+            }
+            if(String.isNotBlank(pvId)){
+                resourceEngagements = [SELECT Id, Name, Start_Date_of_Engagement__c, End_Date_of_Engagement__c, Engaged_Days__c, Number_of_Weekdays__c, Hours_Engaged__c, Resource__r.Name, Project_Version__c, Progress__c FROM Resource_Engagement__c WHERE Project_Version__c =:pvId ];
+                for(Resource_Engagement__c re: resourceEngagements){
+                    ganttDataWrapperList.add(new GanttDataWrapper('task',re.Id,re.Resource__r.Name+' ('+Integer.valueOf(re.Number_of_Weekdays__c * re.Hours_Engaged__c)+' hours)',re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c, re.Project_Version__c, Integer.valueOf(re.Progress__c)));
                 }
             }
         }
@@ -173,6 +182,9 @@ public with sharing class GanttData {
 
        @AuraEnabled
        public String displayLabel;
+       
+       @AuraEnabled
+       public String type;
 
        @AuraEnabled
        public Date startDate;
@@ -194,6 +206,16 @@ public with sharing class GanttData {
            this.parentIdentifier = pId;
            this.progress = prgs;
        }
+
+       public GanttDataWrapper(String type, String i, String l, Date sD, Date eD, String pId, Integer prgs){
+        this.type = type;
+        this.identifier = i;
+        this.displayLabel = l;
+        this.startDate = sD;
+        this.endDate = eD;
+        this.parentIdentifier = pId;
+        this.progress = prgs;
+    }
    }
 
 }

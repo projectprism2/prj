@@ -20,6 +20,7 @@ function unwrap(fromSF){
     const data = fromSF.tasks.map(a => ({
         id: a.identifier,
         text: a.displayLabel,
+        type: a.type,
         start_date: a.startDate,
         end_date: a.endDate,
         //duration: a.Number_of_Weekdays__c,
