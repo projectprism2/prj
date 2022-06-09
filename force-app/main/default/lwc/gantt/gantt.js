@@ -118,6 +118,91 @@ export default class GanttView extends LightningElement {
         var btn = this.template.querySelector('.ganttChart');
         btn.appendChild(element);
     }
+
+    initializeGanttZoom(){
+        const btnGanttZoomIn = document.createElement("input");
+        //Assign different attributes to the element. 
+        btnGanttZoomIn.id = 'btnGanttZoomIn';
+        btnGanttZoomIn.type = 'button';
+        btnGanttZoomIn.value = 'Zoom In';
+        btnGanttZoomIn.style = 'color:black';
+
+        const btnGanttZoomOut = document.createElement("input");
+        //Assign different attributes to the element. 
+        btnGanttZoomOut.id = 'btnGanttZoomOut';
+        btnGanttZoomOut.type = 'button';
+        btnGanttZoomOut.value = 'Zoom Out';
+        btnGanttZoomOut.style = 'color:black';
+        
+        const zoomModule = gantt.ext.zoom;
+            zoomModule.init({
+            levels: [
+            {
+                name:"day",
+                scale_height: 27,
+                min_column_width:80,
+                scales:[
+                    {unit: "day", step: 1, format: "%d %M"}
+                ]
+            },
+            {
+                name:"week",
+                scale_height: 50,
+                min_column_width:50,
+                scales:[
+                {unit: "week", step: 1, format: function (date) {
+                var dateToStr = gantt.date.date_to_str("%d %M");
+                var endDate = gantt.date.add(date, -6, "day");
+                var weekNum = gantt.date.date_to_str("%W")(date);
+                return "#" + weekNum + ", " + dateToStr(date) + " - " + dateToStr(endDate);
+                }},
+                {unit: "day", step: 1, format: "%j %D"}
+                ]
+            },
+            {
+                name:"month",
+                scale_height: 50,
+                min_column_width:120,
+                scales:[
+                    {unit: "month", format: "%F, %Y"},
+                    {unit: "week", format: "Week #%W"}
+                ]
+                },
+                {
+                name:"quarter",
+                height: 50,
+                min_column_width:90,
+                scales:[
+                {unit: "month", step: 1, format: "%M"},
+                {
+                unit: "quarter", step: 1, format: function (date) {
+                    var dateToStr = gantt.date.date_to_str("%M");
+                    var endDate = gantt.date.add(gantt.date.add(date, 3, "month"), -1, "day");
+                    return dateToStr(date) + " - " + dateToStr(endDate);
+                }
+                }
+                ]},
+                {
+                name:"year",
+                scale_height: 50,
+                min_column_width: 30,
+                scales:[
+                    {unit: "year", step: 1, format: "%Y"}
+                ]}
+            ]
+        });
+        zoomModule.setLevel("year");
+
+        btnGanttZoomIn.onclick = function(){
+            zoomModule.zoomIn();
+        }
+        btnGanttZoomOut.onclick = function(){
+            zoomModule.zoomOut();
+        }
+        var ganttSection = this.template.querySelector('.ganttChart');
+        ganttSection.appendChild(btnGanttZoomIn);
+        ganttSection.appendChild(btnGanttZoomOut);
+    }
     
     initializeUI(){
         const root = this.template.querySelector('.container');
@@ -146,6 +231,8 @@ export default class GanttView extends LightningElement {
         //     text: "Today",
         //     title:"Today: "
         // });
+
+        this.initializeGanttZoom();
         
         gantt.init(root);
         if(this.recordId){
