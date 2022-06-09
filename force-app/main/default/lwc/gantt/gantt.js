@@ -139,6 +139,13 @@ export default class GanttView extends LightningElement {
 
         gantt.templates.parse_date = date => new Date(date);
         gantt.templates.format_date = date => date.toISOString();
+        // var today = new Date();
+        // gantt.addMarker({
+        //     start_date: today,
+        //     css: "today",
+        //     text: "Today",
+        //     title:"Today: "
+        // });
         
         gantt.init(root);
         if(this.recordId){
@@ -223,6 +230,8 @@ export default class GanttView extends LightningElement {
              }
         }).init(gantt);
         
-        this.toggleGroups(this.recordId);
+        if(!this.recordId){
+            this.toggleGroups(this.recordId);
+        }
     }
 }
