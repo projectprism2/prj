@@ -1,9 +1,8 @@
-import { LightningElement, api, wire } from "lwc";
+import { LightningElement, api } from "lwc";
 import fetchResources from '@salesforce/apex/AddResources.fetchResources';
-import { refreshApex } from '@salesforce/apex';
 import { updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { NavigationMixin, CurrentPageReference } from 'lightning/navigation';
+import { NavigationMixin } from 'lightning/navigation';
 
 export default class AddResources extends  NavigationMixin(LightningElement) {
     @api recordId;
@@ -18,25 +17,11 @@ export default class AddResources extends  NavigationMixin(LightningElement) {
     }
     handleSuccess(){
         this.newResource=false;
-        eval("$A.get('e.force:refreshView').fire();");
+        //eval("$A.get('e.force:refreshView').fire();");
+        this.connectedCallback();
     }
-    handleOnLoad(event){
-        //event.preventDefault();
-        console.log('onload');
-        var defaultevent = event;
-        var detail = defaultevent.detail;
-        var record = detail.record;
-        var fields = {};
-        fields = record.fields;
-        console.log('fields--'+JSON.stringify(fields));
-        var hoursEngaged = {"displayValue":null,"value":20};
-        //"Hours_Engaged__c":
-        //fields["Hours_Engaged__c"] = hoursEngaged;
-        //console.log('fields1--'+JSON.stringify(defaultevent.detail.record.fields));
-        //this.template.querySelector('lightning-record-edit-form').onload(defaultevent);
-    }
+    
     onSubmitHandler(event){
-        console.log('submit');
         event.preventDefault();
         const fields = event.detail.fields;
         fields.Project_Version__c = this.recordId;
@@ -125,7 +110,6 @@ export default class AddResources extends  NavigationMixin(LightningElement) {
         }).finally(() => {
             this.fldsItemValues = [];
             this.connectedCallback();
-            //fetchResources({versionId: this.recordId});
         });
     }
 
@@ -136,33 +120,5 @@ export default class AddResources extends  NavigationMixin(LightningElement) {
             flattenedRow[finalKey] = nodeValue[key];
         })
     }
-   
-    async refresh() {
-        await refreshApex(this.resourcesList);
-    }
     
-    @wire(CurrentPageReference)
-    getpageRef(pageRef) {
-        console.log('data => ', JSON.stringify(pageRef));
-        this.pageUrl = pageRef;
-    }
-
-    navigateToNewOpportunity() {
-        this[NavigationMixin.Navigate]({
-            type: 'standard__objectPage',
-            attributes: {
-                objectApiName: 'Resource_Engagement__c',
-                actionName: 'new',
-            },
-        }).then(() => {
-            this[NavigationMixin.Navigate]({
-                "type": "standard__webPage",
-                "attributes": {
-                    "url": this.pageUrl
-                }
-            });
-        });
-    }
-    
-
 }
