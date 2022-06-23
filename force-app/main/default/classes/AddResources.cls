@@ -1,16 +1,9 @@
 public with sharing class AddResources {
-    public AddResources() {
-
-    }
-
     @AuraEnabled
     public static ResourceWrapper fetchResources(String versionId){
-        System.debug('versionId--'+versionId);
         try {
             ResourceWrapper rw = new ResourceWrapper();
             List<FieldWrapper> columns = new List<FieldWrapper>();
-            List<String> referenceFields = new List<String>();
-            Map<String, String> returnMap = new Map<String,String>();
 
             List<Schema.FieldSetMember> lstFSMember = 
             Schema.Resource_Engagement__c.getSObjectType().getDescribe().fieldSets.getMap().get('AddResources').getFields();
@@ -29,13 +22,8 @@ public with sharing class AddResources {
             }
             query += 'Id FROM Resource_Engagement__c where Project_Version__c =:versionId' ;
             List<SObject> lstRecords = Database.query(query);
-            returnMap.put('FIELD_LIST', JSON.serialize(lstFSMember));
-            returnMap.put('RECORD_LIST', JSON.serialize(lstRecords));
             rw.records = lstRecords;
             rw.columns = columns;
-            system.debug('columns--'+rw.columns);
-            system.debug('rw.records--'+rw.records);
-            //return JSON.serialize(returnMap);
             return rw;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
