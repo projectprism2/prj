@@ -10,6 +10,10 @@
                 <behavior>Required</behavior>
                 <field>Name</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Sort_Order__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -56,7 +60,6 @@
         <fields>Due_Date__c</fields>
         <fields>Weighting__c</fields>
         <fields>Project__c</fields>
-        <fields>Project_Version__c</fields>
         <relatedList>Assigned_Gate__c.Gate__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
