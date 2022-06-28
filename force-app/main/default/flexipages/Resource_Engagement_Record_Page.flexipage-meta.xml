@@ -101,15 +101,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>defaultView</name>
-                    <value>View by Week</value>
-                </componentInstanceProperties>
-                <componentName>prismGanttChart</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>tabs</name>
                     <value>maintabs</value>
                 </componentInstanceProperties>

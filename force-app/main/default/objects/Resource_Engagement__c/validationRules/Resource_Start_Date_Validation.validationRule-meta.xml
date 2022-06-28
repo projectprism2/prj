@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Resource_Start_Date_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>Start_Date_of_Engagement__c &lt; Project_Version__r.Start_Date__c</errorConditionFormula>
+    <errorDisplayField>Start_Date_of_Engagement__c</errorDisplayField>
+    <errorMessage>Start Date of Engagement cannot be older than Project&apos;s Start Date.</errorMessage>
+</ValidationRule>

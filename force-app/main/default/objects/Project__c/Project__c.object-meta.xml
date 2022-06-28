@@ -161,9 +161,10 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Project</label>
     <nameField>
+        <displayFormat>PROJ-{00000}</displayFormat>
         <label>Project Code</label>
         <trackHistory>false</trackHistory>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Projects</pluralLabel>
     <searchLayouts></searchLayouts>

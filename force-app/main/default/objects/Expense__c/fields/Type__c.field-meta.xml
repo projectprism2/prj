@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(1, 
+IF(ISNULL(Material_Engagement__c), 0, 1), &apos;Material&apos;, 
+IF(ISNULL(Resource_Engagement__c), 0, 1), &apos;Labour&apos;, 
+&apos;Fixed&apos;
+)</formula>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
