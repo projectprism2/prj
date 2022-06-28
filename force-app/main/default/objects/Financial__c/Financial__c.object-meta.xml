@@ -155,7 +155,7 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Financial</label>
     <nameField>
-        <displayFormat>F#{0000}{YYYY}{MM}-{0}</displayFormat>
+        <displayFormat>F#{YYYY}{MM}-{0000}</displayFormat>
         <label>Financial Name</label>
         <trackHistory>false</trackHistory>
         <type>AutoNumber</type>

@@ -31,6 +31,46 @@
                 <default>false</default>
                 <label>Approved</label>
             </value>
+            <value>
+                <fullName>Submitted</fullName>
+                <default>false</default>
+                <label>Submitted</label>
+            </value>
+            <value>
+                <fullName>Pending</fullName>
+                <default>false</default>
+                <label>Pending</label>
+            </value>
+            <value>
+                <fullName>QA Review</fullName>
+                <default>false</default>
+                <label>QA Review</label>
+            </value>
+            <value>
+                <fullName>QA Rework</fullName>
+                <default>false</default>
+                <label>QA Rework</label>
+            </value>
+            <value>
+                <fullName>Planning</fullName>
+                <default>false</default>
+                <label>Planning</label>
+            </value>
+            <value>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+                <label>Cancelled</label>
+            </value>
+            <value>
+                <fullName>Replan</fullName>
+                <default>false</default>
+                <label>Replan</label>
+            </value>
+            <value>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+                <label>Rejected</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
