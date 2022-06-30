@@ -37,7 +37,7 @@
                     <name>height</name>
                     <value>300</value>
                 </componentInstanceProperties>
-                <componentName>gantt</componentName>
+                <componentName>ganttForTasks</componentName>
             </componentInstance>
         </itemInstances>
         <itemInstances>

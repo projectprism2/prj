@@ -9,12 +9,8 @@ import { createRecord, updateRecord, deleteRecord } from 'lightning/uiRecordApi'
 import GanttFiles from '@salesforce/resourceUrl/dhtmlxgantt713';
 
 // Controllers
-import getTasks from '@salesforce/apex/GanttData.getTasks';
-import createResource from '@salesforce/apex/GanttData.createResource';
-import getResourcesByProject from '@salesforce/apex/GanttData.getResourcesByProject';
-import getAllResourcesByProject from '@salesforce/apex/GanttData.getAllResourcesByProject';
-import getAllProjectsByResource from '@salesforce/apex/GanttData.getAllProjectsByResource';
-import getProjectsByResource from '@salesforce/apex/GanttData.getProjectsByResource';
+import getAllTasksAndMilestonesByProject from '@salesforce/apex/GanttDataForTasks.getAllTasksAndMilestonesByProject';
+
 
 function unwrap(fromSF){
     const data = fromSF.tasks.map(a => ({
@@ -36,7 +32,7 @@ function unwrap(fromSF){
     return { data, links };
 }
 
-export default class GanttView extends LightningElement {
+export default class GanttForTasks extends LightningElement {
     static delegatesFocus = true;
 
     @api recordId;
@@ -63,64 +59,6 @@ export default class GanttView extends LightningElement {
                 }),
             );
         });
-    }
-
-    toggleGroups(cRecordId){
-        var element = document.createElement("input");
-        //Assign different attributes to the element. 
-        element.id = 'toggleView';
-        element.type = 'button';
-        element.value = 'Show Projects By Resource';
-        element.style = 'color:blue';
-        element.onclick = function(){
-            if(element.value == 'Show Resources By Project'){
-                if(cRecordId != '' && cRecordId!=undefined){
-                    getResourcesByProject({currentRecordId:cRecordId}).then(d => {
-                        gantt.clearAll();
-                        this.addTodayMarker();
-                        gantt.parse(unwrap(d));
-                    });
-                    let elem = document.getElementById('toggleView');
-                    elem.setAttribute('value','Show Projects By Resource');
-                    elem.setAttribute('style','color:blue');
-                }
-                else{
-                    getAllResourcesByProject().then(d => {
-                        gantt.clearAll();
-                        this.addTodayMarker();
-                        gantt.parse(unwrap(d));
-                    });
-                    let elem = document.getElementById('toggleView');
-                    elem.setAttribute('value','Show Projects By Resource');
-                    elem.setAttribute('style','color:blue');
-                }
-            }
-            else{
-                if(cRecordId != '' && cRecordId!=undefined){
-                    getProjectsByResource({currentRecordId:cRecordId}).then(d => {
-                        gantt.clearAll();
-                        this.addTodayMarker();
-                        gantt.parse(unwrap(d));
-                    });
-                    let elemt = document.getElementById('toggleView');
-                    elemt.setAttribute('value','Show Resources By Project');
-                    elemt.setAttribute('style','color:green');
-                }
-                else{
-                    getAllProjectsByResource().then(d => {
-                        gantt.clearAll();
-                        this.addTodayMarker();
-                        gantt.parse(unwrap(d));
-                    });
-                    let elemt = document.getElementById('toggleView');
-                    elemt.setAttribute('value','Show Resources By Project');
-                    elemt.setAttribute('style','color:green');
-                }
-            }
-        }
-
-        var btn = this.template.querySelector('.ganttChart');
-        btn.appendChild(element);
     }
 
     
@@ -199,7 +137,7 @@ export default class GanttView extends LightningElement {
             }
             ]
         });
-        zoomModule.setLevel("year");
+        zoomModule.setLevel("week");
 
         btnGanttZoomIn.onclick = function(){
             zoomModule.zoomIn();
@@ -207,21 +145,13 @@ export default class GanttView extends LightningElement {
         btnGanttZoomOut.onclick = function(){
             zoomModule.zoomOut();
         }
-        var ganttSection = this.template.querySelector('.ganttChart');
+        var ganttSection = this.template.querySelector('.ganttChartForTasks');
         ganttSection.appendChild(btnGanttZoomIn);
         ganttSection.appendChild(btnGanttZoomOut);
     }
-    addTodayMarker(){
-        gantt.addMarker({
-            start_date: new Date(),
-            css: "today",
-            text: "Today",
-            title:"Today"
-        });
-    }
     
     initializeUI(){
-        const root = this.template.querySelector('.container');
+        const root = this.template.querySelector('.containerTasks');
         root.style.height = this.height + "px";
 
         //uncomment the following line if you use the Enterprise or Ultimate version
@@ -231,15 +161,20 @@ export default class GanttView extends LightningElement {
             {unit: "year", step: 1, format: "%Y"}
         ];
 
+        var dateEditor = {type: "date", map_to: "start_date", min: new Date(2022, 0, 1), max: new Date(2030, 0, 1)};
         gantt.config.columns =  [
-            {name:"text",       label:"Resource",  tree:true , autoWidth: true},
-            {name:"start_date", label:"Start Date", align:"center", autoWidth: true},
-            {name:"end_date",   label:"End Date",   align:"center", autoWidth: true}
+            {name:"text",       label:"Task / Milestone",  tree:true , resize: true, autoWidth: true},
+            {name:"start_date", label:"Start Date", align: "center", resize: true, width: 80},
+            {name:"end_date",   label:"End Date", align: "center", resize: true, width: 80}
         ];
         gantt.config.open_tree_initially = true;
 
         gantt.templates.parse_date = date => new Date(date);
         gantt.templates.format_date = date => date.toISOString();
+        
+        this.initializeGanttZoom();
+        
+        
         gantt.plugins({
             marker: true,
             fullscreen: true,
@@ -248,51 +183,69 @@ export default class GanttView extends LightningElement {
             tooltip: true,
             undo: true
         });
-        // var today = new Date();
-        // gantt.addMarker({
-        //     start_date: today,
-        //     css: "today",
-        //     text: "Today",
-        //     title:"Today: "
-        // });
-
-        this.initializeGanttZoom();
         
+
+        // //Make resize marker for two columns
+        // gantt.attachEvent("onColumnResizeStart", function(ind, column) {
+        //     if(!column.tree || ind == 0) return;
+
+        //     setTimeout(function() {
+        //         var marker = document.querySelector(".gantt_grid_resize_area");
+        //         if(!marker) return;
+        //         var cols = gantt.getGridColumns();
+        //         var delta = cols[ind - 1].width || 0;
+        //         if(!delta) return;
+
+        //         marker.style.boxSizing = "content-box";
+        //         marker.style.marginLeft = -delta + "px";
+        //         marker.style.paddingRight = delta + "px";
+        //     },1);
+        // });
+        
+        // gantt.config.order_branch = "marker";
+        // gantt.config.order_branch_free = true;
+        // gantt.config.grid_resize = true;
+
         gantt.init(root);
         if(this.recordId){
-            getResourcesByProject({currentRecordId:this.recordId}).then(d => {
+            getAllTasksAndMilestonesByProject({currentRecordId:this.recordId}).then(d => {
                 gantt.clearAll();
-                this.addTodayMarker();
+                gantt.addMarker({
+                    start_date: new Date(),
+                    css: "today",
+                    text: "Today",
+                    title:"Today"
+                });
                 gantt.parse(unwrap(d));
             })
         }
         else{
-            getAllResourcesByProject({}).then(d => {
-                gantt.clearAll();
-                this.addTodayMarker();
-                gantt.parse(unwrap(d));
-            })
+            // getAllResourcesByProject({}).then(d => {
+            //     gantt.clearAll();
+            //     gantt.parse(unwrap(d));
+            // })
+            console.log('Does not work without a record id');
         }
 
         gantt.createDataProcessor({
             task: {
                 create: function(data) {
-                    /*
-                    const insert = { apiName: "GanttTask__c", fields:{
+                    
+                    const insert = { apiName: "Task_Milestone__c", fields:{
                         Name : data.text,
                         Start_Date__c : data.start_date,
-                        Duration__c : data.duration,
+                        Due_Date__c : data.end_date,
                         Parent__c : String(data.parent),
                         Progress__c : data.progress
                     }};
-
+                    /*
                     let resourceJSON = {
                         "Resource__c":'0036D00000SByEBQA1',
                         "Start_Date_of_Engagement__c":data.start_date
                     }
                     */
                     console.log(data.start_date);
-                    let a = createResource({resourcedata : JSON.stringify(resourceJSON)});
+                    // let a = createResource({resourcedata : JSON.stringify(resourceJSON)});
                     return createRecord(insert).then(res => {
                         return { tid: 1, ...res };
                     });
@@ -302,14 +255,14 @@ export default class GanttView extends LightningElement {
                     console.log(data);
                     const update = { fields:{
                         Id: id,
-                        //Name : data.text,
+                        Task_Milestone_Subject__c : data.text,
                         // Start_Date_of_Engagement__c : new Date(data.start_date?.getFullYear(),data.start_date?.getMonth(),data.start_date?.getDate()),
-                        Start_Date_of_Engagement__c : data.start_date,
+                        Start_Date__c : data.start_date,
                         // End_Date_of_Engagement__c :new Date(data.end_date?.getFullYear(),data.end_date?.getMonth(),data.end_date?.getDate())
-                        End_Date_of_Engagement__c :data.end_date
+                        Due_Date__c :data.end_date,
                         //Duration__c : data.duration,
                         //Parent__c : String(data.parent),
-                        //Progress__c : data.progress
+                        Progress__c : data.progress * 100
                     }};
                     return updateRecord(update).then(() => ({}));
                 },
@@ -343,9 +296,5 @@ export default class GanttView extends LightningElement {
              }
         }).init(gantt);
         
-        if(!this.recordId){
-            this.toggleGroups(this.recordId);
-        }
     }
-    
 }
