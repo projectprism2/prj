@@ -8,7 +8,7 @@
         <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
         <template if:true={assignedGates}>
             <template for:each={assignedGates} for:item="gate">
-                <li key={gate.Id} class={gate.gateStatus} style="transform:rotateX();" role="presentation">
+                <li key={gate.Id} class={gate.gateStatus} role="presentation">
                 <a aria-selected="true" class="slds-path__link" href="#" id="path-1" role="option" tabindex="0">
                 <span class="slds-path__stage">
                 <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
@@ -26,7 +26,7 @@
         </div>
         <div class="slds-grid slds-path__action">
         <span class="slds-path__stage-name">Stage: Unqualified</span>
-        <button class="slds-button slds-button_brand slds-path__mark-complete">
+        <button class="slds-button slds-button_brand slds-path__mark-complete" onclick={updateAssignedGatesByProject}>
         <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
         <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
         </svg>Mark Status as Complete</button>
