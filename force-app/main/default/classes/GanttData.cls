@@ -51,7 +51,7 @@ public with sharing class GanttData {
         for(Resource_Engagement__c re: [SELECT Id, Name, Start_Date_of_Engagement__c, End_Date_of_Engagement__c, Engaged_Days__c, Number_of_Weekdays__c, Hours_Engaged__c, Resource__r.Name, Project_Version__c, Progress__c 
                                         FROM Resource_Engagement__c 
                                         WHERE Project_Version__c IN :activeProjectVersionIdSet ]){
-            ganttDataWrapperList.add(new GanttDataWrapper('task',re.Id,re.Resource__r.Name+' ('+Integer.valueOf(re.Number_of_Weekdays__c * re.Hours_Engaged__c)+' hours)',re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c, re.Project_Version__c, Integer.valueOf(re.Progress__c)));
+            ganttDataWrapperList.add(new GanttDataWrapper('task',re.Id,re.Resource__r.Name+' ('+Integer.valueOf(re.Number_of_Weekdays__c * re.Hours_Engaged__c)+' hours)',re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c, re.Project_Version__c, re.Progress__c));
         }
         Map<String, Object> result = new Map<String, Object>{'tasks' => ganttDataWrapperList, 'links' => new List<String>() };
         return result;
@@ -154,7 +154,7 @@ public with sharing class GanttData {
             if(String.isNotBlank(pvId)){
                 resourceEngagements = [SELECT Id, Name, Start_Date_of_Engagement__c, End_Date_of_Engagement__c, Engaged_Days__c, Number_of_Weekdays__c, Hours_Engaged__c, Resource__r.Name, Project_Version__c, Progress__c FROM Resource_Engagement__c WHERE Project_Version__c =:pvId ];
                 for(Resource_Engagement__c re: resourceEngagements){
-                    ganttDataWrapperList.add(new GanttDataWrapper('task',re.Id,re.Resource__r.Name+' ('+Integer.valueOf(re.Number_of_Weekdays__c * re.Hours_Engaged__c)+' hours)',re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c, re.Project_Version__c, Integer.valueOf(re.Progress__c)));
+                    ganttDataWrapperList.add(new GanttDataWrapper('task',re.Id,re.Resource__r.Name+' ('+Integer.valueOf(re.Number_of_Weekdays__c * re.Hours_Engaged__c)+' hours)',re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c, re.Project_Version__c, re.Progress__c));
                 }
             }
         }
@@ -162,6 +162,9 @@ public with sharing class GanttData {
         Map<String, Object> result = new Map<String, Object>{'tasks' => ganttDataWrapperList, 'links' => new List<String>() };
         return result;
    }
+
+
+   
 
     @AuraEnabled
     public static string createResource(String resourcedata) {
@@ -173,49 +176,6 @@ public with sharing class GanttData {
         resourceEngagement.Start_Date_of_Engagement__c = Date.newInstance(Integer.ValueOf(startDateEngagement.substring(0,4)),Integer.ValueOf(startDateEngagement.substring(5,7)),Integer.ValueOf(startDateEngagement.substring(8,10)));
         //resourceEngagement.End_Date_of_Engagement__c = resourceEngagement.Start_Date_of_Engagement__c.addDays()
         return 'sdsdsd';
-   }
-
-   
-   public class GanttDataWrapper{
-       @AuraEnabled
-       public String identifier;
-
-       @AuraEnabled
-       public String displayLabel;
-       
-       @AuraEnabled
-       public String type;
-
-       @AuraEnabled
-       public Date startDate;
-
-       @AuraEnabled
-       public Date endDate;
-
-       @AuraEnabled
-       public String parentIdentifier;
-
-       @AuraEnabled
-       public Integer progress;
-
-       public GanttDataWrapper(String i, String l, Date sD, Date eD, String pId, Integer prgs){
-           this.identifier = i;
-           this.displayLabel = l;
-           this.startDate = sD;
-           this.endDate = eD;
-           this.parentIdentifier = pId;
-           this.progress = prgs;
-       }
-
-       public GanttDataWrapper(String type, String i, String l, Date sD, Date eD, String pId, Integer prgs){
-        this.type = type;
-        this.identifier = i;
-        this.displayLabel = l;
-        this.startDate = sD;
-        this.endDate = eD;
-        this.parentIdentifier = pId;
-        this.progress = prgs;
-    }
    }
 
 }

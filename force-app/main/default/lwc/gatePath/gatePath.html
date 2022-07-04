@@ -1,0 +1,37 @@
+<template>
+    <lightning-card class="slds-card__body_inner slds-card__body--inner">
+    <div class="slds-path">
+        <div class="slds-grid slds-path__track">
+        <div class="slds-grid slds-path__scroller-container">
+        <div class="slds-path__scroller">
+        <div class="slds-path__scroller_inner">
+        <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+        <template if:true={assignedGates}>
+            <template for:each={assignedGates} for:item="gate">
+                <li key={gate.Id} id={gate.Id} class={gate.gateStatus} role="presentation" onclick={identifyGateId}>
+                <a aria-selected="true" class="slds-path__link" href="#" role="option" tabindex="0">
+                <span class="slds-path__stage">
+                <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                </svg>
+                </span>
+                <span class="slds-path__title">{gate.Name}</span>
+                </a>
+                </li>
+            </template>
+        </template>
+        </ul>
+        </div>
+        </div>
+        </div>
+        <div class="slds-grid slds-path__action">
+        <span class="slds-path__stage-name">Stage: Unqualified</span>
+        <button class="slds-button slds-button_brand slds-path__mark-complete" id="button-id" onclick={updateAssignedGatesByProject}>
+        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+        </svg>{buttonName}</button>
+        </div>
+        </div>
+        </div>
+    </lightning-card>
+</template>

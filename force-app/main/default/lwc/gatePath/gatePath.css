@@ -1,0 +1,3 @@
+.slds-path__nav .slds-is-complete .slds-path__title {
+    transform: rotateX(0deg);
+}
