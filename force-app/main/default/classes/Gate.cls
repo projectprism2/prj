@@ -11,12 +11,12 @@ public with sharing class Gate {
     }
 
     @AuraEnabled
-    public static void updateAssignedGatesByProject(Id projectId,Id assignedGateId){
+    public static void updateAssignedGatesByProject(Id projectId,Id gateIdToComplete){
         List<Assigned_Gate__c> assignedGates = getAssignedGatesByProject(projectId);
         for(Assigned_Gate__c ag: assignedGates){
             ag.Status__c = 'Completed';
 
-            if(ag.Id == assignedGateId){
+            if(ag.Id == gateIdToComplete){
                 ag.Status__c = 'In Progress';
                 break;
             }

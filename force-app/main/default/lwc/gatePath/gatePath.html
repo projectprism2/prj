@@ -8,8 +8,8 @@
         <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
         <template if:true={assignedGates}>
             <template for:each={assignedGates} for:item="gate">
-                <li key={gate.Id} class={gate.gateStatus} role="presentation">
-                <a aria-selected="true" class="slds-path__link" href="#" id="path-1" role="option" tabindex="0">
+                <li key={gate.Id} id={gate.Id} class={gate.gateStatus} role="presentation" onclick={identifyGateId}>
+                <a aria-selected="true" class="slds-path__link" href="#" role="option" tabindex="0">
                 <span class="slds-path__stage">
                 <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
