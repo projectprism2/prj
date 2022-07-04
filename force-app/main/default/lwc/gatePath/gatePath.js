@@ -4,9 +4,10 @@ import updateAssignedGatesByProject from '@salesforce/apex/GateAssignmentHandler
 
 export default class GatePath extends LightningElement {
     gateIdToComplete;
-    gateIndex;
+    inProgressGateIndex;
     @track assignedGates=[];
-    gateStatus='slds-path__item slds-is-incomplete'
+    buttonName = 'Mark Gate as Complete';
+    gateStatus='slds-path__item slds-is-incomplete';
     @api recordId;
 
     @wire(getAssignedGatesByProject,{projectId:'$recordId'}) 
@@ -17,7 +18,7 @@ export default class GatePath extends LightningElement {
                 
                 if(gate.Status__c == 'In Progress'){
                     this.gateIdToComplete = gate.Id;
-                    this.gateIndex = gate.Gate__r.Sort_Order__c;
+                    this.inProgressGateIndex = gate.Gate__r.Sort_Order__c;
                     return {Id:gate.Id+'-'+gate.Gate__r.Sort_Order__c,Name:gate.Name,Status:gate.Status__c,gateStatus:'slds-path__item slds-is-active slds-is-current'};
                 }
                 else if(gate.Status__c == 'Completed'){
@@ -53,17 +54,17 @@ export default class GatePath extends LightningElement {
         .then((result) =>{
             // getRecordNotifyChange([{recordId: this.recordId}]);
             console.log('succesfully updated path');
-            console.log(result);
+            // console.log(result);
             // this.refreshAssignedGates();
             const data = result;
             // this.wiredAssignedGates({data:result.data,error:result.error});
             if(data){
-                console.log(data);
+                // console.log(data);
                 this.assignedGates = data.map(gate =>{
                     
                     if(gate.Status__c == 'In Progress'){
                         this.gateIdToComplete = gate.Id;
-                        this.gateIndex = gate.Gate__r.Sort_Order__c;
+                        this.inProgressGateIndex = gate.Gate__r.Sort_Order__c;
                         return {Id:gate.Id+'-'+gate.Gate__r.Sort_Order__c,Name:gate.Name,Status:gate.Status__c,gateStatus:'slds-path__item slds-is-active slds-is-current'};
                     }
                     else if(gate.Status__c == 'Completed'){
@@ -76,6 +77,7 @@ export default class GatePath extends LightningElement {
                     }
                     // else throw new Error('Gate Status not assigned');
                 });
+                this.buttonName = 'Mark Gate as Complete';
             }
             
         })
@@ -105,10 +107,29 @@ export default class GatePath extends LightningElement {
         console.log(event.currentTarget.id);
         let gateId = event.currentTarget.id;
         this.gateIdToComplete = gateId.split('-')[0];
-        this.gateIndex = gateId.split('-')[1];
-        console.log(this.gateIndex);
+        let currentGateIndex = gateId.split('-')[1];
+        console.log(currentGateIndex);
         console.log(this.gateIdToComplete);
-        // the logic should chnage after markstatus button is clicked to IN proggress should be changed to Completed.
+        if(this.inProgressGateIndex != currentGateIndex){
+            this.buttonName = 'Mark as Current Gate';
+        }
+        else{
+            // gatePath.classList.remove('slds-is-active');
+            this.buttonName = 'Mark Gate as Complete';
+        }
+        // const selectedPath = this.template.querySelector("[id="+event.currentTarget.id+"]");
+        // selectedPath.classList.add('slds-is-active');
+        // console.log(selectedPath);
+        let pathItems = this.template.querySelectorAll(".slds-path__item");
+        for(let i=0; i <pathItems.length; i++){
+            // console.log(secondClasses[i]);
+            if(pathItems[i].id != gateId){
+                pathItems[i].classList.remove('slds-is-active');
+            }
+            else{
+                pathItems[i].classList.add('slds-is-active');
+            }
+        }
     }
 
     //This is copied from an article -- not in use

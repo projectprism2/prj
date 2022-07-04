@@ -21,10 +21,13 @@ public with sharing class GateAssignmentHandler {
                 ag.Status__c = 'Completed';
                 if(ag.Id == gateIdToComplete){
                     noOfGatesAfter = 1;
-                    if(currentStatus == 'Completed'){
+                    if(currentStatus != 'In Progress'){
                         ag.Status__c = 'In Progress';
                         noOfGatesAfter = 2;
                     }
+                }
+                if(currentStatus != 'Completed' && ag.Status__c == 'Completed'){
+                    ag.Completed_Date__c = System.now();
                 }
             }
             else if(noOfGatesAfter == 1){
@@ -33,6 +36,9 @@ public with sharing class GateAssignmentHandler {
             }
             else{
                 ag.Status__c = 'Open';
+            }
+            if(ag.Status__c != 'Completed'){
+                ag.Completed_Date__c = null;
             }
         }
         update assignedGates;

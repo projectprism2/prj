@@ -237,9 +237,15 @@ export default class GanttView extends LightningElement {
             {name:"end_date",   label:"End Date",   align:"center", autoWidth: true}
         ];
         gantt.config.open_tree_initially = true;
+        // gantt.config.server_utc = false;
 
         gantt.templates.parse_date = date => new Date(date);
-        gantt.templates.format_date = date => date.toISOString();
+        let dateToStr = gantt.date.date_to_str("%Y-%m-%d",false);
+        gantt.templates.format_date = function(date){
+            return dateToStr (date);
+        };
+        // gantt.templates.format_date = date => date.toString();
+        
         gantt.plugins({
             marker: true,
             fullscreen: true,
@@ -306,12 +312,16 @@ export default class GanttView extends LightningElement {
                         // Start_Date_of_Engagement__c : new Date(data.start_date?.getFullYear(),data.start_date?.getMonth(),data.start_date?.getDate()),
                         Start_Date_of_Engagement__c : data.start_date,
                         // End_Date_of_Engagement__c :new Date(data.end_date?.getFullYear(),data.end_date?.getMonth(),data.end_date?.getDate())
-                        End_Date_of_Engagement__c :data.end_date
+                        End_Date_of_Engagement__c : data.end_date
                         //Duration__c : data.duration,
                         //Parent__c : String(data.parent),
                         //Progress__c : data.progress
                     }};
-                    return updateRecord(update).then(() => ({}));
+                    return updateRecord(update).then((result) => {
+                        console.log(result);
+                    }).catch(error =>{
+                        console.log(error);
+                    });
                 },
                 delete: function(id) {
                     return deleteRecord(id).then(() => ({}));

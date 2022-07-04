@@ -6,13 +6,13 @@ import { loadStyle, loadScript } from 'lightning/platformResourceLoader';
 import { createRecord, updateRecord, deleteRecord } from 'lightning/uiRecordApi';
 
 // Static resources
-import GanttFiles from '@salesforce/resourceUrl/dhtmlxgantt713';
+import GanttFilesForTasks from '@salesforce/resourceUrl/dhtmlxgantt713';
 
 // Controllers
 import getAllTasksAndMilestonesByProject from '@salesforce/apex/GanttDataForTasks.getAllTasksAndMilestonesByProject';
 
 
-function unwrap(fromSF){
+function unwrapTasks(fromSF){
     const data = fromSF.tasks.map(a => ({
         id: a.identifier,
         text: a.displayLabel,
@@ -46,10 +46,10 @@ export default class GanttForTasks extends LightningElement {
         }
         this.ganttInitialized = true;
         Promise.all([
-            loadScript(this, GanttFiles + '/dhtmlxgantt.js'),
-            loadStyle(this, GanttFiles + '/dhtmlxgantt.css'),
+            loadScript(this, GanttFilesForTasks + '/dhtmlxgantt.js'),
+            loadStyle(this, GanttFilesForTasks + '/dhtmlxgantt.css'),
         ]).then(() => {
-            this.initializeUI();
+            this.initializeTaskUI();
         }).catch(error => {
             this.dispatchEvent(
                 new ShowToastEvent({
@@ -150,7 +150,7 @@ export default class GanttForTasks extends LightningElement {
         ganttSection.appendChild(btnGanttZoomOut);
     }
     
-    initializeUI(){
+    initializeTaskUI(){
         const root = this.template.querySelector('.containerTasks');
         root.style.height = this.height + "px";
 
@@ -168,9 +168,15 @@ export default class GanttForTasks extends LightningElement {
             {name:"end_date",   label:"End Date", align: "center", resize: true, width: 80}
         ];
         gantt.config.open_tree_initially = true;
+        // gantt.config.server_utc = true;
 
         gantt.templates.parse_date = date => new Date(date);
-        gantt.templates.format_date = date => date.toISOString();
+        let dateToStr = gantt.date.date_to_str("%Y-%m-%d",false);
+        gantt.templates.format_date = function(date){
+            return new Date(dateToStr(date)).toISOString();
+        };
+        // gantt.templates.format_date = date => date.toISOString();
+        
         
         this.initializeGanttZoom();
         
@@ -216,14 +222,10 @@ export default class GanttForTasks extends LightningElement {
                     text: "Today",
                     title:"Today"
                 });
-                gantt.parse(unwrap(d));
+                gantt.parse(unwrapTasks(d));
             })
         }
         else{
-            // getAllResourcesByProject({}).then(d => {
-            //     gantt.clearAll();
-            //     gantt.parse(unwrap(d));
-            // })
             console.log('Does not work without a record id');
         }
 
@@ -244,7 +246,7 @@ export default class GanttForTasks extends LightningElement {
                         "Start_Date_of_Engagement__c":data.start_date
                     }
                     */
-                    console.log(data.start_date);
+                    // console.log(data.start_date);
                     // let a = createResource({resourcedata : JSON.stringify(resourceJSON)});
                     return createRecord(insert).then(res => {
                         return { tid: 1, ...res };
@@ -264,7 +266,11 @@ export default class GanttForTasks extends LightningElement {
                         //Parent__c : String(data.parent),
                         Progress__c : data.progress * 100
                     }};
-                    return updateRecord(update).then(() => ({}));
+                    return updateRecord(update).then((result) => {
+                        console.log(result);
+                    }).catch(error =>{
+                        console.log(error);
+                    });
                 },
                 delete: function(id) {
                     return deleteRecord(id).then(() => ({}));
