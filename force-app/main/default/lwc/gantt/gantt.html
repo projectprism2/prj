@@ -4,8 +4,8 @@
         <div class="slds-float_right">
             
             <template if:true={ganttInitialized}>
-                <lightning-button id="zoomOut" variant="Neutral" label="Zoom Out" onclick={handleZoomOut} class="slds-var-m-left_x-small" icon-name="utility:zoomout" icon-position="right"></lightning-button>
-                <lightning-button id="zoomIn" variant="Neutral" label="Zoom In" onclick={handleZoomIn} class="slds-var-m-left_x-small" icon-name="utility:zoomin" icon-position="right"></lightning-button>
+                <lightning-button id="zoomOut" variant="Neutral" label="Zoom Out" onclick={handleZoomOut} class="slds-var-m-left_x-small" icon-name="utility:zoomout" icon-position="right"  disabled={disableZoomOut}></lightning-button>
+                <lightning-button id="zoomIn" variant="Neutral" label="Zoom In" onclick={handleZoomIn} class="slds-var-m-left_x-small" icon-name="utility:zoomin" icon-position="right"  disabled={disableZoomIn}></lightning-button>
             </template>
         </div>
     </div>

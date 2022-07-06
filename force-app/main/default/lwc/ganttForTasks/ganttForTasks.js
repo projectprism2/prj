@@ -40,6 +40,8 @@ export default class GanttForTasks extends LightningElement {
     @api height;
     ganttInitialized = false;
     zoomModule;
+    disableZoomOut;
+    disableZoomIn;
 
     renderedCallback() {
         console.log('task rendered callback called');
@@ -57,6 +59,7 @@ export default class GanttForTasks extends LightningElement {
             loadStyle(this, GanttFilesForTasks + '/dhtmlxgantt.css'),
         ]).then(() => {
             this.initializeTaskUI();
+            this.setCanZoom();
         }).catch(error => {
             this.dispatchEvent(
                 new ShowToastEvent({
@@ -318,9 +321,17 @@ export default class GanttForTasks extends LightningElement {
     handleZoomIn(){
         console.log('Task Zoom in called');
         this.zoomModule.zoomIn();
+        this.setCanZoom();
     }
     handleZoomOut(){
         console.log('Task Zoom out called');
         this.zoomModule.zoomOut();
+        this.setCanZoom();
+    }
+
+    setCanZoom() {
+        let level = this.zoomModule.getCurrentLevel();
+        this.disableZoomIn = (level === 0);
+        this.disableZoomOut = (level === 4);
     }
 }
