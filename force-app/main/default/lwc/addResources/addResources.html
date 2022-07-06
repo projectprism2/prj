@@ -1,0 +1,29 @@
+<template>
+
+    <lightning-quick-action-panel header="Add Resources">
+        <template if:false={newResource}>
+            <div class="slds-m-around_medium" >
+                <lightning-button variant="neutral" label="New Resource" onclick={showRecordPage}></lightning-button>
+                <!--<lightning-button class="slds-m-around_medium" label="New" onclick={navigateToNewOpportunity}></lightning-button>-->
+            </div>
+                <lightning-datatable 
+                    key-field="Id"
+                    data={resourcesList}
+                    columns={columns}
+                    onsave={handleSave}
+                    draft-values={fldsItemValues}
+                    min-column-width=200>
+                </lightning-datatable> 
+        </template>
+        
+        <template if:true={newResource}>
+            <lightning-record-form object-api-name="Resource_Engagement__c" layout-type="Full" columns="2" onsuccess={handleSuccess} oncancel={handleSuccess}
+            onsubmit={onSubmitHandler} mode="edit">
+        </lightning-record-form>
+        </template>
+        
+    </lightning-quick-action-panel>
+
+    
+    
+</template>
