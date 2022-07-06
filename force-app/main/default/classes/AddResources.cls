@@ -1,7 +1,10 @@
 public with sharing class AddResources {
     @AuraEnabled
-    public static ResourceWrapper fetchResources(String versionId){
+    public static ResourceWrapper fetchResources(String recordId){
         try {
+            String objectName = ((Id)recordId).getSObjectType().getDescribe().getName();
+            String versionId = objectName=='Project__c'? [select Active_Version__c from Project__c where Id=:recordId].Active_Version__c : recordId;
+
             ResourceWrapper rw = new ResourceWrapper();
             List<FieldWrapper> columns = new List<FieldWrapper>();
 
@@ -24,6 +27,7 @@ public with sharing class AddResources {
             List<SObject> lstRecords = Database.query(query);
             rw.records = lstRecords;
             rw.columns = columns;
+            rw.versionId = versionId;
             return rw;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -35,6 +39,8 @@ public with sharing class AddResources {
         public List<FieldWrapper> columns;
         @AuraEnabled 
         public List<Resource_Engagement__c> records;
+        @AuraEnabled 
+        public String versionId;
     }
 
     public class FieldWrapper{

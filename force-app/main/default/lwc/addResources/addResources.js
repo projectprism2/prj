@@ -6,17 +6,26 @@ import { NavigationMixin } from 'lightning/navigation';
 
 export default class AddResources extends  NavigationMixin(LightningElement) {
     @api recordId;
+    versionid;
     newResource=false;
     columns;
     error;
     resourcesList;
     fldsItemValues = [];
     pageUrl;
-    showRecordPage(){
+    newRecord = false;
+    showResourcePage(){
         this.newResource=true;
+        this.newRecord=true;
+    }
+    showTeamPage(){
+        this.newTeam=true;
+        this.newRecord=true;
     }
     handleSuccess(){
         this.newResource=false;
+        this.newTeam=false;
+        this.newRecord=false;
         //eval("$A.get('e.force:refreshView').fire();");
         this.connectedCallback();
     }
@@ -24,16 +33,16 @@ export default class AddResources extends  NavigationMixin(LightningElement) {
     onSubmitHandler(event){
         event.preventDefault();
         const fields = event.detail.fields;
-        fields.Project_Version__c = this.recordId;
+        fields.Project_Version__c = this.versionId;
         this.template.querySelector('lightning-record-form').submit(fields);
     }
 
     connectedCallback(){
       setTimeout(() => {
         console.log('$recordId'+this.recordId);
-        fetchResources({versionId: this.recordId})
+        fetchResources({recordId: this.recordId})
         .then(data=>{  
-            console.log(JSON.stringify(data));
+            this.versionId = data.versionId;
             let items = []; //local array to prepare columns
             for(let i=0; i<data.columns.length; i++){
                 if(data.columns[i].fieldName == 'Resource__r.Name'){
