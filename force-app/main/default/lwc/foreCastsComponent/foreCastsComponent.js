@@ -24,7 +24,7 @@ export default class ForeCastsComponent extends LightningElement {
 
     connectedCallback(){
         setTimeout(() => {
-          fetchRecords({versionId: this.recordId})
+          fetchRecords({recordId: this.recordId})
           .then(data=>{  
             this.foreCastList = data;
             let headervalues=[];
