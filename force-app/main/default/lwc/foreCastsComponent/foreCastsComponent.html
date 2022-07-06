@@ -40,7 +40,9 @@
                 
             </tbody>
             </table>
-            <lightning-button class="slds-align_absolute-center slds-m-vertical_medium" variant="brand" label="Save" onclick={handleSave}></lightning-button>
+            <div class="slds-align_absolute-center slds-m-vertical_medium">
+                <lightning-button id="saveForecast" variant="brand" label="Save" onclick={handleSave}></lightning-button>
+            </div>
         </div>
     </template>
 </template>

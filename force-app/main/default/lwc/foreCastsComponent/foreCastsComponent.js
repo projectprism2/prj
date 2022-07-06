@@ -1,6 +1,7 @@
 import { LightningElement, api } from 'lwc';
 import fetchRecords from '@salesforce/apex/ForeCastController.fetchRecords';
 import saveRecords from '@salesforce/apex/ForeCastController.saveRecords';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 const Months = new Map([
   ['1', 'Jan'],
   ['2', 'Feb'],
@@ -57,9 +58,23 @@ export default class ForeCastsComponent extends LightningElement {
       saveRecords({foreCastList: this.foreCastList})
       .then(data=>{  
         this.connectedCallback();
+        this.dispatchEvent(
+          new ShowToastEvent({
+              title: 'Success',
+              message: 'Forecast records saved sucessfully',
+              variant: 'success',
+          }),
+      );
       }).catch(error =>{
         this.error = error;
         this.foreCastList = undefined;
+        this.dispatchEvent(
+          new ShowToastEvent({
+              title: 'Error',
+              message: error.message,
+              variant: 'error',
+          }),
+      );
     })
   }
 
