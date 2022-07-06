@@ -42,7 +42,7 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>foreCastsComponent</componentName>
+                <componentName>forecastComponent</componentName>
             </componentInstance>
         </itemInstances>
         <itemInstances>

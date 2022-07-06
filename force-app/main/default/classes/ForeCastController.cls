@@ -1,12 +1,12 @@
-public with sharing class ForeCastController {
+public with sharing class ForecastController {
 
     @AuraEnabled
-    public static List<ForeCast__c> fetchRecords(String recordId){
+    public static List<Forecast__c> fetchRecords(String recordId){
         try {
             System.debug('recordId--'+recordId);
             String objectName = ((Id)recordId).getSObjectType().getDescribe().getName();
             String versionId = objectName=='Project__c'? [select Active_Version__c from Project__c where Id=:recordId].Active_Version__c : recordId;
-            return [SELECT Id, Name, Year__c, Month__c, Labour__c, Materials__c, Fixed_Costs__c, Total__c, Project_Version__c from ForeCast__c where Project_Version__c=:versionId ORDER BY Name];
+            return [SELECT Id, Name, Year__c, Month__c, Labour__c, Materials__c, Fixed_Costs__c, Total__c, Project_Version__c from Forecast__c where Project_Version__c=:versionId ORDER BY Name];
 
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -14,12 +14,12 @@ public with sharing class ForeCastController {
     }
 
     @AuraEnabled
-    public static List<ForeCast__c> saveRecords(List<ForeCast__c> foreCastList){
+    public static List<Forecast__c> saveRecords(List<Forecast__c> forecastList){
         try {
-            if(!foreCastList.isEmpty()){
-                update foreCastList;
+            if(!forecastList.isEmpty()){
+                update forecastList;
             }
-            return foreCastList;
+            return forecastList;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

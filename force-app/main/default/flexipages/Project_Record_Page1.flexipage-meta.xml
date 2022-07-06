@@ -64,7 +64,7 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>foreCastsComponent</componentName>
+                <componentName>forecastComponent</componentName>
             </componentInstance>
         </itemInstances>
         <name>Facet-75444dcc-987c-49ad-ab03-a04e407c6afe</name>

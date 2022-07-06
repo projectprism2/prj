@@ -125,25 +125,25 @@ public class ProjectVersionTriggerHandler {
         }
     }
 
-    public static void handleForeCastingAfterInsert(List<Project_Version__c> projectVersionList){	
-        List<Forecast__c> foreCastList = new List<Forecast__c>();	
+    public static void handleForecastingAfterInsert(List<Project_Version__c> projectVersionList){	
+        List<Forecast__c> forecastList = new List<Forecast__c>();	
         for(Project_Version__c pv : projectVersionList){	
             Date startDate = pv.Start_Date__c;	
             Integer numberOfMonths = pv.Release_Date__c!=NULL? (startDate.monthsBetween(pv.Release_Date__c) >= 12 ? 12 : startDate.monthsBetween(pv.Release_Date__c)+1) : 12;	
             system.System.debug('numberOfMonths--'+numberOfMonths);	
-            Date foreCastDate = pv.Start_Date__c;	
+            Date forecastDate = pv.Start_Date__c;	
             for(Integer i = 0 ; i < numberOfMonths; i++){	
-                system.System.debug('foreCastDate--'+foreCastDate);	
+                system.System.debug('forecastDate--'+forecastDate);	
                 Forecast__c fc = new Forecast__c();	
                 fc.Project_Version__c = pv.Id;	
-                fc.Year__c = String.ValueOf(foreCastDate.year());	
-                fc.Month__c = String.ValueOf(foreCastDate.month());	
-                foreCastList.add(fc);	
-                foreCastDate = foreCastDate.addMonths(1);	
+                fc.Year__c = String.ValueOf(forecastDate.year());	
+                fc.Month__c = String.ValueOf(forecastDate.month());	
+                forecastList.add(fc);	
+                forecastDate = forecastDate.addMonths(1);	
             }	
         }	
-        if(foreCastList.size()>0){	
-            insert foreCastList;	
+        if(forecastList.size()>0){	
+            insert forecastList;	
         }
     }
 }

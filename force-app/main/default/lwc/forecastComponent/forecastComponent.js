@@ -1,6 +1,6 @@
 import { LightningElement, api } from 'lwc';
-import fetchRecords from '@salesforce/apex/ForeCastController.fetchRecords';
-import saveRecords from '@salesforce/apex/ForeCastController.saveRecords';
+import fetchRecords from '@salesforce/apex/ForecastController.fetchRecords';
+import saveRecords from '@salesforce/apex/ForecastController.saveRecords';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 const Months = new Map([
   ['1', 'Jan'],
@@ -17,45 +17,45 @@ const Months = new Map([
   ['12', 'Dec'],
 ]);
 
-export default class ForeCastsComponent extends LightningElement {
+export default class ForecastsComponent extends LightningElement {
     @api recordId;
     headers;
-    foreCastList = [];
+    forecastList = [];
   months=Months;
 
     connectedCallback(){
         setTimeout(() => {
           fetchRecords({recordId: this.recordId})
           .then(data=>{  
-            this.foreCastList = data;
+            this.forecastList = data;
             let headervalues=[];
-            this.foreCastList.forEach(element => {
+            this.forecastList.forEach(element => {
               headervalues.push({key:element.Month__c, value:Months.get(element.Month__c)});
             });
             this.headers = headervalues;
           }).catch(error =>{
             this.error = error;
-            this.foreCastList = undefined;
+            this.forecastList = undefined;
         }) },5);
     }
     handleLabourChange(event){
-      let foundelement = this.foreCastList.find(ele => ele.Id == event.target.dataset.id);
+      let foundelement = this.forecastList.find(ele => ele.Id == event.target.dataset.id);
         foundelement.Labour__c = event.target.value;
-        this.foreCastList = [...this.foreCastList];
+        this.forecastList = [...this.forecastList];
     }
     handleMaterialChange(event){
-      let foundelement = this.foreCastList.find(ele => ele.Id == event.target.dataset.id);
+      let foundelement = this.forecastList.find(ele => ele.Id == event.target.dataset.id);
         foundelement.Materials__c = event.target.value;
-        this.foreCastList = [...this.foreCastList];
+        this.forecastList = [...this.forecastList];
 
     }
     handleFixedCostChange(event){
-      let foundelement = this.foreCastList.find(ele => ele.Id == event.target.dataset.id);
+      let foundelement = this.forecastList.find(ele => ele.Id == event.target.dataset.id);
       foundelement.Fixed_Costs__c = event.target.value;
-      this.foreCastList = [...this.foreCastList];
+      this.forecastList = [...this.forecastList];
     }
     handleSave(){
-      saveRecords({foreCastList: this.foreCastList})
+      saveRecords({forecastList: this.forecastList})
       .then(data=>{  
         this.connectedCallback();
         this.dispatchEvent(
@@ -67,7 +67,7 @@ export default class ForeCastsComponent extends LightningElement {
       );
       }).catch(error =>{
         this.error = error;
-        this.foreCastList = undefined;
+        this.forecastList = undefined;
         this.dispatchEvent(
           new ShowToastEvent({
               title: 'Error',
