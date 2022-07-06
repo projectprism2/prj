@@ -39,11 +39,18 @@ export default class GanttForTasks extends LightningElement {
 
     @api height;
     ganttInitialized = false;
+    zoomModule;
 
     renderedCallback() {
+        console.log('task rendered callback called');
         if (this.ganttInitialized) {
             return;
         }
+        console.log('task rendered callback loading Gantt');
+        this.loadTaskGantt();
+    }
+
+    loadTaskGantt(){
         this.ganttInitialized = true;
         Promise.all([
             loadScript(this, GanttFilesForTasks + '/dhtmlxgantt.js'),
@@ -64,22 +71,22 @@ export default class GanttForTasks extends LightningElement {
     
 
     initializeGanttZoom(){
-        const btnGanttZoomIn = document.createElement("input");
-        //Assign different attributes to the element. 
-        btnGanttZoomIn.id = 'btnGanttZoomIn';
-        btnGanttZoomIn.type = 'button';
-        btnGanttZoomIn.value = 'Zoom In';
-        btnGanttZoomIn.style = 'color:black';
+        // const btnGanttZoomIn = document.createElement("input");
+        // //Assign different attributes to the element. 
+        // btnGanttZoomIn.id = 'btnGanttZoomIn';
+        // btnGanttZoomIn.type = 'button';
+        // btnGanttZoomIn.value = 'Zoom In';
+        // btnGanttZoomIn.style = 'color:black';
 
-        const btnGanttZoomOut = document.createElement("input");
-        //Assign different attributes to the element. 
-        btnGanttZoomOut.id = 'btnGanttZoomOut';
-        btnGanttZoomOut.type = 'button';
-        btnGanttZoomOut.value = 'Zoom Out';
-        btnGanttZoomOut.style = 'color:black';
+        // const btnGanttZoomOut = document.createElement("input");
+        // //Assign different attributes to the element. 
+        // btnGanttZoomOut.id = 'btnGanttZoomOut';
+        // btnGanttZoomOut.type = 'button';
+        // btnGanttZoomOut.value = 'Zoom Out';
+        // btnGanttZoomOut.style = 'color:black';
         
-        const zoomModule = gantt.ext.zoom;
-            zoomModule.init({
+        this.zoomModule = gantt.ext.zoom;
+        this.zoomModule.init({
             levels: [
             {
                 name:"day",
@@ -137,17 +144,17 @@ export default class GanttForTasks extends LightningElement {
             }
             ]
         });
-        zoomModule.setLevel("week");
+        this.zoomModule.setLevel("week");
 
-        btnGanttZoomIn.onclick = function(){
-            zoomModule.zoomIn();
-        }
-        btnGanttZoomOut.onclick = function(){
-            zoomModule.zoomOut();
-        }
-        var ganttSection = this.template.querySelector('.ganttChartForTasks');
-        ganttSection.appendChild(btnGanttZoomIn);
-        ganttSection.appendChild(btnGanttZoomOut);
+        // btnGanttZoomIn.onclick = function(){
+        //     zoomModule.zoomIn();
+        // }
+        // btnGanttZoomOut.onclick = function(){
+        //     zoomModule.zoomOut();
+        // }
+        // var ganttSection = this.template.querySelector('.ganttChartForTasks');
+        // ganttSection.appendChild(btnGanttZoomIn);
+        // ganttSection.appendChild(btnGanttZoomOut);
     }
     
     initializeTaskUI(){
@@ -302,5 +309,18 @@ export default class GanttForTasks extends LightningElement {
              }
         }).init(gantt);
         
+    }
+
+    handleRefreshData(){
+        console.log('Task refresh data called');
+        this.loadTaskGantt();
+    }
+    handleZoomIn(){
+        console.log('Task Zoom in called');
+        this.zoomModule.zoomIn();
+    }
+    handleZoomOut(){
+        console.log('Task Zoom out called');
+        this.zoomModule.zoomOut();
     }
 }
