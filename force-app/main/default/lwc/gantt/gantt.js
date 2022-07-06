@@ -66,6 +66,14 @@ export default class GanttView extends LightningElement {
     }
 
     toggleGroups(cRecordId){
+        function addTodayMarkerFunc(){
+            gantt.addMarker({
+                start_date: new Date(),
+                css: "today",
+                text: "Today",
+                title:"Today"
+            });
+        }
         var element = document.createElement("input");
         //Assign different attributes to the element. 
         element.id = 'toggleView';
@@ -77,7 +85,7 @@ export default class GanttView extends LightningElement {
                 if(cRecordId != '' && cRecordId!=undefined){
                     getResourcesByProject({currentRecordId:cRecordId}).then(d => {
                         gantt.clearAll();
-                        this.addTodayMarker();
+                        addTodayMarkerFunc();
                         gantt.parse(unwrap(d));
                     });
                     let elem = document.getElementById('toggleView');
@@ -87,7 +95,7 @@ export default class GanttView extends LightningElement {
                 else{
                     getAllResourcesByProject().then(d => {
                         gantt.clearAll();
-                        this.addTodayMarker();
+                        addTodayMarkerFunc();
                         gantt.parse(unwrap(d));
                     });
                     let elem = document.getElementById('toggleView');
@@ -99,7 +107,7 @@ export default class GanttView extends LightningElement {
                 if(cRecordId != '' && cRecordId!=undefined){
                     getProjectsByResource({currentRecordId:cRecordId}).then(d => {
                         gantt.clearAll();
-                        this.addTodayMarker();
+                        addTodayMarkerFunc();
                         gantt.parse(unwrap(d));
                     });
                     let elemt = document.getElementById('toggleView');
@@ -109,7 +117,7 @@ export default class GanttView extends LightningElement {
                 else{
                     getAllProjectsByResource().then(d => {
                         gantt.clearAll();
-                        this.addTodayMarker();
+                        addTodayMarkerFunc();
                         gantt.parse(unwrap(d));
                     });
                     let elemt = document.getElementById('toggleView');
