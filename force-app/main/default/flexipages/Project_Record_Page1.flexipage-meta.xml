@@ -38,6 +38,15 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>force:detailPanel</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-70d94398-a072-4308-a9d2-5b01783dd33c</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>height</name>
                     <value>300</value>
@@ -46,6 +55,15 @@
             </componentInstance>
         </itemInstances>
         <name>Facet-e3a040e5-3404-4fb4-88bf-d8d3ca98db63</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>forecastComponent</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-75444dcc-987c-49ad-ab03-a04e407c6afe</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -64,26 +82,17 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>forecastComponent</componentName>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-75444dcc-987c-49ad-ab03-a04e407c6afe</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
                 <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-e3a040e5-3404-4fb4-88bf-d8d3ca98db63</value>
+                    <value>Facet-70d94398-a072-4308-a9d2-5b01783dd33c</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Gantt</value>
+                    <value>Standard.Tab.detail</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
@@ -91,12 +100,16 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>active</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-51d07cd8-3aa4-4d6a-8052-0b7cadf7af05</value>
+                    <value>Facet-e3a040e5-3404-4fb4-88bf-d8d3ca98db63</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Task</value>
+                    <value>Resource</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
@@ -109,7 +122,20 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Forecast</value>
+                    <value>Financial</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-51d07cd8-3aa4-4d6a-8052-0b7cadf7af05</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Gantt</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
@@ -125,11 +151,6 @@
                     <value>Facet-860a8124-9794-422d-a278-adcfb8b64e0a</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>force:detailPanel</componentName>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
