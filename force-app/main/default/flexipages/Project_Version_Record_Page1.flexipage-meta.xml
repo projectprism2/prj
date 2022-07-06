@@ -42,6 +42,11 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentName>foreCastsComponent</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>force:detailPanel</componentName>
             </componentInstance>
         </itemInstances>
