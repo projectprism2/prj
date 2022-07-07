@@ -13,6 +13,7 @@
                             <template for:each={headers} for:item="header">
                                 <th key={header.key}><span class="slds-align_absolute-center">{header.value}</span></th>
                             </template>
+                            <!-- <th>Totals</th> -->
                         </thead>
                         <tbody>
                             <tr>
@@ -24,6 +25,9 @@
                                         <lightning-input data-id={forecast.Id} variant="label-hidden" type="number" value={forecast.Labour__c}  onchange={handleLabourChange}></lightning-input>
                                     </td>
                                 </template>
+                                <!-- <td>
+                                    <b>{projectVersion.Total_Labour_Forecast__c}</b>
+                                </td> -->
                             </tr>
                                 <td>
                                     <b>Materials</b>
@@ -33,6 +37,9 @@
                                         <lightning-input data-id={forecast.Id} variant="label-hidden" type="number" value={forecast.Materials__c} onchange={handleMaterialChange}></lightning-input>
                                     </td>
                                 </template>
+                                <!-- <td>
+                                    <b>{projectVersion.Total_Material_Forecast__c}</b>
+                                </td> -->
                             </tr>
                                 <td>
                                     <b>Fixed costs</b>
@@ -51,6 +58,9 @@
                                         <lightning-formatted-number  class="slds-align_absolute-center" value={forecast.Total__c} format-style="currency"></lightning-formatted-number>
                                     </td>
                                 </template>
+                                <!-- <td>
+                                    <b>{projectVersion.Total_Forecast__c}</b>
+                                </td> -->
                             </tr>
                                 
                         </tbody>
