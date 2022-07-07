@@ -155,10 +155,9 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Engaged Team</label>
     <nameField>
-        <displayFormat>ET# {YY}{MM}{DD}-{00000}</displayFormat>
-        <label>Engaged Team Name</label>
+        <label>Name</label>
         <trackHistory>false</trackHistory>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Engaged Teams</pluralLabel>
     <searchLayouts></searchLayouts>
