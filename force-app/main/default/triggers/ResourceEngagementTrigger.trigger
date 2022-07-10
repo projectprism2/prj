@@ -2,11 +2,23 @@ trigger ResourceEngagementTrigger on Resource_Engagement__c (before insert, afte
     
     if(trigger.isBefore && (trigger.isInsert || trigger.isUpdate)){
         Set<Id> engagedTeamIdSet = new Set<Id>();
+        Set<Id> teamIdSet = new Set<Id>();
+        Set<Id> projectVersionIdSet = new Set<Id>();
+        Set<String> teamVersionIdSet = new Set<String>();
+        Map<String,Engaged_Team__c> newEngagedTeamMap = new Map<String,Engaged_Team__c>();
         List<Resource_Engagement__c> reListWithoutTeam = new List<Resource_Engagement__c>();
+        List<Resource_Engagement__c> reListWithoutEngagedTeam = new List<Resource_Engagement__c>();
         for(Resource_Engagement__c re: Trigger.new){
             if(re.Engaged_Team__c != NULL){
                 engagedTeamIdSet.add(re.Engaged_Team__c);
                 reListWithoutTeam.add(re);
+            }
+            else if(re.Engaged_Team__c==NULL && re.Team__c!=NULL){
+                teamIdSet.add(re.Team__c);
+                projectVersionIdSet.add(re.Project_Version__c);
+                reListWithoutEngagedTeam.add(re);
+                Engaged_Team__c et = new Engaged_Team__c(Project_Version__c = re.Project_Version__c , Team__c= re.Team__c);
+                newEngagedTeamMap.put(re.Team__c+'-'+re.Project_Version__c,et);
             }
         }
         if(!engagedTeamIdSet.isEmpty()){
@@ -15,6 +27,24 @@ trigger ResourceEngagementTrigger on Resource_Engagement__c (before insert, afte
                 if(engagedTeamMap.containsKey(reWithoutTeam.Engaged_Team__c)){
                     reWithoutTeam.Team__c = engagedTeamMap.get(reWithoutTeam.Engaged_Team__c).Team__c;
                 }                
+            }
+        }
+        if(!teamIdSet.isEmpty()){
+            Map<String,Engaged_Team__c> engagedTeamMap = new Map<String,Engaged_Team__c>();
+            for(Engaged_Team__c et : [SELECT Id, Team__c, Project_Version__c FROM Engaged_Team__c WHERE Team__c IN: teamIdSet AND Project_Version__c IN: projectVersionIdSet]){
+                String teamVersionId = et.Team__c+'-'+et.Project_Version__c;
+                if(newEngagedTeamMap.containsKey(teamVersionId)){
+                    engagedTeamMap.put(teamVersionId,et);
+                    newEngagedTeamMap.remove(teamVersionId);
+                }
+            }
+            if(!newEngagedTeamMap.isEmpty()){
+                insert newEngagedTeamMap.values();
+            }
+            engagedTeamMap.putAll(newEngagedTeamMap);
+            for(Resource_Engagement__c resourceEngagement: reListWithoutEngagedTeam){
+                String teamVersionId = resourceEngagement.Team__c+'-'+resourceEngagement.Project_Version__c;
+                resourceEngagement.Engaged_Team__c = engagedTeamMap.get(teamVersionId).Id;
             }
         }
         
