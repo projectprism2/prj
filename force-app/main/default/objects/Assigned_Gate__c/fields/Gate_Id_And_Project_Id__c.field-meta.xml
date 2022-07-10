@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Sort_Order__c</fullName>
+    <fullName>Gate_Id_And_Project_Id__c</fullName>
+    <caseSensitive>true</caseSensitive>
     <externalId>false</externalId>
-    <label>Sort Order</label>
-    <precision>2</precision>
+    <label>Gate Id And Project Id</label>
+    <length>50</length>
     <required>false</required>
-    <scale>0</scale>
     <trackTrending>false</trackTrending>
-    <type>Number</type>
+    <type>Text</type>
     <unique>true</unique>
 </CustomField>
