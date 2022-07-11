@@ -206,11 +206,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Gates__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Portfolio__c</field>
             <table>Project__c</table>
         </columns>

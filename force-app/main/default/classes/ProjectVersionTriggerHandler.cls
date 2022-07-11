@@ -41,6 +41,7 @@ public class ProjectVersionTriggerHandler {
         if(!clonedFromIdToClonesMap.isEmpty()){
             handleCloningAfterInsert(clonedFromIdToClonesMap);
         }
+        handleForecastingAfterInsert(newVersionMap.values());
     }
     
     /* this method is called from handleAfterInsert method,
@@ -121,6 +122,28 @@ public class ProjectVersionTriggerHandler {
             
             insert reListToInsert;
             insert meListToInsert;
+        }
+    }
+
+    public static void handleForecastingAfterInsert(List<Project_Version__c> projectVersionList){	
+        List<Forecast__c> forecastList = new List<Forecast__c>();	
+        for(Project_Version__c pv : projectVersionList){	
+            Date startDate = pv.Start_Date__c;	
+            Integer numberOfMonths = pv.Release_Date__c!=NULL? (startDate.monthsBetween(pv.Release_Date__c) >= 12 ? 12 : startDate.monthsBetween(pv.Release_Date__c)+1) : 12;	
+            system.System.debug('numberOfMonths--'+numberOfMonths);	
+            Date forecastDate = pv.Start_Date__c;	
+            for(Integer i = 0 ; i < numberOfMonths; i++){	
+                system.System.debug('forecastDate--'+forecastDate);	
+                Forecast__c fc = new Forecast__c();	
+                fc.Project_Version__c = pv.Id;	
+                fc.Year__c = String.ValueOf(forecastDate.year());	
+                fc.Month__c = String.ValueOf(forecastDate.month());	
+                forecastList.add(fc);	
+                forecastDate = forecastDate.addMonths(1);	
+            }	
+        }	
+        if(forecastList.size()>0){	
+            insert forecastList;	
         }
     }
 }

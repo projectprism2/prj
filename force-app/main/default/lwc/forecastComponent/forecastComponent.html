@@ -1,0 +1,65 @@
+<template>
+    <!-- <div class="slds-clearfix slds-var-m-bottom_x-small">
+        <lightning-button id="refreshData" variant="brand" label="Refresh" onclick={handleRefreshData} icon-name="utility:refresh" icon-position="right"></lightning-button>
+    </div> -->
+    <template if:true={forecastList}>
+        <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+            <lightning-accordion-section name="ForecastModelling" label="Forecast Modelling">
+                <!-- <div class="slds-text-heading_medium">Forecast Modelling</div> -->
+                <div class="slds-scrollable" style="background-color: white;">
+                    <table class="slds-table slds-table_bordered slds-scrollable">
+                        <thead>
+                            <th></th>
+                            <template for:each={headers} for:item="header">
+                                <th key={header.key}><span class="slds-align_absolute-center">{header.value}</span></th>
+                            </template>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b>Labour</b>
+                                </td>
+                                <template for:each={forecastList} for:item="forecast">
+                                    <td key={forecast.Id}>
+                                        <lightning-input data-id={forecast.Id} variant="label-hidden" type="number" value={forecast.Labour__c}  onchange={handleLabourChange}></lightning-input>
+                                    </td>
+                                </template>
+                            </tr>
+                                <td>
+                                    <b>Materials</b>
+                                </td>
+                                <template for:each={forecastList} for:item="forecast">
+                                    <td key={forecast.Id}>
+                                        <lightning-input data-id={forecast.Id} variant="label-hidden" type="number" value={forecast.Materials__c} onchange={handleMaterialChange}></lightning-input>
+                                    </td>
+                                </template>
+                            </tr>
+                                <td>
+                                    <b>Fixed costs</b>
+                                </td>
+                                <template for:each={forecastList} for:item="forecast">
+                                    <td key={forecast.Id}>
+                                        <lightning-input data-id={forecast.Id} variant="label-hidden" type="number" value={forecast.Fixed_Costs__c} onchange={handleFixedCostChange}></lightning-input>
+                                    </td>
+                                </template>
+                            </tr>
+                                <td>
+                                    <b>Totals</b>
+                                </td>
+                                <template for:each={forecastList} for:item="forecast">
+                                    <td key={forecast.Id}>
+                                        <lightning-formatted-number  class="slds-align_absolute-center" value={forecast.Total__c} format-style="currency"></lightning-formatted-number>
+                                    </td>
+                                </template>
+                            </tr>
+                                
+                        </tbody>
+                    </table>
+                    <div class="slds-align_absolute-center slds-var-m-vertical_medium">
+                        <lightning-button id="saveForecast" variant="brand" label="Save" onclick={handleSave}></lightning-button>
+                    </div>
+                </div>
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </template>
+</template>

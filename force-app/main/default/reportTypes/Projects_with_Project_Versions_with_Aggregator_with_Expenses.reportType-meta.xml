@@ -145,11 +145,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Gates__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Impact__c</field>
             <table>Project__c</table>
         </columns>
@@ -363,27 +358,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Fixed_Cost_Allocation__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Funding_Source__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Impact__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Labour_Cost_Allocation__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Material_Cost_Allocation__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>

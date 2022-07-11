@@ -27,6 +27,31 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Assigned_Gate__c.Completed_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Assigned_Gate__c.Due_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Assigned_Gate__c.Program__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Assigned_Gate__c.Project__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Assigned_Gate__c.Weighting__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Business_Case__c.Attached__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -143,6 +168,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Forecast__c.Year__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Gate__c.Sort_Order__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -522,11 +552,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Project__c.Gates__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Project__c.Impact__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -755,6 +780,41 @@
         <field>Resource_Engagement__c.Team__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task_Milestone__c.Completed_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task_Milestone__c.Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task_Milestone__c.Is_Milestone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task_Milestone__c.Parent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task_Milestone__c.Program__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task_Milestone__c.Project__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task_Milestone__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Developer Permission Set</label>
     <objectPermissions>
@@ -764,6 +824,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Aggregator__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Assigned_Gate__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -835,7 +904,7 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>Gates__c</object>
+        <object>Gate__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -925,6 +994,15 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
+        <object>Task_Milestone__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>Team__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -969,7 +1047,7 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
-        <tab>Gates__c</tab>
+        <tab>Gate__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>

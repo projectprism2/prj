@@ -264,7 +264,12 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <relatedList>Budget_Aggregator__c.Project_Version__c</relatedList>
+        <relatedList>Aggregator__c.Project_Version__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Team__c.NAME</fields>
+        <relatedList>Engaged_Team__c.Project_Version__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
@@ -272,7 +277,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h1y000001riNa</masterLabel>
+        <masterLabel>00h6D000002AnPK</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

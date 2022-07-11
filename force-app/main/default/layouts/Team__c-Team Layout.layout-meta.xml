@@ -50,6 +50,12 @@
     </layoutSections>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>Project_Version__c.Is_Primary__c</fields>
+        <fields>Project_Version__c.Status__c</fields>
+        <relatedList>Engaged_Team__c.Team__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
         <fields>Resource__c</fields>
         <fields>Status__c</fields>
         <fields>Project_Version__c</fields>
@@ -85,7 +91,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h0p000001XtQ4</masterLabel>
+        <masterLabel>00h1y000001riNf</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
