@@ -1,5 +1,7 @@
 trigger MaterialEngagementTrigger on Material_Engagement__c (after insert, after update, before delete, after undelete) {
-	Set<Id> projectVersionIdSet = new Set<Id>();
+	// Converting the follwing into a rollup summary field
+    /*
+    Set<Id> projectVersionIdSet = new Set<Id>();
     Set<Id> meDeletedIdSet = new Set<Id>();
     for(Material_Engagement__c me: (Trigger.isDelete ? Trigger.old : Trigger.new)){
         if(me.Project_Version__c != null){
@@ -30,4 +32,5 @@ trigger MaterialEngagementTrigger on Material_Engagement__c (after insert, after
     catch(Exception e){
         System.debug('Exception in Material Engagement trigger: '+e.getMessage());
     }
+    */
 }
