@@ -20,6 +20,8 @@ trigger ResourceEngagementTrigger on Resource_Engagement__c (before insert, afte
         
     }
     else{
+        // Converting the follwing into a rollup summary field - unable to convert as the Engagement_Cost__c field uses Contact's field
+        
         Set<Id> projectVersionIdSet = new Set<Id>();
         Set<Id> reDeletedIdSet = new Set<Id>();
         for(Resource_Engagement__c re: (Trigger.isDelete ? Trigger.old : Trigger.new)){
@@ -51,5 +53,6 @@ trigger ResourceEngagementTrigger on Resource_Engagement__c (before insert, afte
         catch(Exception e){
             System.debug('Exception in Resource Engagement trigger: '+e.getMessage());
         }
+        
     }    
 }

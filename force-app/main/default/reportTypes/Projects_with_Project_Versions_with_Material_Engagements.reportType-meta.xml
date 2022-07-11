@@ -3,16 +3,16 @@
     <baseObject>Project__c</baseObject>
     <category>other</category>
     <deployed>true</deployed>
-    <description>Projects with Project Versions with Aggregator</description>
+    <description>Projects with Project Versions with Material Engagements</description>
     <join>
         <join>
             <outerJoin>false</outerJoin>
-            <relationship>Aggregator__r</relationship>
+            <relationship>Material_Engagements__r</relationship>
         </join>
         <outerJoin>false</outerJoin>
         <relationship>Project_Versions__r</relationship>
     </join>
-    <label>Projects with Project Versions with Aggregator</label>
+    <label>Projects with Project Versions with Material Engagements</label>
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
@@ -231,11 +231,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Release_Qtr_and_Year__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Required_Gates__c</field>
             <table>Project__c</table>
         </columns>
@@ -267,6 +262,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Targeted_Release__c</field>
+            <table>Project__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Release_Qtr_and_Year__c</field>
             <table>Project__c</table>
         </columns>
         <masterLabel>Projects</masterLabel>
@@ -354,12 +354,27 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Fixed_Cost_Budget__c</field>
+            <table>Project__c.Project_Versions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Funding_Source__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Impact__c</field>
+            <table>Project__c.Project_Versions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Labour_Cost_Budget__c</field>
+            <table>Project__c.Project_Versions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Material_Cost_Budget__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>
@@ -394,11 +409,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Release_Qtr_and_Year__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Required_Gates__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
@@ -424,7 +434,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Total_Forecast__c</field>
+            <field>Total_Labour_Engaged_Cost_old__c</field>
+            <table>Project__c.Project_Versions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Material_Engaged_Cost__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>
@@ -434,7 +449,22 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Total_Material_Forecast__c</field>
+            <table>Project__c.Project_Versions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Is_Primary__c</field>
+            <table>Project__c.Project_Versions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Release_Qtr_and_Year__c</field>
+            <table>Project__c.Project_Versions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Forecast__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>
@@ -448,63 +478,58 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Id</field>
-            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+            <table>Project__c.Project_Versions__r.Material_Engagements__r</table>
         </columns>
         <columns>
             <checkedByDefault>true</checkedByDefault>
             <field>Name</field>
-            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+            <table>Project__c.Project_Versions__r.Material_Engagements__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>CreatedDate</field>
-            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+            <table>Project__c.Project_Versions__r.Material_Engagements__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>CreatedBy</field>
-            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+            <table>Project__c.Project_Versions__r.Material_Engagements__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>LastModifiedDate</field>
-            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+            <table>Project__c.Project_Versions__r.Material_Engagements__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>LastModifiedBy</field>
-            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+            <table>Project__c.Project_Versions__r.Material_Engagements__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Financial__c</field>
-            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+            <field>LastActivityDate</field>
+            <table>Project__c.Project_Versions__r.Material_Engagements__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Month__c</field>
-            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+            <field>Material__c</field>
+            <table>Project__c.Project_Versions__r.Material_Engagements__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Year__c</field>
-            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+            <field>Price__c</field>
+            <table>Project__c.Project_Versions__r.Material_Engagements__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Labour_Expense__c</field>
-            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+            <field>Quantity__c</field>
+            <table>Project__c.Project_Versions__r.Material_Engagements__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Material_Expense__c</field>
-            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+            <field>Amount__c</field>
+            <table>Project__c.Project_Versions__r.Material_Engagements__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Fixed_Expense__c</field>
-            <table>Project__c.Project_Versions__r.Aggregator__r</table>
-        </columns>
-        <masterLabel>Aggregator</masterLabel>
+        <masterLabel>Material Engagements</masterLabel>
     </sections>
 </ReportType>

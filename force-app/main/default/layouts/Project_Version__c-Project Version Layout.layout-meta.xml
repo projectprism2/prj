@@ -162,8 +162,8 @@
                 <field>Total_Labour_Engaged_Cost__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Total_Material_Engaged_Cost__c</field>
+                <behavior>Readonly</behavior>
+                <field>Total_Material_Cost__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

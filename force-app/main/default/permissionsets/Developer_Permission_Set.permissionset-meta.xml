@@ -192,11 +192,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Material_Engagement__c.Project_Version__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Material_Engagement__c.Quantity__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -453,11 +448,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Project_Version__c.Total_Labour_Forecast__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Project_Version__c.Total_Material_Engaged_Cost__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -758,11 +748,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Resource_Engagement__c.Progress__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Resource_Engagement__c.Project_Version__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
