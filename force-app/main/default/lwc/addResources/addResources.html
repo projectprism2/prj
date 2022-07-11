@@ -1,10 +1,10 @@
 <template>
 
     <lightning-quick-action-panel header="Add Resources">
-        <template if:false={newResource}>
+        <template if:false={newRecord}>
             <div class="slds-m-around_medium" >
-                <lightning-button variant="neutral" label="New Resource" onclick={showRecordPage}></lightning-button>
-                <!--<lightning-button class="slds-m-around_medium" label="New" onclick={navigateToNewOpportunity}></lightning-button>-->
+                <lightning-button variant="neutral" label="New Resource" class="slds-m-right_medium" onclick={showResourcePage}></lightning-button>
+                <lightning-button variant="neutral" label="New Team" onclick={showTeamPage}></lightning-button>
             </div>
                 <lightning-datatable 
                     key-field="Id"
@@ -21,7 +21,12 @@
             onsubmit={onSubmitHandler} mode="edit">
         </lightning-record-form>
         </template>
-        
+        <template if:true={newTeam}>
+            <lightning-record-form object-api-name="Team__c" layout-type="Full" columns="2" onsuccess={handleSuccess} oncancel={handleSuccess}
+             mode="edit">
+        </lightning-record-form>
+        </template>
+
     </lightning-quick-action-panel>
 
     
