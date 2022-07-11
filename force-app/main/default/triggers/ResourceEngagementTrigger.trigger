@@ -2,11 +2,17 @@ trigger ResourceEngagementTrigger on Resource_Engagement__c (before insert, afte
     
     if(trigger.isBefore && (trigger.isInsert || trigger.isUpdate)){
         Set<Id> engagedTeamIdSet = new Set<Id>();
+        Set<Id> contactIdSet = new Set<Id>();
         List<Resource_Engagement__c> reListWithoutTeam = new List<Resource_Engagement__c>();
+        List<Resource_Engagement__c> reListWithoutDefaultHourlyRate = new List<Resource_Engagement__c>();
         for(Resource_Engagement__c re: Trigger.new){
             if(re.Engaged_Team__c != NULL){
                 engagedTeamIdSet.add(re.Engaged_Team__c);
                 reListWithoutTeam.add(re);
+            }
+            if(re.Default_Hourly_Rate__c == NULL){
+                contactIdSet.add(re.Resource__c);
+                reListWithoutDefaultHourlyRate.add(re);
             }
         }
         if(!engagedTeamIdSet.isEmpty()){
@@ -17,11 +23,20 @@ trigger ResourceEngagementTrigger on Resource_Engagement__c (before insert, afte
                 }                
             }
         }
+        if(!contactIdSet.isEmpty()){
+            Map<Id,Contact> contactMap = new Map<Id,Contact>([SELECT Id, Resource_Hourly_Rate__c FROM Contact WHERE Id IN: contactIdSet AND Resource_Hourly_Rate__c != NULL]);
+			for(Resource_Engagement__c reWithoutRate: reListWithoutDefaultHourlyRate){
+                if(contactMap.containsKey(reWithoutRate.Resource__c)){
+                    reWithoutRate.Default_Hourly_Rate__c = contactMap.get(reWithoutRate.Resource__c).Resource_Hourly_Rate__c;
+                }                
+            }
+            
+        }
         
     }
     else{
-        // Converting the follwing into a rollup summary field - unable to convert as the Engagement_Cost__c field uses Contact's field
-        
+        // Converting the follwing into a rollup summary field 
+        /*
         Set<Id> projectVersionIdSet = new Set<Id>();
         Set<Id> reDeletedIdSet = new Set<Id>();
         for(Resource_Engagement__c re: (Trigger.isDelete ? Trigger.old : Trigger.new)){
@@ -53,6 +68,6 @@ trigger ResourceEngagementTrigger on Resource_Engagement__c (before insert, afte
         catch(Exception e){
             System.debug('Exception in Resource Engagement trigger: '+e.getMessage());
         }
-        
+        */
     }    
 }

@@ -441,18 +441,18 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Project_Version__c.Total_Labour_Engaged_Cost__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Project_Version__c.Total_Labour_Forecast__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Project_Version__c.Total_Material_Forecast__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Project_Version__c.Total_Resource_Cost__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Project_Version__c.Total_Resource_Forecast__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -693,11 +693,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Resource_Engagement__c.Custom_Hourly_Rate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Resource_Engagement__c.Default_Hourly_Rate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
