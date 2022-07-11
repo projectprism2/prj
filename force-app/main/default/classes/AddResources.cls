@@ -28,6 +28,7 @@ public with sharing class AddResources {
             rw.records = lstRecords;
             rw.columns = columns;
             rw.versionId = versionId;
+
             return rw;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -41,6 +42,7 @@ public with sharing class AddResources {
         public List<Resource_Engagement__c> records;
         @AuraEnabled 
         public String versionId;
+
     }
 
     public class FieldWrapper{

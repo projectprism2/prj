@@ -43,6 +43,7 @@ export default class AddResources extends  NavigationMixin(LightningElement) {
         fetchResources({recordId: this.recordId})
         .then(data=>{  
             this.versionId = data.versionId;
+
             let items = []; //local array to prepare columns
             for(let i=0; i<data.columns.length; i++){
                 if(data.columns[i].fieldName == 'Resource__r.Name'){

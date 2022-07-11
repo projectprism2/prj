@@ -9,7 +9,6 @@ import { createRecord, updateRecord, deleteRecord } from 'lightning/uiRecordApi'
 import GanttFiles from '@salesforce/resourceUrl/dhtmlxgantt713';
 
 // Controllers
-import getTasks from '@salesforce/apex/GanttData.getTasks';
 import createResource from '@salesforce/apex/GanttData.createResource';
 import getResourcesByProject from '@salesforce/apex/GanttData.getResourcesByProject';
 import getAllResourcesByProject from '@salesforce/apex/GanttData.getAllResourcesByProject';
@@ -43,17 +42,37 @@ export default class GanttView extends LightningElement {
 
     @api height;
     ganttInitialized = false;
+    zoomModule;
+    disableZoomIn;
+    disableZoomOut;
+
 
     renderedCallback() {
+        console.log('rendered callback called');
         if (this.ganttInitialized) {
             return;
         }
+        console.log('rendered callback loading Gantt');
+        this.loadGantt();
+    }
+
+    // connectedCallback() {
+    //     console.log('connected callback called');
+    //     if (this.ganttInitialized) {
+    //         return;
+    //     }
+    //     console.log('connected callback loading Gantt');
+    //     this.loadGantt();
+    // }
+
+    loadGantt(){
         this.ganttInitialized = true;
         Promise.all([
             loadScript(this, GanttFiles + '/dhtmlxgantt.js'),
             loadStyle(this, GanttFiles + '/dhtmlxgantt.css'),
         ]).then(() => {
             this.initializeUI();
+            this.setCanZoom();
         }).catch(error => {
             this.dispatchEvent(
                 new ShowToastEvent({
@@ -134,22 +153,22 @@ export default class GanttView extends LightningElement {
     
 
     initializeGanttZoom(){
-        const btnGanttZoomIn = document.createElement("input");
-        //Assign different attributes to the element. 
-        btnGanttZoomIn.id = 'btnGanttZoomIn';
-        btnGanttZoomIn.type = 'button';
-        btnGanttZoomIn.value = 'Zoom In';
-        btnGanttZoomIn.style = 'color:black';
+        // const btnGanttZoomIn = document.createElement("input");
+        // //Assign different attributes to the element. 
+        // btnGanttZoomIn.id = 'btnGanttZoomIn';
+        // btnGanttZoomIn.type = 'button';
+        // btnGanttZoomIn.value = 'Zoom In';
+        // btnGanttZoomIn.style = 'color:black';
 
-        const btnGanttZoomOut = document.createElement("input");
-        //Assign different attributes to the element. 
-        btnGanttZoomOut.id = 'btnGanttZoomOut';
-        btnGanttZoomOut.type = 'button';
-        btnGanttZoomOut.value = 'Zoom Out';
-        btnGanttZoomOut.style = 'color:black';
+        // const btnGanttZoomOut = document.createElement("input");
+        // //Assign different attributes to the element. 
+        // btnGanttZoomOut.id = 'btnGanttZoomOut';
+        // btnGanttZoomOut.type = 'button';
+        // btnGanttZoomOut.value = 'Zoom Out';
+        // btnGanttZoomOut.style = 'color:black';
         
-        const zoomModule = gantt.ext.zoom;
-            zoomModule.init({
+        this.zoomModule = gantt.ext.zoom;
+        this.zoomModule.init({
             levels: [
             {
                 name:"day",
@@ -207,17 +226,17 @@ export default class GanttView extends LightningElement {
             }
             ]
         });
-        zoomModule.setLevel("year");
+        this.zoomModule.setLevel("year");
 
-        btnGanttZoomIn.onclick = function(){
-            zoomModule.zoomIn();
-        }
-        btnGanttZoomOut.onclick = function(){
-            zoomModule.zoomOut();
-        }
-        var ganttSection = this.template.querySelector('.ganttChart');
-        ganttSection.appendChild(btnGanttZoomIn);
-        ganttSection.appendChild(btnGanttZoomOut);
+        // btnGanttZoomIn.onclick = function(){
+        //     this.zoomModule.zoomIn();
+        // }
+        // btnGanttZoomOut.onclick = function(){
+        //     this.zoomModule.zoomOut();
+        // }
+        // var ganttSection = this.template.querySelector('.ganttChart');
+        // ganttSection.appendChild(btnGanttZoomIn);
+        // ganttSection.appendChild(btnGanttZoomOut);
     }
     addTodayMarker(){
         gantt.addMarker({
@@ -240,9 +259,9 @@ export default class GanttView extends LightningElement {
         ];
 
         gantt.config.columns =  [
-            {name:"text",       label:"Resource",  tree:true , autoWidth: true},
-            {name:"start_date", label:"Start Date", align:"center", autoWidth: true},
-            {name:"end_date",   label:"End Date",   align:"center", autoWidth: true}
+            {name:"text",       label:"Resource",  tree:true, resize: true, autoWidth: true},
+            {name:"start_date", label:"Start Date", align:"center", resize: true, autoWidth: true},
+            {name:"end_date",   label:"End Date",   align:"center", resize: true, autoWidth: true}
         ];
         gantt.config.open_tree_initially = true;
         // gantt.config.server_utc = false;
@@ -366,4 +385,23 @@ export default class GanttView extends LightningElement {
         }
     }
     
+    handleRefreshData(){
+        console.log('refresh data called');
+        this.loadGantt();
+    }
+    handleZoomIn(){
+        console.log('Zoom in called');
+        this.zoomModule.zoomIn();
+        this.setCanZoom();
+    }
+    handleZoomOut(){
+        console.log('Zoom out called');
+        this.zoomModule.zoomOut();
+        this.setCanZoom();
+    }
+    setCanZoom() {
+        let level = this.zoomModule.getCurrentLevel();
+        this.disableZoomIn = (level === 0);
+        this.disableZoomOut = (level === 4);
+    }
 }
