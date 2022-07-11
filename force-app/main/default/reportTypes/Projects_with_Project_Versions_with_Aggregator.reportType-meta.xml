@@ -429,7 +429,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Total_Labour_Forecast__c</field>
+            <field>Total_Resource_Forecast__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>
@@ -440,6 +440,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Total_Material_Cost__c</field>
+            <table>Project__c.Project_Versions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Resource_Cost__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <masterLabel>Project Versions</masterLabel>

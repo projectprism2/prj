@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Total_Labour_Forecast__c</fullName>
+    <fullName>Total_Resource_Forecast__c</fullName>
     <externalId>false</externalId>
-    <label>Total Labour Forecast</label>
+    <label>Total Resource Forecast</label>
     <summarizedField>Forecast__c.Labour__c</summarizedField>
     <summaryForeignKey>Forecast__c.Project_Version__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>
