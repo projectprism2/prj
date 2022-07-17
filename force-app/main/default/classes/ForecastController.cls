@@ -1,7 +1,7 @@
 public with sharing class ForecastController {
 
     @AuraEnabled
-    public static List<Forecast__c> fetchRecords(String recordId){
+    public static Project_Version__c fetchRecords(String recordId){
         try {
             System.debug('recordId--'+recordId);
             String objectName = ((Id)recordId).getSObjectType().getDescribe().getName();
@@ -14,7 +14,7 @@ public with sharing class ForecastController {
             else{
                 versionId = recordId;
             }
-            return String.isNotBlank(versionId)?[SELECT Id, Name, Year__c, Month__c, Labour__c, Materials__c, Fixed_Costs__c, Total__c, Project_Version__c FROM Forecast__c WHERE Project_Version__c=:versionId ORDER BY Name]:new List<Forecast__c>();
+            return String.isNotBlank(versionId)?[SELECT Id, Name, Total_Labour_Forecast__c, Total_Material_Forecast__c, Total_Forecast__c, (Select Id, Name, Year__c, Month__c, Labour__c, Materials__c, Fixed_Costs__c, Total__c, Project_Version__c From Forecasts__r ORDER BY Name) FROM Project_Version__c WHERE Id=:versionId ]:new Project_Version__c();
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

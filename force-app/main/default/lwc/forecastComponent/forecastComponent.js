@@ -21,6 +21,7 @@ export default class ForecastsComponent extends LightningElement {
 	@api recordId;
 	headers;
 	forecastList = [];
+	projectVersion = {};
 	months=Months;
 	// currentMonth = new Date().getMonth();
 	currentYear;
@@ -37,8 +38,9 @@ export default class ForecastsComponent extends LightningElement {
 			.then(data=>{ 
 				this.currentYear =  new Date().getFullYear();
 				// console.log('currentMonth', this.currentMonth);
-				console.log('currentYear', this.currentYear);
-				this.forecastList = data;
+				console.log('data', data);
+				this.projectVersion = data;
+				this.forecastList = data?.Forecasts__r;
 				let headervalues=[];
 				this.forecastList.forEach(element => {
 					headervalues.push({key:element.Month__c, value: Months.get(element.Month__c)+(this.currentYear != element.Year__c ? '\''+element.Year__c.toString().substring(2): '') });
@@ -47,6 +49,7 @@ export default class ForecastsComponent extends LightningElement {
 			}).catch(error =>{
 				this.error = error;
 				this.forecastList = undefined;
+				this.projectVersion = undefined;
 				this.dispatchEvent(
 					new ShowToastEvent({
 						title: 'Error',
