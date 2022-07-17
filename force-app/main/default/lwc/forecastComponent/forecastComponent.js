@@ -1,6 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import fetchRecords from '@salesforce/apex/ForecastController.fetchRecords';
-import saveRecords from '@salesforce/apex/ForecastController.saveRecords';
+import saveForecastRecords from '@salesforce/apex/ForecastController.saveForecastRecords';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 const Months = new Map([
 	['1', 'Jan'],
@@ -80,7 +80,7 @@ export default class ForecastsComponent extends LightningElement {
 		this.forecastList = [...this.forecastList];
 	}
 	handleSave(){
-		saveRecords({forecastList: this.forecastList})
+		saveForecastRecords({forecastList: this.forecastList})
 		.then(data=>{  
 			this.connectedCallback();
 			this.dispatchEvent(
