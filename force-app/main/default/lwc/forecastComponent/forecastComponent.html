@@ -4,6 +4,81 @@
     </div> -->
     <template if:true={forecastList}>
         <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+            <lightning-accordion-section name="BudgetSummary" label="Budget Summary">
+                <div class="slds-scrollable slds-var-m-bottom_large" style="background-color: white;">
+                    <table class="slds-table slds-table_bordered slds-table_col-bordered">
+                        <thead>
+                            <th></th>
+                            <th><span class="slds-align_absolute-center">Budget</span></th>
+                            <th><span class="slds-align_absolute-center">Forecasts</span></th>
+                            <th><span class="slds-align_absolute-center">Actuals</span></th>
+                            <th><span class="slds-align_absolute-center">% of Budget Spent</span></th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b>Resources</b>
+                                </td>
+                                <template for:each={totalAmountsList} for:item="b">
+                                   <td key={index}>
+                                        <lightning-formatted-number  class="slds-float_right" value={b.resourceAmount} format-style="currency"></lightning-formatted-number>
+                                    </td>
+                                </template>
+                                <template if:true={objPercentageSpent}>
+                                    <td>
+                                        <lightning-formatted-number class="slds-align_absolute-center" value={objPercentageSpent.resourceAmount} format-style="percent"></lightning-formatted-number>
+                                    </td>
+                                </template>
+                            </tr>
+                                <td>
+                                    <b>Materials</b>
+                                </td>
+                                <template for:each={totalAmountsList} for:item="b">
+                                    <td key={index}>
+                                        <lightning-formatted-number  class="slds-float_right" value={b.materialAmount} format-style="currency"></lightning-formatted-number>
+                                    </td>
+                                </template>
+                                <template if:true={objPercentageSpent}>
+                                    <td>
+                                        <lightning-formatted-number class="slds-align_absolute-center" value={objPercentageSpent.materialAmount} format-style="percent"></lightning-formatted-number>
+                                    </td>
+                                </template>
+                            </tr>
+                                <td>
+                                    <b>Fixed costs</b>
+                                </td>
+                                
+                                <template for:each={totalAmountsList} for:item="b">
+                                    <td key={index}>
+                                         <lightning-formatted-number  class="slds-float_right" value={b.fixedAmount} format-style="currency"></lightning-formatted-number>
+                                     </td>
+                                </template>
+                                <template if:true={objPercentageSpent}>
+                                    <td>
+                                        <lightning-formatted-number class="slds-align_absolute-center" value={objPercentageSpent.fixedAmount} format-style="percent"></lightning-formatted-number>
+                                    </td>
+                                </template>
+                            </tr>
+                                <td>
+                                    <b>Totals</b>
+                                </td>
+                                <template for:each={totalAmountsList} for:item="b">
+                                    <td key={index}>
+                                        <lightning-formatted-number  class="slds-float_right" value={b.total} format-style="currency"></lightning-formatted-number>
+                                    </td>
+                                </template>
+                                <template if:true={objPercentageSpent}>
+                                    <td>
+                                        <lightning-formatted-number class="slds-align_absolute-center" value={objPercentageSpent.total} format-style="percent"></lightning-formatted-number>
+                                    </td>
+                                </template>
+                                
+                            </tr>
+                                
+                        </tbody>
+                    </table>
+                </div>
+            </lightning-accordion-section>
             <lightning-accordion-section name="ForecastModelling" label="Forecast Modelling">
                 <!-- <div class="slds-text-heading_medium">Forecast Modelling</div> -->
                 <div class="slds-scrollable" style="background-color: white;">

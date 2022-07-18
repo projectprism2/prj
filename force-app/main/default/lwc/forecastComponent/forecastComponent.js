@@ -24,11 +24,13 @@ export default class ForecastsComponent extends LightningElement {
 	forecastList = [];
 	aggregatorHeaders;
 	aggregatorList = [];
+	totalAmountsList = [];
 	projectVersion = {};
+	objPercentageSpent = {};
 	months=Months;
 	// currentMonth = new Date().getMonth();
 	currentYear;
-	activeSections = ['ForecastModelling','ExpenseAggregator'];
+	activeSections = ['BudgetSummary','ForecastModelling','ExpenseAggregator'];
 
 	connectedCallback(){
 		setTimeout(() => {
@@ -43,6 +45,8 @@ export default class ForecastsComponent extends LightningElement {
 				// console.log('currentMonth', this.currentMonth);
 				console.log('data', data);
 				this.projectVersion = data;
+				this.totalAmountsList = data?.totalAmounts;
+				this.objPercentageSpent = data?.percentageSpent;
 				this.forecastList = data?.forecasts;
 				let tempHeaderValues=[];
 				this.forecastList.forEach(element => {
@@ -61,6 +65,8 @@ export default class ForecastsComponent extends LightningElement {
 				this.forecastList = undefined;
 				this.aggregatorList = undefined;
 				this.projectVersion = undefined;
+				this.totalAmountsList = undefined;
+				this.objPercentageSpent = undefined;
 				this.dispatchEvent(
 					new ShowToastEvent({
 						title: 'Error',
@@ -147,7 +153,7 @@ export default class ForecastsComponent extends LightningElement {
 			this.dispatchEvent(
 				new ShowToastEvent({
 					title: 'Success',
-					message: 'Expense Aggregator records are saved sucessfully',
+					message: 'Actual costs are saved sucessfully',
 					variant: 'success',
 				}),
 			);

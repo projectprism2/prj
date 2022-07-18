@@ -32,10 +32,12 @@ public with sharing class ForecastController {
             ProjectVersionWrapper pvw = new ProjectVersionWrapper();
             pvw.forecasts = new List<FinancialWrapper>();
             pvw.aggregators = new List<FinancialWrapper>();
+            pvw.totalAmounts = new List<BudgetSummaryWrapper>();
+            pvw.percentageSpent = new BudgetSummaryWrapper(0,0,0,0);
             Integer currentMonth = System.today().month();
             Integer currentYear = System.today().year();
 
-            for(Project_Version__c pv: [SELECT Id, Name, Project__c, Is_Primary__c, //Total_Resource_Forecast__c, Total_Material_Forecast__c, Total_Fixed_Cost_Forecast__c, Total_Forecast__c, Total_Material_Cost__c, Total_Resource_Cost__c, Total_Fixed_Cost__c, Total_Cost__c 
+            for(Project_Version__c pv: [SELECT Id, Name, Project__c, Project__r.Planned_Spend__c, Is_Primary__c, Total_Resource_Forecast__c, Total_Material_Forecast__c, Total_Fixed_Cost_Forecast__c, Total_Forecast__c, Total_Material_Cost__c, Total_Resource_Cost__c, Total_Fixed_Cost__c, Total_Cost__c, Resource_Cost_Budget__c, Material_Cost_Budget__c, Fixed_Cost_Budget__c,
                                         (Select Id, Name, Year__c, Month__c, Material_Cost__c, Resource_Cost__c, Fixed_Cost__c, Total__c, Project_Version__c From Forecasts__r ORDER BY Year__c, Month__c), 
                                         (Select Id, Name, Year__c, Month__c, Material_Cost__c, Resource_Cost__c, Fixed_Cost__c, Total__c, Project_Version__c From Aggregator__r ORDER BY Year__c, Month__c) 
                                         FROM Project_Version__c 
@@ -53,6 +55,24 @@ public with sharing class ForecastController {
                     aggW.disableEdit = Date.newInstance(Integer.valueOf(agg.Year__c), Integer.valueOf(agg.Month__c), System.today().addMonths(-1).day()) != System.today().addMonths(-1);
                     pvw.aggregators.add(aggW);
                 }
+
+                //Budget Totals
+                Decimal totalBudget = (pv.Resource_Cost_Budget__c != null? pv.Resource_Cost_Budget__c : 0) + (pv.Material_Cost_Budget__c != null? pv.Material_Cost_Budget__c : 0) + (pv.Fixed_Cost_Budget__c != null? pv.Fixed_Cost_Budget__c : 0);
+                pvw.totalAmounts.add(new BudgetSummaryWrapper(pv.Resource_Cost_Budget__c, pv.Material_Cost_Budget__c, pv.Fixed_Cost_Budget__c, totalBudget));
+
+                //Forecast Totals
+                pvw.totalAmounts.add(new BudgetSummaryWrapper(pv.Total_Resource_Forecast__c, pv.Total_Material_Forecast__c, pv.Total_Fixed_Cost_Forecast__c, pv.Total_Forecast__c));
+
+                //Actual (Expense) Totals
+                pvw.totalAmounts.add(new BudgetSummaryWrapper(pv.Total_Resource_Cost__c, pv.Total_Material_Cost__c, pv.Total_Fixed_Cost__c, pv.Total_Cost__c));
+                
+                //% of Budget Spent
+                Decimal resourceBudgetSpent = (pv.Resource_Cost_Budget__c != null && pv.Resource_Cost_Budget__c > 0) ? ((pv.Total_Resource_Cost__c/pv.Resource_Cost_Budget__c)) : 0;
+                Decimal materialBudgetSpent = (pv.Material_Cost_Budget__c != null && pv.Material_Cost_Budget__c > 0) ? ((pv.Total_Material_Cost__c/pv.Material_Cost_Budget__c)) : 0;
+                Decimal fixedCostBudgetSpent = (pv.Fixed_Cost_Budget__c != null && pv.Fixed_Cost_Budget__c > 0) ? ((pv.Total_Fixed_Cost__c/pv.Fixed_Cost_Budget__c)) : 0;
+                Decimal totalBudgetSpent = (totalBudget != null && totalBudget > 0) ? ((pv.Total_Cost__c/totalBudget)) : 0;
+                pvw.percentageSpent = new BudgetSummaryWrapper(resourceBudgetSpent, materialBudgetSpent, fixedCostBudgetSpent, totalBudgetSpent);
+            
             }
             
             return pvw;
@@ -96,17 +116,23 @@ public with sharing class ForecastController {
         public List<FinancialWrapper> aggregators       {get; set;}
         @AuraEnabled
         public Project_Version__c projectVersion        {get; set;}
+
+        @AuraEnabled
+        public List<BudgetSummaryWrapper> totalAmounts  {get; set;}
+        @AuraEnabled
+        public BudgetSummaryWrapper percentageSpent     {get; set;}
+        
     }
 
     public class FinancialWrapper{
         @AuraEnabled
         public id recordId                              {get; set;}
         @AuraEnabled
-        public String month                            {get; set;}
+        public String month                             {get; set;}
         @AuraEnabled
-        public String year                             {get; set;}
+        public String year                              {get; set;}
         @AuraEnabled
-        public Decimal resourceAmount                     {get; set;}
+        public Decimal resourceAmount                   {get; set;}
         @AuraEnabled
         public Decimal materialAmount                   {get; set;}
         @AuraEnabled
@@ -144,4 +170,24 @@ public with sharing class ForecastController {
         }
 
     }
+
+    public class BudgetSummaryWrapper{
+        @AuraEnabled
+        public Decimal resourceAmount                   {get; set;}
+        @AuraEnabled
+        public Decimal materialAmount                   {get; set;}
+        @AuraEnabled
+        public Decimal fixedAmount                      {get; set;}
+        @AuraEnabled
+        public Decimal total                            {get; set;}
+        
+
+        public BudgetSummaryWrapper(Decimal lA, Decimal mA, Decimal fA, Decimal ttl){
+            this.resourceAmount = lA;
+            this.materialAmount = mA;
+            this.fixedAmount = fA;
+            this.total = ttl;
+        }
+    }
 }
+
