@@ -28,15 +28,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Labour_Expense__c</field>
+                <field>Resource_Cost__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Material_Expense__c</field>
+                <field>Material_Cost__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Fixed_Expense__c</field>
+                <field>Fixed_Cost__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

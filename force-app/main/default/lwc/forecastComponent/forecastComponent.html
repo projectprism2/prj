@@ -18,15 +18,15 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <b>Labour</b>
+                                    <b>Resources</b>
                                 </td>
                                 <template for:each={forecastList} for:item="forecast">
                                     <td key={forecast.recordId}>
-                                        <lightning-input data-id={forecast.recordId} variant="label-hidden" type="number" value={forecast.labourAmount} step=".01" disabled={forecast.disableEdit} onchange={handleLabourChange}></lightning-input>
+                                        <lightning-input data-id={forecast.recordId} variant="label-hidden" type="number" value={forecast.resourceAmount} step=".01" disabled={forecast.disableEdit} onchange={handleResourceChange}></lightning-input>
                                     </td>
                                 </template>
                                 <!-- <td>
-                                    <b>{projectVersion.Total_Labour_Forecast__c}</b>
+                                    <b>{projectVersion.Total_Resource_Forecast__c}</b>
                                 </td> -->
                             </tr>
                                 <td>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
             </lightning-accordion-section>
-            <lightning-accordion-section name="ExpenseAggregator" label="Expense Aggregator">
+            <lightning-accordion-section name="ExpenseAggregator" label="Actual Costs">
                 <div class="slds-scrollable" style="background-color: white;">
                     <table class="slds-table slds-table_bordered slds-scrollable">
                         <thead>
@@ -82,11 +82,11 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <b>Labour</b>
+                                    <b>Resources</b>
                                 </td>
                                 <template for:each={aggregatorList} for:item="agg">
                                     <td key={agg.recordId}>
-                                        <lightning-input data-id={agg.recordId} variant="label-hidden" type="number" value={agg.labourAmount} step=".01" disabled={agg.disableEdit} onchange={handleAggregatorLabourChange}></lightning-input>
+                                        <lightning-input data-id={agg.recordId} variant="label-hidden" type="number" value={agg.resourceAmount} step=".01" disabled={agg.disableEdit} onchange={handleAggregatorResourceChange}></lightning-input>
                                     </td>
                                 </template>
                             </tr>

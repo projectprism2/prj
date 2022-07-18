@@ -108,7 +108,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Labour_Cost_Allocation__c</field>
+                <field>Resource_Cost_Allocation__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

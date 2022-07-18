@@ -146,7 +146,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Labour_Cost_Allocation__c</field>
+            <field>Resource_Cost_Allocation__c</field>
             <table>Project__c</table>
         </columns>
         <columns>
@@ -517,17 +517,17 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Labour_Expense__c</field>
+            <field>Resource_Cost__c</field>
             <table>Project__c.Project_Versions__r.Aggregator__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Material_Expense__c</field>
+            <field>Material_Cost__c</field>
             <table>Project__c.Project_Versions__r.Aggregator__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Fixed_Expense__c</field>
+            <field>Fixed_Cost__c</field>
             <table>Project__c.Project_Versions__r.Aggregator__r</table>
         </columns>
         <columns>

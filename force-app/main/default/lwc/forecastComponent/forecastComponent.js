@@ -72,18 +72,18 @@ export default class ForecastsComponent extends LightningElement {
 			})
 	}
 
-	handleLabourChange(event){
+	handleResourceChange(event){
 		let fRec = this.forecastList.find(ele => ele.recordId == event.target.dataset.id);
-		fRec.labourAmount = event.target.value ? event.target.value: 0;
+		fRec.resourceAmount = event.target.value ? event.target.value: 0;
 		this.calcTotal(fRec);
-		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		// fRec.total = Number(fRec.resourceAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.forecastList = [...this.forecastList];
 	}
 	handleMaterialChange(event){
 		let fRec = this.forecastList.find(ele => ele.recordId == event.target.dataset.id);
 		fRec.materialAmount = event.target.value ? event.target.value: 0;
 		this.calcTotal(fRec);
-		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		// fRec.total = Number(fRec.resourceAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.forecastList = [...this.forecastList];
 
 	}
@@ -91,7 +91,7 @@ export default class ForecastsComponent extends LightningElement {
 		let fRec = this.forecastList.find(ele => ele.recordId == event.target.dataset.id);
 		fRec.fixedAmount = event.target.value ? event.target.value: 0;
 		this.calcTotal(fRec);
-		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		// fRec.total = Number(fRec.resourceAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.forecastList = [...this.forecastList];
 	}
 	handleSave(){
@@ -119,25 +119,25 @@ export default class ForecastsComponent extends LightningElement {
 		})
 	}
 
-	handleAggregatorLabourChange(event){
+	handleAggregatorResourceChange(event){
 		let fRec = this.aggregatorList.find(ele => ele.recordId == event.target.dataset.id);
-		fRec.labourAmount = event.target.value ? event.target.value: 0;
+		fRec.resourceAmount = event.target.value ? event.target.value: 0;
 		this.calcTotal(fRec);
-		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		// fRec.total = Number(fRec.resourceAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.aggregatorList = [...this.aggregatorList];
 	}
 	handleAggregatorMaterialChange(event){
 		let fRec = this.aggregatorList.find(ele => ele.recordId == event.target.dataset.id);
 		fRec.materialAmount = event.target.value ? event.target.value: 0;
 		this.calcTotal(fRec);
-		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		// fRec.total = Number(fRec.resourceAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.aggregatorList = [...this.aggregatorList];
 	}
 	handleAggregatorFixedCostChange(event){
 		let fRec = this.aggregatorList.find(ele => ele.recordId == event.target.dataset.id);
 		fRec.fixedAmount = event.target.value ? event.target.value: 0;
 		this.calcTotal(fRec);
-		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		// fRec.total = Number(fRec.resourceAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.aggregatorList = [...this.aggregatorList];
 	}
 	handleAggregatorSave(){
@@ -167,8 +167,8 @@ export default class ForecastsComponent extends LightningElement {
 
 	calcTotal(fRec){
 		fRec.total = 0;
-		if(fRec.labourAmount){
-			fRec.total += Number(fRec.labourAmount);
+		if(fRec.resourceAmount){
+			fRec.total += Number(fRec.resourceAmount);
 		}
 		if(fRec.materialAmount){
 			fRec.total += Number(fRec.materialAmount);

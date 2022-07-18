@@ -63,8 +63,8 @@ public class ProjectVersionTriggerHandler {
                                               (Select Id, Name, Team__c, Project_Version__c From Engaged_Teams__r),
                                               (Select Id, Name, Allocated_Color__c, Custom_Hourly_Rate__c, End_Date_of_Engagement__c, Engaged_Days__c, Engaged_Team__c, Engaged_Team__r.Team__c, Gantt_Filter__c, Hours_Engaged__c, Progress__c, Project_Version__c, Resource__c, Start_Date_of_Engagement__c, Status__c, Team__c, Number_of_Leaves__c, Number_of_Holidays__c From Resource_Engagements__r),
                                               (Select Id, Name, Material__c, Price__c, Project_Version__c, Quantity__c From Material_Engagements__r),
-                                              (Select Id, Name, Year__c, Month__c, Labour__c, Materials__c, Fixed_Costs__c, Total__c, Project_Version__c From Forecasts__r ORDER BY Year__c, Month__c), 
-                                              (Select Id, Name, Year__c, Month__c, Material_Expense__c, Labour_Expense__c, Fixed_Expense__c, Total__c, Project_Version__c From Aggregator__r ORDER BY Year__c, Month__c) 
+                                              (Select Id, Name, Year__c, Month__c, Material_Cost__c, Resource_Cost__c, Fixed_Cost__c, Total__c, Project_Version__c From Forecasts__r ORDER BY Year__c, Month__c), 
+                                              (Select Id, Name, Year__c, Month__c, Material_Cost__c, Resource_Cost__c, Fixed_Cost__c, Total__c, Project_Version__c From Aggregator__r ORDER BY Year__c, Month__c) 
                                               FROM Project_Version__c
                                               WHERE Id IN: clonedFromIdToClonesMap.keySet()
                                              ])

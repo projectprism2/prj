@@ -12,17 +12,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Aggregator__c.Fixed_Expense__c</field>
+        <field>Aggregator__c.Fixed_Cost__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Aggregator__c.Labour_Expense__c</field>
+        <field>Aggregator__c.Resource_Cost__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Aggregator__c.Material_Expense__c</field>
+        <field>Aggregator__c.Material_Cost__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -147,17 +147,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Forecast__c.Fixed_Costs__c</field>
+        <field>Forecast__c.Fixed_Cost__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Forecast__c.Labour__c</field>
+        <field>Forecast__c.Resource_Cost__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Forecast__c.Materials__c</field>
+        <field>Forecast__c.Material_Cost__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -252,7 +252,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Program__c.Labour_Cost_Allocation__c</field>
+        <field>Program__c.Resource_Cost_Allocation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -372,7 +372,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Project_Version__c.Labour_Cost_Budget__c</field>
+        <field>Project_Version__c.Resource_Cost_Budget__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -547,7 +547,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Project__c.Labour_Cost_Allocation__c</field>
+        <field>Project__c.Resource_Cost_Allocation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

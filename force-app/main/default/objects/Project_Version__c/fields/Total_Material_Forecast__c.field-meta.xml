@@ -3,7 +3,7 @@
     <fullName>Total_Material_Forecast__c</fullName>
     <externalId>false</externalId>
     <label>Total Material Forecast</label>
-    <summarizedField>Forecast__c.Materials__c</summarizedField>
+    <summarizedField>Forecast__c.Material_Cost__c</summarizedField>
     <summaryForeignKey>Forecast__c.Project_Version__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>
     <trackHistory>false</trackHistory>

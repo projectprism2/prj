@@ -429,7 +429,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Labour_Cost_Budget__c</field>
+            <field>Resource_Cost_Budget__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>
