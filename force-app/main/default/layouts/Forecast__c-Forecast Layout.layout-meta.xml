@@ -16,15 +16,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Labour__c</field>
+                <field>Resource_Cost__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Materials__c</field>
+                <field>Material_Cost__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Fixed_Costs__c</field>
+                <field>Fixed_Cost__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

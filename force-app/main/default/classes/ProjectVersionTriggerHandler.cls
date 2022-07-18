@@ -31,17 +31,23 @@ public class ProjectVersionTriggerHandler {
         
         
         Map<Id,List<Project_Version__c>> clonedFromIdToClonesMap = new Map<Id,List<Project_Version__c>>();
+        Set<Id> nonCloneIdSet = new Set<Id>();
         for(Project_Version__c pv: newVersionMap.values()){
             if(pv.Cloned_From__c != NULL){
                 List<Project_Version__c> clones = clonedFromIdToClonesMap.containsKey(pv.Cloned_From__c)? clonedFromIdToClonesMap.get(pv.Cloned_From__c) : new List<Project_Version__c>();
                 clones.add(pv);
                 clonedFromIdToClonesMap.put(pv.Cloned_From__c, clones);
             }
+            else{
+                nonCloneIdSet.add(pv.Id);
+            }
         }
         if(!clonedFromIdToClonesMap.isEmpty()){
             handleCloningAfterInsert(clonedFromIdToClonesMap);
         }
-        createFinacialsAfterInsert(newVersionMap.values());
+        if(!nonCloneIdSet.isEmpty()){
+            createFinacialsAfterInsert(nonCloneIdSet);
+        }
     }
     
     /* this method is called from handleAfterInsert method,
@@ -50,12 +56,15 @@ public class ProjectVersionTriggerHandler {
         Map<Id,List<Engaged_Team__c>> clonedFromIdToEngagedTeamListMap = new Map<Id,List<Engaged_Team__c>>();
         Map<Id,List<Resource_Engagement__c>> clonedFromIdToResourceEngagementListMap = new Map<Id,List<Resource_Engagement__c>>();
         Map<Id,List<Material_Engagement__c>> clonedFromIdToMaterialEngagementListMap = new Map<Id,List<Material_Engagement__c>>();
-        
+        Map<Id,List<Forecast__c>> clonedFromIdToForecastListMap = new Map<Id,List<Forecast__c>>();
+        Map<Id,List<Aggregator__c>> clonedFromIdToAggregatorListMap = new Map<Id,List<Aggregator__c>>();
         //Map<Id,Project_Version__c> clonedFromVersionMap = new Map<Id,Project_Version__c>([
         for(Project_Version__c clonedFromPV: [SELECT Id, Name, 
                                               (Select Id, Name, Team__c, Project_Version__c From Engaged_Teams__r),
                                               (Select Id, Name, Allocated_Color__c, Custom_Hourly_Rate__c, End_Date_of_Engagement__c, Engaged_Days__c, Engaged_Team__c, Engaged_Team__r.Team__c, Gantt_Filter__c, Hours_Engaged__c, Progress__c, Project_Version__c, Resource__c, Start_Date_of_Engagement__c, Status__c, Team__c, Number_of_Leaves__c, Number_of_Holidays__c From Resource_Engagements__r),
-                                              (Select Id, Name, Material__c, Price__c, Project_Version__c, Quantity__c From Material_Engagements__r)
+                                              (Select Id, Name, Material__c, Price__c, Project_Version__c, Quantity__c From Material_Engagements__r),
+                                              (Select Id, Name, Year__c, Month__c, Material_Cost__c, Resource_Cost__c, Fixed_Cost__c, Total__c, Project_Version__c From Forecasts__r ORDER BY Year__c, Month__c), 
+                                              (Select Id, Name, Year__c, Month__c, Material_Cost__c, Resource_Cost__c, Fixed_Cost__c, Total__c, Project_Version__c From Aggregator__r ORDER BY Year__c, Month__c) 
                                               FROM Project_Version__c
                                               WHERE Id IN: clonedFromIdToClonesMap.keySet()
                                              ])
@@ -77,10 +86,24 @@ public class ProjectVersionTriggerHandler {
                 materialEngagements.addAll(meList);
             }
             clonedFromIdToMaterialEngagementListMap.put(clonedFromPV.Id, materialEngagements);
+
+            List<Forecast__c> fList = new List<Forecast__c>();
+            for(List<Forecast__c> oldRecList: clonedFromPV.Forecasts__r){
+                fList.addAll(oldRecList);
+            }
+            clonedFromIdToForecastListMap.put(clonedFromPV.Id,fList);
+
+            List<Aggregator__c> aggList = new List<Aggregator__c>();
+            for(List<Aggregator__c> oldRecList: clonedFromPV.Aggregator__r){
+                aggList.addAll(oldRecList);
+            }
+            clonedFromIdToAggregatorListMap.put(clonedFromPV.Id,aggList);
         }
         
         
         Map<String,Engaged_Team__c> engagedTeamsToInsertMap = new Map<String,Engaged_Team__c>();
+        List<Forecast__c> forecastInsertList = new List<Forecast__c>();
+        List<Aggregator__c> aggregatorInsertList = new List<Aggregator__c>();
         for(Id clonedFromId: clonedFromIdToClonesMap.keySet()){
             List<Project_Version__c> pvClones = clonedFromIdToClonesMap.get(clonedFromId);
             for(Project_Version__c newPV: pvClones){
@@ -91,9 +114,25 @@ public class ProjectVersionTriggerHandler {
                         engagedTeamsToInsertMap.put(String.valueOf(clonedFromId)+String.valueOf(etOld.Team__c),etNew);
                     }
                 }
+                if(clonedFromIdToForecastListMap.containsKey(clonedFromId)){
+                    for(Forecast__c fOld: clonedFromIdToForecastListMap.get(clonedFromId)){
+                        Forecast__c fNew = fOld.clone(false, true);
+                        fNew.Project_Version__c = newPV.Id;
+                        forecastInsertList.add(fNew);
+                    }
+                }
+                if(clonedFromIdToAggregatorListMap.containsKey(clonedFromId)){
+                    for(Aggregator__c aggOld: clonedFromIdToAggregatorListMap.get(clonedFromId)){
+                        Aggregator__c aggNew = aggOld.clone(false, true);
+                        aggNew.Project_Version__c = newPV.Id;
+                        aggregatorInsertList.add(aggNew);
+                    }
+                }
             }
         }
         
+        
+
         if(!engagedTeamsToInsertMap.isEmpty()){
             insert engagedTeamsToInsertMap.values();
             
@@ -123,14 +162,19 @@ public class ProjectVersionTriggerHandler {
             insert reListToInsert;
             insert meListToInsert;
         }
+
+        insert forecastInsertList;
+        insert aggregatorInsertList;
     }
 
-    public static void createFinacialsAfterInsert(List<Project_Version__c> projectVersionList){	
+    public static void createFinacialsAfterInsert(Set<Id> freshProjectVersionIdSet){
+        List<Project_Version__c> projectVersionList = [SELECT Id, Name, Start_Date__c, Release_Date__c, Proposed_Start__c, Targeted_Release__c, Project__c, Project__r.Status__c FROM Project_Version__c WHERE Id IN: freshProjectVersionIdSet];
         List<Forecast__c> forecastList = new List<Forecast__c>();	
         List<Aggregator__c> aggregatorList = new List<Aggregator__c>();	
         for(Project_Version__c pv : projectVersionList){	
-            Date startDate = pv.Start_Date__c;	
-            Integer numberOfMonths = pv.Release_Date__c!=NULL? (startDate.monthsBetween(pv.Release_Date__c) >= 12 ? 12 : startDate.monthsBetween(pv.Release_Date__c)+1) : 12;	
+            Date startDate = (pv.Project__r.Status__c == 'Draft') ? pv.Proposed_Start__c : pv.Start_Date__c;	
+            Date endDate = (pv.Project__r.Status__c == 'Draft') ? pv.Targeted_Release__c : pv.Release_Date__c;	
+            Integer numberOfMonths = endDate!=NULL? (startDate.monthsBetween(endDate) >= 12 ? 12 : startDate.monthsBetween(endDate)+1) : 12;	
             system.System.debug('numberOfMonths--'+numberOfMonths);	
             Date forecastDate = pv.Start_Date__c;	
             for(Integer i = 0 ; i < numberOfMonths; i++){	
