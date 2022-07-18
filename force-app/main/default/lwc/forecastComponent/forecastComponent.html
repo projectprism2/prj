@@ -21,8 +21,8 @@
                                     <b>Labour</b>
                                 </td>
                                 <template for:each={forecastList} for:item="forecast">
-                                    <td key={forecast.Id}>
-                                        <lightning-input data-id={forecast.Id} variant="label-hidden" type="number" value={forecast.Labour__c}  onchange={handleLabourChange}></lightning-input>
+                                    <td key={forecast.recordId}>
+                                        <lightning-input data-id={forecast.recordId} variant="label-hidden" type="number" value={forecast.labourAmount} disabled={forecast.disableEdit} onchange={handleLabourChange}></lightning-input>
                                     </td>
                                 </template>
                                 <!-- <td>
@@ -33,8 +33,8 @@
                                     <b>Materials</b>
                                 </td>
                                 <template for:each={forecastList} for:item="forecast">
-                                    <td key={forecast.Id}>
-                                        <lightning-input data-id={forecast.Id} variant="label-hidden" type="number" value={forecast.Materials__c} onchange={handleMaterialChange}></lightning-input>
+                                    <td key={forecast.recordId}>
+                                        <lightning-input data-id={forecast.recordId} variant="label-hidden" type="number" value={forecast.materialAmount} disabled={forecast.disableEdit} onchange={handleMaterialChange}></lightning-input>
                                     </td>
                                 </template>
                                 <!-- <td>
@@ -45,8 +45,8 @@
                                     <b>Fixed costs</b>
                                 </td>
                                 <template for:each={forecastList} for:item="forecast">
-                                    <td key={forecast.Id}>
-                                        <lightning-input data-id={forecast.Id} variant="label-hidden" type="number" value={forecast.Fixed_Costs__c} onchange={handleFixedCostChange}></lightning-input>
+                                    <td key={forecast.recordId}>
+                                        <lightning-input data-id={forecast.recordId} variant="label-hidden" type="number" value={forecast.fixedAmount} disabled={forecast.disableEdit} onchange={handleFixedCostChange}></lightning-input>
                                     </td>
                                 </template>
                             </tr>
@@ -54,8 +54,8 @@
                                     <b>Totals</b>
                                 </td>
                                 <template for:each={forecastList} for:item="forecast">
-                                    <td key={forecast.Id}>
-                                        <lightning-formatted-number  class="slds-align_absolute-center" value={forecast.Total__c} format-style="currency"></lightning-formatted-number>
+                                    <td key={forecast.recordId}>
+                                        <lightning-formatted-number  class="slds-align_absolute-center" value={forecast.total} format-style="currency"></lightning-formatted-number>
                                     </td>
                                 </template>
                                 <!-- <td>
@@ -67,6 +67,61 @@
                     </table>
                     <div class="slds-align_absolute-center slds-var-m-vertical_medium">
                         <lightning-button id="saveForecast" variant="brand" label="Save" onclick={handleSave}></lightning-button>
+                    </div>
+                </div>
+            </lightning-accordion-section>
+            <lightning-accordion-section name="ExpenseAggregator" label="Expense Aggregator">
+                <div class="slds-scrollable" style="background-color: white;">
+                    <table class="slds-table slds-table_bordered slds-scrollable">
+                        <thead>
+                            <th></th>
+                            <template for:each={aggregatorHeaders} for:item="ah">
+                                <th key={ah.key}><span class="slds-align_absolute-center">{ah.value}</span></th>
+                            </template>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b>Labour</b>
+                                </td>
+                                <template for:each={aggregatorList} for:item="agg">
+                                    <td key={agg.recordId}>
+                                        <lightning-input data-id={agg.recordId} variant="label-hidden" type="number" value={agg.labourAmount} disabled={agg.disableEdit} onchange={handleAggregatorLabourChange}></lightning-input>
+                                    </td>
+                                </template>
+                            </tr>
+                                <td>
+                                    <b>Materials</b>
+                                </td>
+                                <template for:each={aggregatorList} for:item="agg">
+                                    <td key={agg.recordId}>
+                                        <lightning-input data-id={agg.recordId} variant="label-hidden" type="number" value={agg.materialAmount} disabled={agg.disableEdit} onchange={handleAggregatorMaterialChange}></lightning-input>
+                                    </td>
+                                </template>
+                            </tr>
+                                <td>
+                                    <b>Fixed costs</b>
+                                </td>
+                                <template for:each={aggregatorList} for:item="agg">
+                                    <td key={agg.recordId}>
+                                        <lightning-input data-id={agg.recordId} variant="label-hidden" type="number" value={agg.fixedAmount} disabled={agg.disableEdit} onchange={handleAggregatorFixedCostChange}></lightning-input>
+                                    </td>
+                                </template>
+                            </tr>
+                                <td>
+                                    <b>Totals</b>
+                                </td>
+                                <template for:each={aggregatorList} for:item="agg">
+                                    <td key={agg.recordId}>
+                                        <lightning-formatted-number  class="slds-align_absolute-center" value={agg.total} format-style="currency"></lightning-formatted-number>
+                                    </td>
+                                </template>
+                            </tr>
+                                
+                        </tbody>
+                    </table>
+                    <div class="slds-align_absolute-center slds-var-m-vertical_medium">
+                        <lightning-button id="saveAggregator" variant="brand" label="Save" onclick={handleAggregatorSave}></lightning-button>
                     </div>
                 </div>
             </lightning-accordion-section>

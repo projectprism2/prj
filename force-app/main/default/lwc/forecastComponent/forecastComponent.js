@@ -1,6 +1,7 @@
 import { LightningElement, api } from 'lwc';
 import fetchRecords from '@salesforce/apex/ForecastController.fetchRecords';
 import saveForecastRecords from '@salesforce/apex/ForecastController.saveForecastRecords';
+import saveAggregatorRecords from '@salesforce/apex/ForecastController.saveAggregatorRecords';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 const Months = new Map([
 	['1', 'Jan'],
@@ -21,11 +22,13 @@ export default class ForecastsComponent extends LightningElement {
 	@api recordId;
 	headers;
 	forecastList = [];
+	aggregatorHeaders;
+	aggregatorList = [];
 	projectVersion = {};
 	months=Months;
 	// currentMonth = new Date().getMonth();
 	currentYear;
-	activeSections = ['ForecastModelling'];
+	activeSections = ['ForecastModelling','ExpenseAggregator'];
 
 	connectedCallback(){
 		setTimeout(() => {
@@ -40,15 +43,23 @@ export default class ForecastsComponent extends LightningElement {
 				// console.log('currentMonth', this.currentMonth);
 				console.log('data', data);
 				this.projectVersion = data;
-				this.forecastList = data?.Forecasts__r;
-				let headervalues=[];
+				this.forecastList = data?.forecasts;
+				let tempHeaderValues=[];
 				this.forecastList.forEach(element => {
-					headervalues.push({key:element.Month__c, value: Months.get(element.Month__c)+(this.currentYear != element.Year__c ? '\''+element.Year__c.toString().substring(2): '') });
+					tempHeaderValues.push({key:element.month+element.year, value: element.headerValue});
 				});
-				this.headers = headervalues;
+				this.headers = tempHeaderValues;
+				this.aggregatorList = data?.aggregators;
+				tempHeaderValues = [];
+				this.aggregatorList.forEach(element => {
+					tempHeaderValues.push({key:element.month+element.year, value: element.headerValue});
+				});
+				this.aggregatorHeaders = tempHeaderValues;
+
 			}).catch(error =>{
 				this.error = error;
 				this.forecastList = undefined;
+				this.aggregatorList = undefined;
 				this.projectVersion = undefined;
 				this.dispatchEvent(
 					new ShowToastEvent({
@@ -57,26 +68,30 @@ export default class ForecastsComponent extends LightningElement {
 						variant: 'error',
 					}),
 				);
+				console.error(error);
 			})
 	}
 
 	handleLabourChange(event){
-		let fRec = this.forecastList.find(ele => ele.Id == event.target.dataset.id);
-		fRec.Labour__c = event.target.value;
-		fRec.Total__c = Number(fRec.Labour__c) + Number(fRec.Materials__c) + Number(fRec.Fixed_Costs__c);
+		let fRec = this.forecastList.find(ele => ele.recordId == event.target.dataset.id);
+		fRec.labourAmount = event.target.value ? event.target.value: 0;
+		this.calcTotal(fRec);
+		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.forecastList = [...this.forecastList];
 	}
 	handleMaterialChange(event){
-		let fRec = this.forecastList.find(ele => ele.Id == event.target.dataset.id);
-		fRec.Materials__c = event.target.value;
-		fRec.Total__c = Number(fRec.Labour__c) + Number(fRec.Materials__c) + Number(fRec.Fixed_Costs__c);
+		let fRec = this.forecastList.find(ele => ele.recordId == event.target.dataset.id);
+		fRec.materialAmount = event.target.value ? event.target.value: 0;
+		this.calcTotal(fRec);
+		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.forecastList = [...this.forecastList];
 
 	}
 	handleFixedCostChange(event){
-		let fRec = this.forecastList.find(ele => ele.Id == event.target.dataset.id);
-		fRec.Fixed_Costs__c = event.target.value;
-		fRec.Total__c = Number(fRec.Labour__c) + Number(fRec.Materials__c) + Number(fRec.Fixed_Costs__c);
+		let fRec = this.forecastList.find(ele => ele.recordId == event.target.dataset.id);
+		fRec.fixedAmount = event.target.value ? event.target.value: 0;
+		this.calcTotal(fRec);
+		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.forecastList = [...this.forecastList];
 	}
 	handleSave(){
@@ -92,7 +107,7 @@ export default class ForecastsComponent extends LightningElement {
 			);
 		}).catch(error =>{
 			this.error = error;
-			console.log(error);
+			console.error(error);
 			this.forecastList = undefined;
 			this.dispatchEvent(
 				new ShowToastEvent({
@@ -102,6 +117,65 @@ export default class ForecastsComponent extends LightningElement {
 				}),
 			);
 		})
+	}
+
+	handleAggregatorLabourChange(event){
+		let fRec = this.aggregatorList.find(ele => ele.recordId == event.target.dataset.id);
+		fRec.labourAmount = event.target.value ? event.target.value: 0;
+		this.calcTotal(fRec);
+		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		this.aggregatorList = [...this.aggregatorList];
+	}
+	handleAggregatorMaterialChange(event){
+		let fRec = this.aggregatorList.find(ele => ele.recordId == event.target.dataset.id);
+		fRec.materialAmount = event.target.value ? event.target.value: 0;
+		this.calcTotal(fRec);
+		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		this.aggregatorList = [...this.aggregatorList];
+	}
+	handleAggregatorFixedCostChange(event){
+		let fRec = this.aggregatorList.find(ele => ele.recordId == event.target.dataset.id);
+		fRec.fixedAmount = event.target.value ? event.target.value: 0;
+		this.calcTotal(fRec);
+		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		this.aggregatorList = [...this.aggregatorList];
+	}
+	handleAggregatorSave(){
+		saveAggregatorRecords({aggregatorList: this.aggregatorList})
+		.then(data=>{  
+			this.connectedCallback();
+			this.dispatchEvent(
+				new ShowToastEvent({
+					title: 'Success',
+					message: 'Expense Aggregator records are saved sucessfully',
+					variant: 'success',
+				}),
+			);
+		}).catch(error =>{
+			this.error = error;
+			console.error(error);
+			this.aggregatorList = undefined;
+			this.dispatchEvent(
+				new ShowToastEvent({
+					title: 'Error',
+					message: error?.body?.message,
+					variant: 'error',
+				}),
+			);
+		})
+	}
+
+	calcTotal(fRec){
+		fRec.total = 0;
+		if(fRec.labourAmount){
+			fRec.total += Number(fRec.labourAmount);
+		}
+		if(fRec.materialAmount){
+			fRec.total += Number(fRec.materialAmount);
+		}
+		if(fRec.fixedAmount){
+			fRec.total += Number(fRec.fixedAmount);
+		}		
 	}
 
 	handleRefreshData(){
