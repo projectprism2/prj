@@ -269,6 +269,26 @@
             <field>Targeted_Release__c</field>
             <table>Project__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Resource_Forecast__c</field>
+            <table>Project__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Material_Forecast__c</field>
+            <table>Project__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Resource_Cost__c</field>
+            <table>Project__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Material_Cost__c</field>
+            <table>Project__c</table>
+        </columns>
         <masterLabel>Projects</masterLabel>
     </sections>
     <sections>
@@ -508,6 +528,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Fixed_Expense__c</field>
+            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total__c</field>
             <table>Project__c.Project_Versions__r.Aggregator__r</table>
         </columns>
         <masterLabel>Aggregator</masterLabel>

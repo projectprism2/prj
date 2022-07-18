@@ -22,7 +22,7 @@
                                 </td>
                                 <template for:each={forecastList} for:item="forecast">
                                     <td key={forecast.recordId}>
-                                        <lightning-input data-id={forecast.recordId} variant="label-hidden" type="number" value={forecast.labourAmount} disabled={forecast.disableEdit} onchange={handleLabourChange}></lightning-input>
+                                        <lightning-input data-id={forecast.recordId} variant="label-hidden" type="number" value={forecast.labourAmount} step=".01" disabled={forecast.disableEdit} onchange={handleLabourChange}></lightning-input>
                                     </td>
                                 </template>
                                 <!-- <td>
@@ -34,7 +34,7 @@
                                 </td>
                                 <template for:each={forecastList} for:item="forecast">
                                     <td key={forecast.recordId}>
-                                        <lightning-input data-id={forecast.recordId} variant="label-hidden" type="number" value={forecast.materialAmount} disabled={forecast.disableEdit} onchange={handleMaterialChange}></lightning-input>
+                                        <lightning-input data-id={forecast.recordId} variant="label-hidden" type="number" value={forecast.materialAmount} step=".01" disabled={forecast.disableEdit} onchange={handleMaterialChange}></lightning-input>
                                     </td>
                                 </template>
                                 <!-- <td>
@@ -46,7 +46,7 @@
                                 </td>
                                 <template for:each={forecastList} for:item="forecast">
                                     <td key={forecast.recordId}>
-                                        <lightning-input data-id={forecast.recordId} variant="label-hidden" type="number" value={forecast.fixedAmount} disabled={forecast.disableEdit} onchange={handleFixedCostChange}></lightning-input>
+                                        <lightning-input data-id={forecast.recordId} variant="label-hidden" type="number" value={forecast.fixedAmount} step=".01" disabled={forecast.disableEdit} onchange={handleFixedCostChange}></lightning-input>
                                     </td>
                                 </template>
                             </tr>
@@ -86,7 +86,7 @@
                                 </td>
                                 <template for:each={aggregatorList} for:item="agg">
                                     <td key={agg.recordId}>
-                                        <lightning-input data-id={agg.recordId} variant="label-hidden" type="number" value={agg.labourAmount} disabled={agg.disableEdit} onchange={handleAggregatorLabourChange}></lightning-input>
+                                        <lightning-input data-id={agg.recordId} variant="label-hidden" type="number" value={agg.labourAmount} step=".01" disabled={agg.disableEdit} onchange={handleAggregatorLabourChange}></lightning-input>
                                     </td>
                                 </template>
                             </tr>
@@ -95,7 +95,7 @@
                                 </td>
                                 <template for:each={aggregatorList} for:item="agg">
                                     <td key={agg.recordId}>
-                                        <lightning-input data-id={agg.recordId} variant="label-hidden" type="number" value={agg.materialAmount} disabled={agg.disableEdit} onchange={handleAggregatorMaterialChange}></lightning-input>
+                                        <lightning-input data-id={agg.recordId} variant="label-hidden" type="number" value={agg.materialAmount} step=".01" disabled={agg.disableEdit} onchange={handleAggregatorMaterialChange}></lightning-input>
                                     </td>
                                 </template>
                             </tr>
@@ -104,7 +104,7 @@
                                 </td>
                                 <template for:each={aggregatorList} for:item="agg">
                                     <td key={agg.recordId}>
-                                        <lightning-input data-id={agg.recordId} variant="label-hidden" type="number" value={agg.fixedAmount} disabled={agg.disableEdit} onchange={handleAggregatorFixedCostChange}></lightning-input>
+                                        <lightning-input data-id={agg.recordId} variant="label-hidden" type="number" value={agg.fixedAmount} step=".01" disabled={agg.disableEdit} onchange={handleAggregatorFixedCostChange}></lightning-input>
                                     </td>
                                 </template>
                             </tr>
