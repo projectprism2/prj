@@ -767,6 +767,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Resource_Engagement__c.Default_Hourly_Rate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Resource_Engagement__c.Engaged_Days__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -843,6 +848,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task_Milestone__c.Program__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task_Milestone__c.Progress__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
