@@ -124,7 +124,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Labour_Cost_Budget__c</field>
+                <field>Resource_Cost_Budget__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -141,6 +141,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Total_Material_Forecast__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Total_Fixed_Cost_Forecast__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -164,6 +168,14 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Total_Material_Cost__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Total_Fixed_Cost__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Total_Cost__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -229,9 +241,9 @@
         <fields>NAME</fields>
         <fields>Month__c</fields>
         <fields>Year__c</fields>
-        <fields>Labour__c</fields>
-        <fields>Materials__c</fields>
-        <fields>Fixed_Costs__c</fields>
+        <fields>Resource_Cost__c</fields>
+        <fields>Material_Cost__c</fields>
+        <fields>Fixed_Cost__c</fields>
         <fields>Total__c</fields>
         <relatedList>Forecast__c.Project_Version__c</relatedList>
     </relatedLists>
@@ -264,6 +276,12 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>Month__c</fields>
+        <fields>Year__c</fields>
+        <fields>Resource_Cost__c</fields>
+        <fields>Material_Cost__c</fields>
+        <fields>Fixed_Cost__c</fields>
+        <fields>Total__c</fields>
         <relatedList>Aggregator__c.Project_Version__c</relatedList>
     </relatedLists>
     <relatedLists>

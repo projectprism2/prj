@@ -3,8 +3,8 @@
     <fullName>Total_Material_Cost__c</fullName>
     <externalId>false</externalId>
     <label>Total Material Cost</label>
-    <summarizedField>Material_Engagement__c.Amount__c</summarizedField>
-    <summaryForeignKey>Material_Engagement__c.Project_Version__c</summaryForeignKey>
+    <summarizedField>Aggregator__c.Material_Cost__c</summarizedField>
+    <summaryForeignKey>Aggregator__c.Project_Version__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

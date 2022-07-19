@@ -4,7 +4,7 @@
     <externalId>false</externalId>
     <formula>CASE(1, 
 IF(ISNULL(Material_Engagement__c), 0, 1), &apos;Material&apos;, 
-IF(ISNULL(Resource_Engagement__c), 0, 1), &apos;Labour&apos;, 
+IF(ISNULL(Resource_Engagement__c), 0, 1), &apos;Resource&apos;, 
 &apos;Fixed&apos;
 )</formula>
     <label>Type</label>

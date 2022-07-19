@@ -2,11 +2,13 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Material_Forecast__c</fullName>
     <externalId>false</externalId>
+    <formula>Active_Version__r.Total_Material_Forecast__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Total Material Forecast</label>
-    <summarizedField>Forecast__c.Material_Cost__c</summarizedField>
-    <summaryForeignKey>Forecast__c.Project_Version__c</summaryForeignKey>
-    <summaryOperation>sum</summaryOperation>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Summary</type>
+    <type>Currency</type>
 </CustomField>

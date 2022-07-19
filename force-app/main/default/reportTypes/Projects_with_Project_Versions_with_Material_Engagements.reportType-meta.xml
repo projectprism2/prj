@@ -146,7 +146,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Labour_Cost_Allocation__c</field>
+            <field>Resource_Cost_Allocation__c</field>
             <table>Project__c</table>
         </columns>
         <columns>
@@ -269,6 +269,26 @@
             <field>Release_Qtr_and_Year__c</field>
             <table>Project__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Resource_Forecast__c</field>
+            <table>Project__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Material_Forecast__c</field>
+            <table>Project__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Resource_Cost__c</field>
+            <table>Project__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Material_Cost__c</field>
+            <table>Project__c</table>
+        </columns>
         <masterLabel>Projects</masterLabel>
     </sections>
     <sections>
@@ -369,7 +389,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Labour_Cost_Budget__c</field>
+            <field>Resource_Cost_Budget__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>

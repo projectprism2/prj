@@ -150,7 +150,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Labour_Cost_Allocation__c</field>
+            <field>Resource_Cost_Allocation__c</field>
             <table>Project__c</table>
         </columns>
         <columns>
@@ -271,6 +271,26 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Targeted_Release__c</field>
+            <table>Project__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Resource_Forecast__c</field>
+            <table>Project__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Material_Forecast__c</field>
+            <table>Project__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Resource_Cost__c</field>
+            <table>Project__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total_Material_Cost__c</field>
             <table>Project__c</table>
         </columns>
         <masterLabel>Projects</masterLabel>
@@ -501,17 +521,22 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Labour_Expense__c</field>
+            <field>Resource_Cost__c</field>
             <table>Project__c.Project_Versions__r.Aggregator__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Material_Expense__c</field>
+            <field>Material_Cost__c</field>
             <table>Project__c.Project_Versions__r.Aggregator__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Fixed_Expense__c</field>
+            <field>Fixed_Cost__c</field>
+            <table>Project__c.Project_Versions__r.Aggregator__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Total__c</field>
             <table>Project__c.Project_Versions__r.Aggregator__r</table>
         </columns>
         <masterLabel>Aggregator</masterLabel>

@@ -49,15 +49,15 @@ trigger ResourceEngagementTrigger on Resource_Engagement__c (before insert, afte
         }
         
         List<Project_Version__c> pvListToUpdate = new List<Project_Version__c>();   
-        for(Project_Version__c pv: [SELECT Id, Total_Labour_Engaged_Cost__c,
+        for(Project_Version__c pv: [SELECT Id, Total_Resource_Cost__c,
                                     (Select Id, Engagement_Cost__c From Resource_Engagements__r Where Id NOT IN: reDeletedIdSet)
                                     FROM Project_Version__c 
                                     WHERE Id IN: projectVersionIdSet
                                     LIMIT 10000])
         {
-            pv.Total_Labour_Engaged_Cost__c = 0;
+            pv.Total_Resource_Cost__c = 0;
             for(Resource_Engagement__c re: pv.Resource_Engagements__r){
-                pv.Total_Labour_Engaged_Cost__c += re.Engagement_Cost__c;
+                pv.Total_Resource_Cost__c += re.Engagement_Cost__c;
             }
             pvListToUpdate.add(pv);
         }

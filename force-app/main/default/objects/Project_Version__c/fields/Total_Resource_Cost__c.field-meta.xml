@@ -3,8 +3,8 @@
     <fullName>Total_Resource_Cost__c</fullName>
     <externalId>false</externalId>
     <label>Total Resource Cost</label>
-    <summarizedField>Resource_Engagement__c.Engagement_Cost__c</summarizedField>
-    <summaryForeignKey>Resource_Engagement__c.Project_Version__c</summaryForeignKey>
+    <summarizedField>Aggregator__c.Resource_Cost__c</summarizedField>
+    <summaryForeignKey>Aggregator__c.Project_Version__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

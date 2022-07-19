@@ -24,11 +24,13 @@ export default class ForecastsComponent extends LightningElement {
 	forecastList = [];
 	aggregatorHeaders;
 	aggregatorList = [];
+	totalAmountsList = [];
 	projectVersion = {};
+	objPercentageSpent = {};
 	months=Months;
 	// currentMonth = new Date().getMonth();
 	currentYear;
-	activeSections = ['ForecastModelling','ExpenseAggregator'];
+	activeSections = ['BudgetSummary','ForecastModelling','ExpenseAggregator'];
 
 	connectedCallback(){
 		setTimeout(() => {
@@ -43,6 +45,8 @@ export default class ForecastsComponent extends LightningElement {
 				// console.log('currentMonth', this.currentMonth);
 				console.log('data', data);
 				this.projectVersion = data;
+				this.totalAmountsList = data?.totalAmounts;
+				this.objPercentageSpent = data?.percentageSpent;
 				this.forecastList = data?.forecasts;
 				let tempHeaderValues=[];
 				this.forecastList.forEach(element => {
@@ -61,6 +65,8 @@ export default class ForecastsComponent extends LightningElement {
 				this.forecastList = undefined;
 				this.aggregatorList = undefined;
 				this.projectVersion = undefined;
+				this.totalAmountsList = undefined;
+				this.objPercentageSpent = undefined;
 				this.dispatchEvent(
 					new ShowToastEvent({
 						title: 'Error',
@@ -72,18 +78,18 @@ export default class ForecastsComponent extends LightningElement {
 			})
 	}
 
-	handleLabourChange(event){
+	handleResourceChange(event){
 		let fRec = this.forecastList.find(ele => ele.recordId == event.target.dataset.id);
-		fRec.labourAmount = event.target.value ? event.target.value: 0;
+		fRec.resourceAmount = event.target.value ? event.target.value: 0;
 		this.calcTotal(fRec);
-		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		// fRec.total = Number(fRec.resourceAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.forecastList = [...this.forecastList];
 	}
 	handleMaterialChange(event){
 		let fRec = this.forecastList.find(ele => ele.recordId == event.target.dataset.id);
 		fRec.materialAmount = event.target.value ? event.target.value: 0;
 		this.calcTotal(fRec);
-		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		// fRec.total = Number(fRec.resourceAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.forecastList = [...this.forecastList];
 
 	}
@@ -91,7 +97,7 @@ export default class ForecastsComponent extends LightningElement {
 		let fRec = this.forecastList.find(ele => ele.recordId == event.target.dataset.id);
 		fRec.fixedAmount = event.target.value ? event.target.value: 0;
 		this.calcTotal(fRec);
-		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		// fRec.total = Number(fRec.resourceAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.forecastList = [...this.forecastList];
 	}
 	handleSave(){
@@ -119,25 +125,25 @@ export default class ForecastsComponent extends LightningElement {
 		})
 	}
 
-	handleAggregatorLabourChange(event){
+	handleAggregatorResourceChange(event){
 		let fRec = this.aggregatorList.find(ele => ele.recordId == event.target.dataset.id);
-		fRec.labourAmount = event.target.value ? event.target.value: 0;
+		fRec.resourceAmount = event.target.value ? event.target.value: 0;
 		this.calcTotal(fRec);
-		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		// fRec.total = Number(fRec.resourceAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.aggregatorList = [...this.aggregatorList];
 	}
 	handleAggregatorMaterialChange(event){
 		let fRec = this.aggregatorList.find(ele => ele.recordId == event.target.dataset.id);
 		fRec.materialAmount = event.target.value ? event.target.value: 0;
 		this.calcTotal(fRec);
-		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		// fRec.total = Number(fRec.resourceAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.aggregatorList = [...this.aggregatorList];
 	}
 	handleAggregatorFixedCostChange(event){
 		let fRec = this.aggregatorList.find(ele => ele.recordId == event.target.dataset.id);
 		fRec.fixedAmount = event.target.value ? event.target.value: 0;
 		this.calcTotal(fRec);
-		// fRec.total = Number(fRec.labourAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
+		// fRec.total = Number(fRec.resourceAmount) + Number(fRec.materialAmount) + Number(fRec.fixedAmount);
 		this.aggregatorList = [...this.aggregatorList];
 	}
 	handleAggregatorSave(){
@@ -147,7 +153,7 @@ export default class ForecastsComponent extends LightningElement {
 			this.dispatchEvent(
 				new ShowToastEvent({
 					title: 'Success',
-					message: 'Expense Aggregator records are saved sucessfully',
+					message: 'Actual costs are saved sucessfully',
 					variant: 'success',
 				}),
 			);
@@ -167,8 +173,8 @@ export default class ForecastsComponent extends LightningElement {
 
 	calcTotal(fRec){
 		fRec.total = 0;
-		if(fRec.labourAmount){
-			fRec.total += Number(fRec.labourAmount);
+		if(fRec.resourceAmount){
+			fRec.total += Number(fRec.resourceAmount);
 		}
 		if(fRec.materialAmount){
 			fRec.total += Number(fRec.materialAmount);
