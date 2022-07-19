@@ -172,11 +172,11 @@ public class ProjectVersionTriggerHandler {
         List<Forecast__c> forecastList = new List<Forecast__c>();	
         List<Aggregator__c> aggregatorList = new List<Aggregator__c>();	
         for(Project_Version__c pv : projectVersionList){	
-            Date startDate = (pv.Project__r.Status__c == 'Draft') ? pv.Proposed_Start__c : pv.Start_Date__c;	
-            Date endDate = (pv.Project__r.Status__c == 'Draft') ? pv.Targeted_Release__c : pv.Release_Date__c;	
+            Date startDate = (pv.Project__r.Status__c == 'Draft' || pv.Start_Date__c == null) ? pv.Proposed_Start__c : pv.Start_Date__c;	
+            Date endDate = (pv.Project__r.Status__c == 'Draft' || pv.Release_Date__c == null) ? pv.Targeted_Release__c : pv.Release_Date__c;	
             Integer numberOfMonths = endDate!=NULL? (startDate.monthsBetween(endDate) >= 12 ? 12 : startDate.monthsBetween(endDate)+1) : 12;	
             system.System.debug('numberOfMonths--'+numberOfMonths);	
-            Date forecastDate = pv.Start_Date__c;	
+            Date forecastDate = startDate;	
             for(Integer i = 0 ; i < numberOfMonths; i++){	
                 system.System.debug('forecastDate--'+forecastDate);	
                 Forecast__c fc = new Forecast__c();	
