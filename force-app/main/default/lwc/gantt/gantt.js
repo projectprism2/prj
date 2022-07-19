@@ -389,8 +389,10 @@ export default class GanttView extends LightningElement {
     
     handleRefreshData(){
         console.log('refresh data called');
-        var btn = this.template.querySelector('#toggleView');
-        btn.remove();
+        if(!this.recordId){
+            var btn = this.template.querySelector('#toggleView');
+            btn.remove();
+        }
         this.loadGantt();
     }
     handleZoomIn(){

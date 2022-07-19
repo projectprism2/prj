@@ -1,7 +1,7 @@
 <template>
-    <lightning-card>
+    <lightning-card class="slds-card__body_inner slds-card__body--inner">
         <div class="slds-clearfix slds-var-m-bottom_x-small">
-            <lightning-button class="slds-var-m-left_x-small slds-float_left" id="refreshData" variant="brand" label="Refresh" onclick={handleRefreshData} icon-name="utility:refresh" icon-position="right"></lightning-button>
+            <lightning-button class="slds-float_left" id="refreshData" variant="brand" label="Refresh" onclick={handleRefreshData} icon-name="utility:refresh" icon-position="right"></lightning-button>
             <div class="slds-float_left ganttChart"></div>
             <div class="slds-float_right">
                 <template if:true={ganttInitialized}>
