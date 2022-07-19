@@ -1,0 +1,33 @@
+<template>
+    <h1 class="slds-p-top_medium slds-text-heading_medium">Add Resources</h1>
+<div style="border-style: ridge;">
+        <template if:false={newRecord}>
+            <div class="slds-m-around_medium" >
+                <lightning-button variant="neutral" label="Add Resource" class="slds-m-right_medium" onclick={showResourcePage}></lightning-button>
+                <lightning-button variant="neutral" label="Add Team" onclick={showTeamPage}></lightning-button>
+            </div>
+                <lightning-datatable 
+                    key-field="Id"
+                    data={resourcesList}
+                    columns={columns}
+                    onsave={handleSave}
+                    draft-values={fldsItemValues}
+                    min-column-width=200>
+                </lightning-datatable> 
+        </template>
+        
+        <template if:true={newResource}>
+            <lightning-record-form object-api-name="Resource_Engagement__c" layout-type="Full" columns="2" onsuccess={handleSuccess} oncancel={handleSuccess}
+            mode="edit">
+        </lightning-record-form>
+        </template>
+        <template if:true={newTeam}>
+            <lightning-record-form object-api-name="Team__c" layout-type="Full" columns="2" onsuccess={handleSuccess} oncancel={handleSuccess}
+             mode="edit">
+        </lightning-record-form>
+        </template>
+
+</div>
+    
+    
+</template>

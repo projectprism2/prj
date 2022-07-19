@@ -49,6 +49,11 @@
                 <componentName>gantt</componentName>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>addResources</componentName>
+            </componentInstance>
+        </itemInstances>
         <name>Facet-f9e8cf4e-5b75-4517-b897-641905b63ede</name>
         <type>Facet</type>
     </flexiPageRegions>
