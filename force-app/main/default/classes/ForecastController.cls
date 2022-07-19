@@ -190,4 +190,3 @@ public with sharing class ForecastController {
         }
     }
 }
-
