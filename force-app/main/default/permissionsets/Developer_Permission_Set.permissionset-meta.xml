@@ -767,11 +767,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Resource_Engagement__c.End_Date_of_Engagement__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Resource_Engagement__c.Engaged_Days__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -813,11 +808,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Resource_Engagement__c.Progress__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Resource_Engagement__c.Start_Date_of_Engagement__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
