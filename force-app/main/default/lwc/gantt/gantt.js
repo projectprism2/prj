@@ -98,7 +98,9 @@ export default class GanttView extends LightningElement {
         element.id = 'toggleView';
         element.type = 'button';
         element.value = 'Show Projects By Resource';
-        element.style = 'color:blue';
+        //element.style = 'color:blue';
+        //element.setAttribute('icon-name','utility:rotate');
+        element.classList.add('slds-button','slds-button_brand','slds-var-m-left_x-small');
         element.onclick = function(){
             if(element.value == 'Show Resources By Project'){
                 if(cRecordId != '' && cRecordId!=undefined){
@@ -109,7 +111,7 @@ export default class GanttView extends LightningElement {
                     });
                     let elem = document.getElementById('toggleView');
                     elem.setAttribute('value','Show Projects By Resource');
-                    elem.setAttribute('style','color:blue');
+                    //elem.setAttribute('style','color:blue');
                 }
                 else{
                     getAllResourcesByProject().then(d => {
@@ -119,7 +121,7 @@ export default class GanttView extends LightningElement {
                     });
                     let elem = document.getElementById('toggleView');
                     elem.setAttribute('value','Show Projects By Resource');
-                    elem.setAttribute('style','color:blue');
+                    //elem.setAttribute('style','color:blue');
                 }
             }
             else{
@@ -131,7 +133,7 @@ export default class GanttView extends LightningElement {
                     });
                     let elemt = document.getElementById('toggleView');
                     elemt.setAttribute('value','Show Resources By Project');
-                    elemt.setAttribute('style','color:green');
+                    //elemt.setAttribute('style','color:green');
                 }
                 else{
                     getAllProjectsByResource().then(d => {
@@ -141,7 +143,7 @@ export default class GanttView extends LightningElement {
                     });
                     let elemt = document.getElementById('toggleView');
                     elemt.setAttribute('value','Show Resources By Project');
-                    elemt.setAttribute('style','color:green');
+                    //elemt.setAttribute('style','color:green');
                 }
             }
         }
@@ -387,6 +389,8 @@ export default class GanttView extends LightningElement {
     
     handleRefreshData(){
         console.log('refresh data called');
+        var btn = this.template.querySelector('#toggleView');
+        btn.remove();
         this.loadGantt();
     }
     handleZoomIn(){
