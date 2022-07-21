@@ -21,9 +21,9 @@ const Months = new Map([
 export default class ForecastsComponent extends LightningElement {
 	@api recordId;
 	headers;
-	forecastList = [];
+	forecastList;
 	aggregatorHeaders;
-	aggregatorList = [];
+	aggregatorList;
 	totalAmountsList = [];
 	projectVersion = {};
 	objPercentageSpent = {};
@@ -49,13 +49,13 @@ export default class ForecastsComponent extends LightningElement {
 				this.objPercentageSpent = data?.percentageSpent;
 				this.forecastList = data?.forecasts;
 				let tempHeaderValues=[];
-				this.forecastList.forEach(element => {
+				this.forecastList?.forEach(element => {
 					tempHeaderValues.push({key:element.month+element.year, value: element.headerValue});
 				});
 				this.headers = tempHeaderValues;
 				this.aggregatorList = data?.aggregators;
 				tempHeaderValues = [];
-				this.aggregatorList.forEach(element => {
+				this.aggregatorList?.forEach(element => {
 					tempHeaderValues.push({key:element.month+element.year, value: element.headerValue});
 				});
 				this.aggregatorHeaders = tempHeaderValues;

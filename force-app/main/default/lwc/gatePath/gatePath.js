@@ -7,6 +7,7 @@ export default class GatePath extends LightningElement {
     inProgressGateIndex;
     @track assignedGates=[];
     buttonName = 'Mark Gate as Complete';
+    buttonDisabled = true;
     gateStatus='slds-path__item slds-is-incomplete';
     @api recordId;
 
@@ -31,6 +32,9 @@ export default class GatePath extends LightningElement {
                 }
                 // else throw new Error('Gate Status not assigned');
             });
+            if(this.inProgressGateIndex != undefined){
+                this.buttonDisabled = false;
+            }
         }
         if(error){
             console.log(error);
@@ -108,14 +112,28 @@ export default class GatePath extends LightningElement {
         let gateId = event.currentTarget.id;
         this.gateIdToComplete = gateId.split('-')[0];
         let currentGateIndex = gateId.split('-')[1];
+        console.log(this.inProgressGateIndex);
         console.log(currentGateIndex);
         console.log(this.gateIdToComplete);
-        if(this.inProgressGateIndex != currentGateIndex){
+        if(this.inProgressGateIndex == undefined){
+            if(currentGateIndex == 1){
+                this.buttonName = 'Mark as Current Gate';
+                this.buttonDisabled = false;
+            }
+        }
+        else if(currentGateIndex < this.inProgressGateIndex){
             this.buttonName = 'Mark as Current Gate';
+            this.buttonDisabled = currentGateIndex < (this.inProgressGateIndex - 1);
+        }
+        else if(this.inProgressGateIndex == currentGateIndex){
+            // gatePath.classList.remove('slds-is-active');
+            this.buttonName = 'Mark Gate as Complete';
+            this.buttonDisabled = false;
         }
         else{
             // gatePath.classList.remove('slds-is-active');
             this.buttonName = 'Mark Gate as Complete';
+            this.buttonDisabled = true;
         }
         // const selectedPath = this.template.querySelector("[id="+event.currentTarget.id+"]");
         // selectedPath.classList.add('slds-is-active');

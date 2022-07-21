@@ -30,6 +30,9 @@ public with sharing class ForecastController {
                 versionId = recordId;
             }
             ProjectVersionWrapper pvw = new ProjectVersionWrapper();
+            if(String.isBlank(versionId)){
+                return pvw;
+            }
             pvw.forecasts = new List<FinancialWrapper>();
             pvw.aggregators = new List<FinancialWrapper>();
             pvw.totalAmounts = new List<BudgetSummaryWrapper>();

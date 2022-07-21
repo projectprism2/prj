@@ -35,7 +35,7 @@
                 <field>Parent_Project__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>Project_Summary__c</field>
             </layoutItems>
         </layoutColumns>
@@ -88,7 +88,7 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>Return_on_Investment__c</field>
             </layoutItems>
             <layoutItems>
