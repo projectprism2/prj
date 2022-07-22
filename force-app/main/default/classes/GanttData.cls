@@ -107,16 +107,15 @@ public with sharing class GanttData {
             else if(objName.equalsIgnoreCase('Project_Version__c')){
                 ganttDataWrapperList = new List<GanttDataWrapper>();
                 Id projectVId = recId;
-                for(Contact con:[SELECT Id,Name,(SELECT Id,Project_Version__c,Start_Date_of_Engagement__c,End_Date_of_Engagement__c from Resource_Engagements__r),
-                        (SELECT Id,Name,Active_Version__c,Project_Name__c from ProjectsToDeliver__r WHERE Active_Version__c =: projectVId) FROM Contact
-                         WHERE Id IN (SELECT Resource__c from Resource_Engagement__c)]){
+                // why were we querying Projects to Deliver? @vikaspatil7
+                for(Contact con:[SELECT Id,Name,(SELECT Id,Project_Version__c, Project_Version__r.Project__c, Project_Version__r.Project__r.Name, Project_Version__r.Is_Primary__c, Start_Date_of_Engagement__c,End_Date_of_Engagement__c from Resource_Engagements__r)
+                                FROM Contact
+                                WHERE Id IN (SELECT Resource__c from Resource_Engagement__c)]){
 
                     ganttDataWrapperList.add(new GanttDataWrapper('project',con.Id,con.Name,null,null,'',null));
-                    for(Project__c pro : con.ProjectsToDeliver__r){
-                        for(Resource_Engagement__c re : con.Resource_Engagements__r){
-                            if(pro.Active_Version__c == re.Project_Version__c){
-                                ganttDataWrapperList.add(new GanttDataWrapper('task',pro.Id,pro.Name+' ('+Integer.valueOf(re.Number_of_Weekdays__c * re.Hours_Engaged__c)+' hours)',re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c,con.Id,null));
-                            }
+                    for(Resource_Engagement__c re : con.Resource_Engagements__r){
+                        if(re.Project_Version__r.Is_Primary__c){
+                            ganttDataWrapperList.add(new GanttDataWrapper('task',re.Project_Version__r.Project__c,re.Project_Version__r.Project__r.Name+' ('+Integer.valueOf(re.Number_of_Weekdays__c * re.Hours_Engaged__c)+' hours)',re.Start_Date_of_Engagement__c,re.End_Date_of_Engagement__c,con.Id,null));
                         }
                     }
                 }
