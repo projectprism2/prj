@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Approvers__c</fullName>
+    <fullName>Approver__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <label>Approvers</label>
+    <label>Approver</label>
     <referenceTo>User</referenceTo>
     <relationshipName>ProjectVersions</relationshipName>
     <required>false</required>
