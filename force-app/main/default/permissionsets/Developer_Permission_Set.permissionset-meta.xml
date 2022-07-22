@@ -326,7 +326,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Project_Version__c.Capital__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -381,7 +381,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Project_Version__c.Operational__c</field>
         <readable>true</readable>
     </fieldPermissions>
