@@ -5,14 +5,8 @@
     <columns>NAME</columns>
     <columns>CAPEX_Number__c</columns>
     <columns>Client__c</columns>
-    <columns>Billing__c</columns>
     <columns>Category__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>Billing__c</field>
-        <operation>equals</operation>
-        <value>Fixed Cost</value>
-    </filters>
     <filters>
         <field>CREATED_DATE</field>
         <operation>lessThan</operation>
@@ -22,11 +16,6 @@
         <field>Client__c</field>
         <operation>equals</operation>
         <value>NSW Police</value>
-    </filters>
-    <filters>
-        <field>Capital__c</field>
-        <operation>equals</operation>
-        <value>0</value>
     </filters>
     <label>Copy of All</label>
 </ListView>

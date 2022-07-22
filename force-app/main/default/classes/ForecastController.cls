@@ -40,7 +40,7 @@ public with sharing class ForecastController {
             Integer currentMonth = System.today().month();
             Integer currentYear = System.today().year();
 
-            for(Project_Version__c pv: [SELECT Id, Name, Project__c, Project__r.Planned_Spend__c, Is_Primary__c, Total_Resource_Forecast__c, Total_Material_Forecast__c, Total_Fixed_Cost_Forecast__c, Total_Forecast__c, Total_Material_Cost__c, Total_Resource_Cost__c, Total_Fixed_Cost__c, Total_Cost__c, Resource_Cost_Budget__c, Material_Cost_Budget__c, Fixed_Cost_Budget__c,
+            for(Project_Version__c pv: [SELECT Id, Name, Project__c, Planned_Spend__c, Is_Primary__c, Total_Resource_Forecast__c, Total_Material_Forecast__c, Total_Fixed_Cost_Forecast__c, Total_Forecast__c, Total_Material_Cost__c, Total_Resource_Cost__c, Total_Fixed_Cost__c, Total_Cost__c, Resource_Cost_Budget__c, Material_Cost_Budget__c, Fixed_Cost_Budget__c,
                                         (Select Id, Name, Year__c, Month__c, Material_Cost__c, Resource_Cost__c, Fixed_Cost__c, Total__c, Project_Version__c From Forecasts__r ORDER BY Year__c, Month__c), 
                                         (Select Id, Name, Year__c, Month__c, Material_Cost__c, Resource_Cost__c, Fixed_Cost__c, Total__c, Project_Version__c From Aggregator__r ORDER BY Year__c, Month__c) 
                                         FROM Project_Version__c 

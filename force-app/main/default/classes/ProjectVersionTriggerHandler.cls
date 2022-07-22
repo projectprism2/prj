@@ -168,12 +168,12 @@ public class ProjectVersionTriggerHandler {
     }
 
     public static void createFinacialsAfterInsert(Set<Id> freshProjectVersionIdSet){
-        List<Project_Version__c> projectVersionList = [SELECT Id, Name, Start_Date__c, Release_Date__c, Proposed_Start__c, Targeted_Release__c, Project__c, Project__r.Status__c FROM Project_Version__c WHERE Id IN: freshProjectVersionIdSet];
+        List<Project_Version__c> projectVersionList = [SELECT Id, Name, Start_Date__c, Release_Date__c, Proposed_Start__c, Targeted_Release__c, Project__c, Status__c FROM Project_Version__c WHERE Id IN: freshProjectVersionIdSet];
         List<Forecast__c> forecastList = new List<Forecast__c>();	
         List<Aggregator__c> aggregatorList = new List<Aggregator__c>();	
         for(Project_Version__c pv : projectVersionList){	
-            Date startDate = (pv.Project__r.Status__c == 'Draft' || pv.Start_Date__c == null) ? pv.Proposed_Start__c : pv.Start_Date__c;	
-            Date endDate = (pv.Project__r.Status__c == 'Draft' || pv.Release_Date__c == null) ? pv.Targeted_Release__c : pv.Release_Date__c;	
+            Date startDate = (pv.Status__c == 'Draft' || pv.Start_Date__c == null) ? pv.Proposed_Start__c : pv.Start_Date__c;	
+            Date endDate = (pv.Status__c == 'Draft' || pv.Release_Date__c == null) ? pv.Targeted_Release__c : pv.Release_Date__c;	
             Integer numberOfMonths = endDate!=NULL? (startDate.monthsBetween(endDate) >= 12 ? 12 : startDate.monthsBetween(endDate)+1) : 12;	
             system.System.debug('numberOfMonths--'+numberOfMonths);	
             Date forecastDate = startDate;	

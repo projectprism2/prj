@@ -66,27 +66,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Approvers__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Billing__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Business_Case__c</field>
             <table>Project__c</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>CAPEX_Number__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Capital__c</field>
             <table>Project__c</table>
         </columns>
         <columns>
@@ -106,57 +91,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Delivery_Owner__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Department__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Description__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Effort__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Executive_Sponsor__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Fixed_Cost_Allocation__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Funding_Source__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Impact__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Resource_Cost_Allocation__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Material_Cost_Allocation__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Operational__c</field>
             <table>Project__c</table>
         </columns>
         <columns>
@@ -166,27 +101,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Planned_Spend__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Portfolio__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Priority__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Program__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Project_Initiation_Date__c</field>
             <table>Project__c</table>
         </columns>
         <columns>
@@ -201,22 +116,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Project_Progress__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Project_Request__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Project_Summary__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Proposed_start__c</field>
             <table>Project__c</table>
         </columns>
         <columns>
@@ -226,47 +126,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Release_Date__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Release_Qtr_and_Year__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Required_Gates__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Return_on_Investment__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Risk_assessment__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Start_Date__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Status__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Strategy__c</field>
-            <table>Project__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Targeted_Release__c</field>
             <table>Project__c</table>
         </columns>
         <columns>
@@ -329,77 +189,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Billing__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CAPEX_Number__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Capital__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Category__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Client__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Cloned_From__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Department__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Description__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Effort__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Funding_Source__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Impact__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Operational__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Planned_Spend__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Priority__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Project_Name__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>
@@ -419,22 +214,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Required_Gates__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Start_Date__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Status__c</field>
-            <table>Project__c.Project_Versions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Strategy__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <columns>
@@ -465,6 +250,16 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Total_Resource_Cost__c</field>
+            <table>Project__c.Project_Versions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Capital__c</field>
+            <table>Project__c.Project_Versions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Operational__c</field>
             <table>Project__c.Project_Versions__r</table>
         </columns>
         <masterLabel>Project Versions</masterLabel>
